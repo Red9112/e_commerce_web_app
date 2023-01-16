@@ -1,0 +1,67 @@
+
+.header{
+height: 45px; 
+/* background-color: #c7ecee;  */
+border-bottom: 1px solid #30336b;
+border-radius: 2px;
+padding-right: 5px;
+}
+.header a{
+color: black;
+font-size: larger;
+font-weight: 450;
+}
+body{
+    box-sizing: border-box;
+}
+
+/* {{--  Category --}} */
+
+.indexCat{
+    width: 40%;
+    margin-right:20% ;
+    margin-left: 5%;
+}
+.cat{
+  display: flex;
+}
+.createCat{
+    display: flex;
+
+}
+
+.editCat{
+    width: 40%;
+    margin-right:20% ;
+    margin-left: 5%;
+}
+
+/* {{--  Actions --}} */
+.actions{
+display: inline-flex;
+}
+
+/* delete product picture --button--{-edit product view-} */
+.imageProduct {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+  }
+  .imageProduct #deleteProductImgBtn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+  }
+  /*end delete picture*/
+ 
+  @media (max-width: 767.98px) { .border-sm-start-none { border-left: none !important; } }
+
+/* ------------------------------------------------------------ */

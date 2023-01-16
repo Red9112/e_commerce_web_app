@@ -1,0 +1,19 @@
+{
+    "welcome":"Welcome to E_store website ",
+    "lang":"lang method",
+    "hello":"Hello :name",
+    "plural":"{0}No comments yet !!|{1}1 comment|[2,*] :count comments",
+    "failed" : "These credentials do not match our records.",
+    "password" : "The provided password is incorrect.",
+    "throttle" : "Too many login attempts. Please try again in :seconds seconds.",
+    "Register":"Register",
+    "Name":"Name",
+    "Email Address": "Email Address",
+    "Password": "Password",
+    "Confirm Password":"Confirm Password",
+    "Login":"Login",
+    "Remember Me":"Remember Me",
+    "Forgot Your Password?":"Forgot Your Password?",
+    "Logout":"Logout"
+
+}
