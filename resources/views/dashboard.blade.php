@@ -11,10 +11,7 @@
 
 
 </center>
-@auth
-<a  id="plus" class=" btn btn-outline-info btn-lg mx-3" href="{{route('user.index')}}">Users</a>
-@endauth
-<x-category :cat="$categories"></x-category>
+
 
 <x-display-prod :products="$products"></x-display-prod>
 

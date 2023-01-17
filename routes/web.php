@@ -24,6 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', [App\Http\Controllers\DashboardController::class, 'dashboard'])->name('dashboard');
 Route::get('/prodByCat/{id}', [App\Http\Controllers\DashboardController::class, 'prodByCat'])->name('prodByCat');
 Route::resource('/category','App\Http\Controllers\CategoryController')->only(['index','store','edit','update','destroy']);
+Route::resource('/role','App\Http\Controllers\RoleController')->only(['index','store','edit','update','destroy']);
 Route::resource('/shop','App\Http\Controllers\shopController')->only(['index','create','store','edit','update','show','destroy']);
 Route::resource('/product','App\Http\Controllers\productController')->only(['index','create','store','edit','update','show','destroy']);
 Route::get('/pdf', [App\Http\Controllers\HomeController::class, 'pdf'])->name('pdf');

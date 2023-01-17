@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\CategoriesImport;
 use function PHPUnit\Framework\isEmpty;
-
+ 
 class CategoryController extends Controller
 {
 
@@ -22,13 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::with('parent')->get();
-        
-   //   dd($category->parent_id!=null);
-   
-        return view('Category.category',[
-            'categories'=>$categories,
-        ]);
+        return view('Category.category');
     }
    
 

@@ -13,7 +13,6 @@
 
 <body> 
     @yield('header')
-
 {{-- Flash --}} 
 <x-alert></x-alert>
       {{-- End Flash  --}}

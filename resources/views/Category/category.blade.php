@@ -52,7 +52,7 @@
 <div class="createCat">
 <div class="container mt-3">
   <h2>Category :</h2>
-  <button type="button" id="plus" class=" btn btn-outline-info btn-lg">+</button>
+  <button type="button" id="createBtn" class=" btn btn-outline-info btn-lg">+</button>
   <button type="button" id="import" class=" btn btn-outline-info btn-lg">import</button>
   <form style="display: none" id="createForm" method="POST" action="{{route('category.store')}}" enctype="multipart/form-data" >
     @csrf

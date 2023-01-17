@@ -4,16 +4,15 @@ require('./bootstrap');
 
 
 // {--Category --}}
-let btnCreate=document.querySelector("#plus");
-console.log(btnCreate);
+// let btnCreate=document.querySelector("#plus");
+let btnCreate=document.querySelector("#createBtn");
 let createForm=document.querySelector("#createForm");
-console.log(createForm);
 if (btnCreate && createForm) {
-    btnCreate.addEventListener("click",function(){
-    
+btnCreate.addEventListener("click",function(){
  (createForm.style.display=="inline")?createForm.style.display="none":createForm.style.display="inline";
-                
+
   });
+
 }
 
 //---------------------------------
@@ -25,7 +24,7 @@ let importForm=document.querySelector("#importForm");
 
 if (btnimport && importForm) {
 btnimport.addEventListener("click",function(){
-    
+ 
 (importForm.style.display=="inline")?importForm.style.display="none":importForm.style.display="inline";
         
 });
@@ -246,7 +245,6 @@ function setCookieLanguage(name,value,days) {
   }
   document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
-
 
 
 

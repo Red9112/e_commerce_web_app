@@ -67,7 +67,10 @@ public const LANGUAGE=[
     public function defaultImage(){
   return asset('http://localhost:8000/storage/users/defaultUser.jpg');
     }
-
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
     // local scopes
     public function scopeMostBlogsCreators(Builder $query){
 return $query->withCount('blogs')->orderBy('blogs_count','desc');
