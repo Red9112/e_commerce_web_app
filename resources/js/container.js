@@ -54,3 +54,96 @@ label.addEventListener("click",function(){
 
 
 
+  //-id:4-{{==Create select by click   ==}}{--Views:[product_edit,product_create,user_edit,user_create,blog_edit,blog_create]--}}
+
+//receive objects from view :
+let collection= document.getElementById('objects');
+if (collection) {
+  const objects = JSON.parse(collection.dataset.objects);
+  console.log(objects);
+  console.log(document.getElementById('objects').dataset.objects);
+//end
+
+let clc=document.getElementById('clc');
+let categoryLabel=document.querySelector('#categoryLabel');
+let roleLabel=document.querySelector('#roleLabel');
+let allDiv=document.querySelector('#allDiv');
+
+let count=0;
+let deleteBtns;//
+function addSelect(){
+  let select=document.createElement("select");
+  select.className="form-select";
+  if (categoryLabel) {
+    select.setAttribute("name","category-"+count);
+    let defaultOption=document.createElement("option");
+  select.appendChild(defaultOption);
+  defaultOption.textContent="Choose...";
+   defaultOption.setAttribute('selected', true);
+  defaultOption.disabled = true;
+  defaultOption.hidden = true;
+  objects.forEach(item => {
+    let createdOption=document.createElement("option");
+    select.appendChild(createdOption);
+    createdOption.value=item.id;
+    createdOption.textContent=item.name;
+});
+  }else if(roleLabel){
+    select.setAttribute("name","role-"+count);
+    objects.forEach(item => {
+        let rolOption=document.createElement("option");
+        rolOption.value=item.id;
+        rolOption.textContent=item.name;
+        select.appendChild(rolOption);
+ (item.name=="customer") ? rolOption.setAttribute('selected', true):null;
+    });
+  }
+
+count++;
+
+// create button to delete select
+// <button type="button" class="deleteBtns btn btn-outline-danger btn-sm">del</button>
+let selectDiv=document.createElement("div");
+selectDiv.style.display="flex";
+selectDiv.appendChild(select);
+let deleteBtn=document.createElement("button");
+selectDiv.appendChild(deleteBtn);
+deleteBtn.type="button";
+deleteBtn.className="deleteBtns btn btn-outline-danger btn-sm mx-1 my-1";
+deleteBtn.textContent="del";
+allDiv.appendChild(selectDiv);
+deleteBtns=document.querySelectorAll(".deleteBtns");
+deleteBtns.forEach(btn => {
+  btn.addEventListener("click",function(){
+    deleteElement(this);
+  });
+});
+//>>end
+
+}
+
+if (roleLabel || categoryLabel) {
+clc.addEventListener("click",function(){
+  addSelect();
+});
+}
+
+
+// delete select
+function deleteElement(button) {
+  var parent = button.parentNode;
+  parent.remove();
+}
+deleteBtns=document.querySelectorAll(".deleteBtns");
+if (deleteBtns) {
+deleteBtns.forEach(btn => {
+  btn.addEventListener("click",function(){
+    deleteElement(this);
+  });
+});
+}
+
+}
+//end delete --
+
+ /*end id-4 */

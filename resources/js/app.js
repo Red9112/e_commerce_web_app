@@ -1,7 +1,8 @@
 const { received } = require('laravel-mix/src/Log');
 
 require('./bootstrap');
-require('./product');
+require('./products');
+require('./users');
 require('./container');
 
 

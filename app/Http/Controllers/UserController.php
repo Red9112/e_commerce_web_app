@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
+use App\Models\Role;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -40,9 +41,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user=auth()->id();
-       // $this->authorize('create',$user); 
-        return view('users.create');
+        $roles=Role::all();
+        //$user=auth()->id();
+       // $this->authorize('create',$user);
+        return view('users.create',[
+            'roles'=>$roles,
+        ]);
     }
 
     /**
@@ -56,7 +60,7 @@ class UserController extends Controller
         $user=auth()->id();
        // $this->authorize('create',$user);
      $data=$request->only(['name','email','password']);
-      User::create([  
+      User::create([
         'name'           => $data['name'],
         'email'          => $data['email'],
         'password'       => bcrypt($data['password']),
@@ -92,7 +96,7 @@ class UserController extends Controller
         return view('users.edit', [
             'user'=>$user,
         ]);
-    } 
+    }
 
     /**
      * Update the specified resource in storage.
@@ -102,10 +106,10 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(StoreUserRequest $request, User $user)
-    { 
+    {
        // $this->authorize('update',$user);
        $data=$request->only(['name','email','password']);
-       $user->update([  
+       $user->update([
          'name'           => $data['name'],
          'email'          => $data['email'],
          'password'       => bcrypt($data['password']),
@@ -123,7 +127,7 @@ class UserController extends Controller
                 $image=Image::make(['url'=>$path]);
                 $user->image()->save($image);
             }
-          
+
         }
         $request->session()->flash('status',' User Updated !!');
         return redirect()->route('user.show',['user'=>$user->id]);

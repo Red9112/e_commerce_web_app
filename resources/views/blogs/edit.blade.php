@@ -6,7 +6,7 @@
 <div class="container mt-3 my-3">
 <h2>Edit Blog</h2>
 <form method="POST" action="{{route('blog.update',['blog'=>$blog])}}">
-  @method('PUT') 
+  @method('PUT')
   @include('blogs.forms')
   <x-editCategory :categories="$categories" :productcats="$blog->categories"></x-editCategory>
   <div>
@@ -17,7 +17,7 @@
 
 
 
-   {{-- // send categories from view to file js : --}}
-   <div id="categories" data-categories='{{ json_encode($categories) }}'></div>
-   {{-- ----------------------- --}}
+      {{-- // send categories from view to file js : --}}
+      <div id="objects" data-objects='{{ json_encode($categories) }}'></div>
+      {{-- ----------------------- --}}
 @endsection

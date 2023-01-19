@@ -34,4 +34,7 @@
 
 
 
+ {{-- // send roles from view to js file=container.js   : --}}
+ <div id="objects" data-objects='{{ json_encode($roles) }}'></div>
+ {{-- ----------------------- --}}
 @endsection

@@ -8,6 +8,7 @@
 <div class="">
     <div class="container mt-3 mx-3">
       <h2 class="my-3">Users:</h2>
+      <a   class=" btn btn-outline-info btn-lg" href="{{route('user.create')}}">+</a>
       <table class="table">
         <thead>
           <tr>

@@ -64,7 +64,7 @@
   {{-- End Edit Category --}}
 
       {{-- // send categories from view to file js : --}}
-      <div id="categories" data-categories='{{ json_encode($categories) }}'></div>
+      <div id="objects" data-objects='{{ json_encode($categories) }}'></div>
       {{-- ----------------------- --}}
 
   @endsection

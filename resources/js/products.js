@@ -17,7 +17,7 @@ btn.style.display="inline";
   /*end id-1 */
 
 
-  //-id:2-{{==Create select by click to add category to product  ==}}{--Views:product_edit --}}
+  //-id:2-{{==Create select by click to add category to product  ==}}{--Views:product_edit &&  product_create--}}
 
 //receive categories from view :
 let categoriesCollect= document.getElementById('categories');

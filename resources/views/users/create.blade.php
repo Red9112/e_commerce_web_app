@@ -24,9 +24,52 @@
                       <x-errors name="password"></x-errors>
                     </div>
                     @include('includes.uploadImage')
-          <button type="submit" class="btn btn-primary">create</button>
+    {{-- <div id="roleDiv" class="mb-3 mt-3">
+      <label id="label" for="role" class="form-label">Role:</label>
+      <select class="form-select @error('role') is-invalid @enderror" id="role" name="role">
+        @foreach ($roles as $role)
+        @if ($role->name=="customer")
+        <option value="{{$role->id}}" selected>{{$role->name}}</option>
+        @else
+        <option value="{{$role ->id}}" >{{$role->name}}</option>
+        @endif
+        @endforeach
+      </select>
+      <x-errors name="role"></x-errors>
+    </div>
+ <button class="btn btn-outline-info btn-lg" id="clc" type="button">+</button> --}}
+
+ <div id="allDiv" class="mb-3 mt-3">
+    <label id="roleLabel" for="role" class="form-label">Role:</label>
+    <select class="form-select @error('role') is-invalid @enderror" id="role" name="role">
+      @foreach ($roles as $role)
+      @if ($role->name=="customer")
+      <option value="{{$role->id}}" selected>{{$role->name}}</option>
+      @else
+      <option value="{{$role ->id}}" >{{$role->name}}</option>
+      @endif
+      @endforeach
+    </select>
+    <x-errors name="role"></x-errors>
+  </div>
+<button class="btn btn-outline-info btn-lg" id="clc" type="button">+</button>
+
+
+
+
+
+
+
+
+
+          <button type="submit" class="btn btn-primary my-2">create</button>
         </form>
 
       </div>
 
+
+
+       {{-- // send roles from view to js file=container.js   : --}}
+       <div id="objects" data-objects='{{ json_encode($roles) }}'></div>
+       {{-- ----------------------- --}}
 @endsection
