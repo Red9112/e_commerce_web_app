@@ -7,7 +7,7 @@
 {{-- index --}}
 <div class="">
     <div class="container mt-3 mx-3">
-      <h2 class="my-3">Users:</h2> 
+      <h2 class="my-3">Users:</h2>
       <table class="table">
         <thead>
           <tr>
@@ -27,8 +27,8 @@
         <td>{{$user->is_admin}}</td>
         <td>
 {{--Actions--}}
-<div class="actions">
-@can('update', $user) 
+<div class="d-inline-flex">
+@can('update', $user)
 <a class="btn btn-success my-1 mx-1" href="{{route('user.edit',['user'=>$user->id])}}">Edit</a>
 @endcan
 @can('view', $user)
@@ -36,22 +36,22 @@
 @endcan
   @can('delete', $user)
 <form class="form-inline" method="POST" action="{{route('user.destroy',['user'=>$user->id])}}">
-@csrf 
-@method('DELETE')  
+@csrf
+@method('DELETE')
 <button class="btn btn-danger my-1 mx-1" type="submit" >Delete </button>
 </form>
 @endcan
 </div>
 {{--END_Actions--}}
 </td>
-</tr> 
-@endforeach  
+</tr>
+@endforeach
 </tbody>
 </table>
-    
-    
+
+
     </div>
     </div>
     {{-- End index --}}
-    
+
 @endsection

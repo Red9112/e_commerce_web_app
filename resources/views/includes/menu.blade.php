@@ -12,26 +12,26 @@
                 <ul class="dropdown-menu">
                     @foreach ($categories as $cat)
                     <li> <a class="dropdown-item" href="{{route('prodByCat',['id'=>$cat])}}"><h6>{{$cat->name}}</h6></a></li>
-                    @endforeach 
+                    @endforeach
                 </ul>
               </li>
           <li class="nav-item">
-            <a  id="plus" class="nav-link" href="{{route('user.index')}}">Users</a>
+            <a   class="nav-link" href="{{route('user.index')}}">Users</a>
           </li>
           <li class="nav-item">
-            <a  id="plus" class="nav-link" href="{{route('shop.index')}}">Shops</a>
+            <a   class="nav-link" href="{{route('shop.index')}}">Shops</a>
           </li>
           <li class="nav-item">
-            <a  id="plus" class="nav-link" href="{{route('blog.index')}}">Blogs</a>
+            <a   class="nav-link" href="{{route('blog.index')}}">Blogs</a>
           </li>
           <li class="nav-item">
-            <a  id="plus" class="nav-link" href="{{route('product.index')}}">My products</a>
+            <a   class="nav-link" href="{{route('product.index')}}">My products</a>
           </li>
           <li class="nav-item">
-            <a  id="plus" class="nav-link" href="{{route('category.index')}}">Categories</a>
+            <a   class="nav-link" href="{{route('category.index')}}">Categories</a>
           </li>
           <li class="nav-item">
-            <a  id="plus" class="nav-link" href="{{route('role.index')}}">Roles</a>
+            <a   class="nav-link" href="{{route('role.index')}}">Roles</a>
           </li>
         </ul>
         <form class="d-flex">
@@ -41,4 +41,3 @@
       </div>
     </div>
   </nav>
-  

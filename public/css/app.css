@@ -13837,47 +13837,6 @@ textarea.form-control-lg {
   }
 }
 
-.header{
-height: 45px; 
-/* background-color: #c7ecee;  */
-border-bottom: 1px solid #30336b;
-border-radius: 2px;
-padding-right: 5px;
-}
-.header a{
-color: black;
-font-size: larger;
-font-weight: 450;
-}
-body{
-    box-sizing: border-box;
-}
-
-/* {{--  Category --}} */
-
-.indexCat{
-    width: 40%;
-    margin-right:20% ;
-    margin-left: 5%;
-}
-.cat{
-  display: flex;
-}
-.createCat{
-    display: flex;
-
-}
-
-.editCat{
-    width: 40%;
-    margin-right:20% ;
-    margin-left: 5%;
-}
-
-/* {{--  Actions --}} */
-.actions{
-display: inline-flex;
-}
 
 /* delete product picture --button--{-edit product view-} */
 .imageProduct {
@@ -13899,7 +13858,32 @@ display: inline-flex;
     text-align: center;
   }
   /*end delete picture*/
- 
+
+/* {{{css for header:}}} */
+.header{
+height: 45px;
+/* background-color: #c7ecee;  */
+border-bottom: 1px solid #30336b;
+border-radius: 2px;
+padding-right: 5px;
+}
+.header a{
+color: black;
+font-size: larger;
+font-weight: 450;
+}
+/* {{{css for body:}}} */
+body{
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
   @media (max-width: 767.98px) { .border-sm-start-none { border-left: none !important; } }
 
 /* ------------------------------------------------------------ */

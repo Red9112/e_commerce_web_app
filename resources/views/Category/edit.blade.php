@@ -6,11 +6,11 @@
 
 
 {{-- Edit Category --}}
-<div class="editCat">
-    <div class="container mt-3 mb-3">
-      <h2>Edit Category :</h2> 
+
+    <div class="container w-25 mx-3 my-3">
+      <h2>Edit Category :</h2>
   <form id="editForm" method="POST" action="{{route('category.update',['category'=>$category->id])}}">
-    @method('PUT') 
+    @method('PUT')
     @csrf
     <div class="mb-3 mt-3">
         <label for="name">Name</label>
@@ -25,11 +25,11 @@
         <option value="{{$item->id}}" >{{$item->name}}</option>
         @endforeach
       </select>
-    </div> 
+    </div>
       <button  type="submit" class="btn btn-primary">Edit</button>
     </form>
   </div>
-  </div>
+
   {{-- End Edit Category --}}
 
 

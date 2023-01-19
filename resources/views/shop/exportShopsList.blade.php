@@ -3,9 +3,9 @@
     @include('includes.header')
 @endsection
 @section('content')
-<div class="createCat">
+
 <div class="container mt-3">
-        
+
         {{-- Export  Shops List via file --}}
         <p class="h2">Export Shops List : </p>
   <form  method="GET" action="{{route('shop.export')}}" enctype="multipart/form-data" >
@@ -21,6 +21,6 @@
     <button type="submit" class="btn btn-primary mx-3">Export</button>
     </form>
     {{-- End --}}
-    
-    </div></div>
+
+    </div>
 @endsection

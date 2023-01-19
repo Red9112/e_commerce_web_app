@@ -1,5 +1,5 @@
 <div id="category_products">
-      <section style="background-color: #eee;">
+      <section class="bg-success">
         <div class="container py-5">
           @foreach ($products as $product)
           <div class="row justify-content-center mb-3">
@@ -40,7 +40,7 @@
                         <span>Casual<br /></span>
                       </div>
                       <div class="mb-2">
-             <span class="text-primary">Quantity: </span><span class="text-dark">{{$product->qty_in_stock}}</span> 
+             <span class="text-primary">Quantity: </span><span class="text-dark">{{$product->qty_in_stock}}</span>
                       </div>
                       <p class="text-truncate mb-4 mb-md-0">
                         {{$product->description}}

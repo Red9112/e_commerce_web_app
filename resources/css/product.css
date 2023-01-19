@@ -1,0 +1,22 @@
+
+
+/* delete product picture --button--{-edit product view-} */
+.imageProduct {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+  }
+  .imageProduct #deleteProductImgBtn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+  }
+  /*end delete picture*/

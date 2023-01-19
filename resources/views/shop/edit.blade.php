@@ -6,18 +6,18 @@
 
 
 {{-- Edit Category --}}
-<div class="editCat">
-    <div class="container mt-3 mb-3">
-      <h2>Edit Shop :</h2> 
+
+    <div class="container w-50 mx-3 my-3">
+      <h2>Edit Shop :</h2>
   <form id="editForm" method="POST" action="{{route('shop.update',['shop'=>$shop->id])}}">
-    @method('PUT') 
+    @method('PUT')
     @csrf
     <div class="mb-3 mt-3">
         <label for="name">Name</label>
         <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{old('name',$shop->name ?? null)}}">
         <x-errors name="name"></x-errors>
       </div>
-   
+
       <div class="mb-3 mt-3">
         <label for="phone_number">Phone number</label>
         <input id="phone_number" name="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" value="{{old('phone_number',$shop->phone_number ?? null)}}">
@@ -31,7 +31,7 @@
       <button  type="submit" class="btn btn-primary">Edit</button>
     </form>
   </div>
-  </div>
+
   {{-- End Edit Category --}}
 
 

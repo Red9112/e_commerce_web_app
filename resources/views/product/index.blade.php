@@ -8,9 +8,9 @@
 {{-- index --}}
 <div class="">
     <div class="container mt-3 mx-3">
-      <h2 class="my-3">My products:</h2> 
+      <h2 class="my-3">My products:</h2>
       @if ($products!=null)
-      <a  id="plus" class=" btn btn-outline-info btn-lg" href="{{route('product.create')}}">+</a>
+      <a   class=" btn btn-outline-info btn-lg" href="{{route('product.create')}}">+</a>
       <table class="table">
         <thead>
           <tr>
@@ -22,7 +22,7 @@
             <th>Actions</th>
           </tr>
         </thead>
-   
+
         <tbody>
           @forelse($products as $product)
           <tr>
@@ -33,18 +33,18 @@
         <td> @foreach ($product->categories as $category) {{$category->name}}, @endforeach</td>
             <td>
              {{--Actions--}}
-    <div class="actions">
+    <div class="d-inline-flex">
      <a type="button" class="btn btn-success my-1 mx-1" href="{{route('product.edit',['product'=>$product->id])}}">Edit</a>
      <a class="btn btn-info my-1 mx-1" href="{{route('product.show',['product'=>$product->id])}}">Detail</a>
      <form class="form-inline" method="POST" action="{{route('product.destroy',['product'=>$product->id])}}">
-      @csrf 
-      @method('DELETE')  
+      @csrf
+      @method('DELETE')
       <button class="btn btn-danger my-1 mx-1" type="submit" >Delete </button>
      </form>
     </div>
           {{--END_Actions--}}
           </td>
-          </tr> 
+          </tr>
           @empty
           <div class="container mx-1 my-3">
           <div class="alert alert-warning text-center">
@@ -57,13 +57,13 @@
     @else
    <center> <div><h3><x-badge val="warning mx-3 my-3">You don't have shop !!</x-badge></h3></div> </center>
       @endif
-  
-    
-    
+
+
+
     </div>
     </div>
     {{-- End index --}}
-    
+
 
 
 

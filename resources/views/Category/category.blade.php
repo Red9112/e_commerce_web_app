@@ -4,11 +4,11 @@
 @endsection
 @section('content')
 
-<div class="cat">
+
 {{-- index --}}
-<div class="indexCat">
-<div class="container mt-3 mx-3">
-  <h2>List of Categories :</h2> 
+<div class="d-flex flex-row justify-content-between">
+<div class="w-50 mx-5 my-3">
+<h2>List of Categories :</h2>
   <table class="table">
     <thead>
       <tr>
@@ -25,32 +25,32 @@
     <td>{{$category->parent->name}}</td>
      @else
      <td>-</td>
-     @endif  
+     @endif
         <td>
 {{--Actions--}}
-<div class="actions">
+<div class="d-inline-flex">
 <a type="button" class="btn btn-success mx-2" href="{{route('category.edit',['category'=>$category->id])}}">Edit</a>
 <form class="form-inline" method="POST" action="{{route('category.destroy',['category'=>$category->id])}}">
-  @csrf 
-  @method('DELETE')  
+  @csrf
+  @method('DELETE')
   <button class="btn btn-danger" type="submit" >Delete </button>
  </form>
 </div>
       {{--END_Actions--}}
         </td>
-      </tr> 
-      @endforeach  
+      </tr>
+      @endforeach
     </tbody>
   </table>
 
 
 </div>
-</div>
+
 {{-- End index --}}
 
 {{-- Create Category --}}
-<div class="createCat">
-<div class="container mt-3">
+
+<div class="w-25 mx-3">
   <h2>Category :</h2>
   <button type="button" id="createBtn" class=" btn btn-outline-info btn-lg">+</button>
   <button type="button" id="import" class=" btn btn-outline-info btn-lg">import</button>
@@ -69,7 +69,7 @@
         <option value="{{$parent->id}}" >{{$parent->name}}</option>
         @endforeach
       </select>
-    </div> 
+    </div>
 
       <button type="submit" class="btn btn-primary">create</button>
     </form>
@@ -77,13 +77,13 @@
      {{-- Import  Categories via excel file --}}
   <form style="display: none" id="importForm"  method="POST" action="{{route('category.store.excel')}}" enctype="multipart/form-data" >
   @csrf
-  <input type="file" class="form-control mx-3 my-3" name="categories">  
+  <input type="file" class="form-control mx-1 my-3" name="categories">
   <button type="submit" class="btn btn-primary mx-3">Import</button>
   </form>
   {{-- End importing Categories --}}
 
   </div>
-  </div>
+
   {{-- End Create Category --}}
 </div>
 

@@ -7,22 +7,22 @@
         <button id="lightBtn"  class="active btn btn-light" type="button" data-mdb-ripple-color="dark">Light</button>
       </li>
       <li class="nav-item p-1">
-        <button id="darkBtn" type="button" class="btn btn-dark class="nav-link"">Dark</button>
-        
+        <button id="darkBtn" type="button" class="btn btn-dark">Dark</button>
+
       </li>
     </ul>
   </div>
     <div  class="p-1">
       <select id="languageSelect" class="form-select bg-light">
-        @foreach(App\Models\User::LANGUAGE as $lg=>$language)  
-    <option value="{{$lg}}">{{$language}}</option> 
+        @foreach(App\Models\User::LANGUAGE as $lg=>$language)
+    <option value="{{$lg}}">{{$language}}</option>
         @endforeach
       </select>
    {{-- @if($item->id== $category->id) selected @endif --}}
     </div>
-  
+
   </div>
- 
+
 
     <div class="ml-auto">
       <ul class="nav">
@@ -38,7 +38,7 @@
         </li>
         @endif
         @else
-       
+
 <li class="nav-item dropdown ">
     <a id="navbarDropdown" class="nav-link dropdown-toggle text-success " href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
         {{ Auth::user()->name }}
@@ -48,7 +48,7 @@
         <a class="dropdown-item text-success" href="{{ route('logout') }}"
            onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();">
-           <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> 
+           <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
         </a>
         <a class="dropdown-item text-success" href="{{route('user.show',['user'=>Auth::user()])}}">
           <i class="fa fa-user fa-lg" aria-hidden="true"></i></a>
