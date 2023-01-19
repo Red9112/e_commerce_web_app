@@ -6,7 +6,7 @@ require('./container');
 
 
 
-// {{------Light && Dark Mode js_code-----}}
+// {{------Light && Dark Mode js_code-----}}//
 let lightBtn = document.querySelector("#lightBtn");
 let darkBtn = document.querySelector("#darkBtn");
 let lightLink = document.querySelector("#lightLink");
