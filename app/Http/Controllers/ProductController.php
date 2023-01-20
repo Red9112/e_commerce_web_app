@@ -25,7 +25,7 @@ class ProductController extends Controller
      ->findOrfail(auth()->id());
        if ($user->shop!=null) {
        $products=$user->shop->products; }
-         
+
         else {
         $products=null;
             }
@@ -65,7 +65,7 @@ class ProductController extends Controller
         $product=Product::create($data);
         //store categories--
 $filteredAttributeNames = array_filter($request->keys(), function ($key){
-    return strpos($key, 'category-') === 0;
+    return strpos($key, 'category_id-') === 0;
 });
 $filteredAttributeNames = collect($filteredAttributeNames);
 $filteredAttributeNames->push('category_id');
@@ -77,7 +77,7 @@ $product->categories()->sync($categoriesIds);
         // Upload file
 $hasfile=$request->hasfile('picture');
 $picture=$request->file('picture');
-if($hasfile) { 
+if($hasfile) {
 $file=Storage::putFile('products',$picture);
 $path=Storage::url($file);
 // first method:
@@ -120,7 +120,7 @@ return redirect()->route('product.index');
     public function edit($id)
     {
         $product=Product::with(['categories','images'])->findOrfail($id);
-             
+
         $categories=Category::all();
         return view('product.edit',[
             'product'=>$product,
@@ -137,7 +137,7 @@ return redirect()->route('product.index');
      */
     public function update(StoreProductRequest $request, $id)
     {
-   
+
       $data=$request->only(['sku','name','description','qty_in_stock','price']);
       $product=Product::findOrfail($id);
       $product->update($data);
@@ -156,7 +156,7 @@ $product->categories()->sync($categoriesIds);
 // Upload file
 $hasfile=$request->hasfile('picture');
 $picture=$request->file('picture');
-if($hasfile) { 
+if($hasfile) {
 $path=Storage::putFile('products',$picture);
 //$path=Storage::url($file);
 // first method
@@ -183,6 +183,6 @@ $product->images()->save($image);
       Product::destroy($id);
       $request->session()->flash('failed',' product Deleted !!');
       return redirect()->route('product.index');
-    
+
     }
 }

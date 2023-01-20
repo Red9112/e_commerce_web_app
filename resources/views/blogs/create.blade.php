@@ -9,7 +9,8 @@
 <form method="POST" action="{{route('blog.store')}}">
 
     @include('blogs.forms')
-    @include('includes.addCategory')
+ <x-create-select idLabel="categoryLabel" selectType="category_id" :objects="$categories">Select blog category: </x-create-select>
+
 
         <button class="btn btn-block btn-primary my-2" type="submit" >Add Blog </button>
 
@@ -18,7 +19,5 @@
 
 
 
-      {{-- // send categories from view to file js : --}}
-<div id="objects" data-objects='{{ json_encode($categories) }}'></div>
-{{-- ----------------------- --}}
+
 @endsection

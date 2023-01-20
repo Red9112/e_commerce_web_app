@@ -22,7 +22,8 @@
              <x-errors name="name"></x-errors>
           </div>
 
-          @include('includes.addCategory')
+
+          <x-create-select idLabel="categoryLabel" selectType="category_id" :objects="$categories">Select product category: </x-create-select>
 
                 <div class="mb-3 mt-3">
                   <label for="price">Price: </label>
@@ -49,9 +50,7 @@
       {{-- End Create Category --}}
 
 
-      {{-- // send categories from view to file js : --}}
-<div id="objects" data-objects='{{ json_encode($categories) }}'></div>
-      {{-- ----------------------- --}}
+
 
 
 @endsection

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -25,7 +25,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name'=>'string|required',
-            'email'=>'required', 'string', 'email', 'max:255', 'unique:users',
+            'email'=>'required|unique:users,email,' . request()->route('user')->id,
             'password'=>'required|min:4',
            'picture'=>'image|mimes:jpeg,jpg,svg,png|max:2048|'
          ];

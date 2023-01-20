@@ -62,7 +62,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\Models\User 
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
@@ -71,6 +71,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
         event(new UserHasRegistered($user));
         return redirect()->route('dashboard');
     }

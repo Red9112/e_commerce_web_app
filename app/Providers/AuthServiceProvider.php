@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\Models\Shop' => 'App\Policies\ShopPolicy',
          'App\Models\Blog' => 'App\Policies\BlogPolicy',
-         'App\Models\User' => 'App\Policies\UserPolicy',
+          'App\Models\User' => 'App\Policies\UserPolicy',
     ];
 
     /**
@@ -34,7 +34,7 @@ class AuthServiceProvider extends ServiceProvider
 //{{--Policies--}}
 // Gate::define('blog.update','App\Policies\BlogPolicy@update');  //for a single function
 // Gate::resource('blog','App\Policies\BlogPolicy');             //for all the policy functions
-////////////////////// 
+//////////////////////
 //{{----- Gates: ---}}
 // Gate::define('blog.update',function($user,$blog){
 //     return ($user->id == $blog->user_id);

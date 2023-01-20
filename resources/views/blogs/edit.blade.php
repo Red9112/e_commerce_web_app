@@ -8,7 +8,8 @@
 <form method="POST" action="{{route('blog.update',['blog'=>$blog])}}">
   @method('PUT')
   @include('blogs.forms')
-  <x-editCategory :categories="$categories" :productcats="$blog->categories"></x-editCategory>
+
+  <x-edit-select  :savedobjects="$blog->categories"  :objects="$categories"  idLabel="categoryLabel" selectType="category_id">Category  :</x-edit-select>
   <div>
 <button class="btn btn-block btn-warning my-2" type="submit" >Update Blog </button>
 </div>

@@ -9,19 +9,25 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+
+    public function is_admin(User $user){
+        foreach ($user->roles as $role) {
+                if($role->name=="admin" ) return true;
+               }
+               return false;
+            }
+
+
+
     public function before(User $user, $ability)
     {
-if($user->is_admin && in_array($ability,['update','delete','create','view','viewAny'])) return true;
+if($this->is_admin($user) && in_array($ability,['update','delete','create','view','viewAny'])) return true;
     }
     public function viewAny(User $user)
     {
-        return $user->is_admin ;
+
+        return($this->is_admin($user))?true:false;
+
     }
 
     /**
@@ -44,9 +50,11 @@ if($user->is_admin && in_array($ability,['update','delete','create','view','view
      */
     public function create(User $user)
     {
+
         return true;
-    }  
-    
+
+    }
+
 
     /**
      * Determine whether the user can update the model.
@@ -57,8 +65,15 @@ if($user->is_admin && in_array($ability,['update','delete','create','view','view
      */
     public function update(User $user, User $model)
     {
-   
-        return $user->id === $model->id ;
+
+        // foreach ($user->roles as $role) {
+        //     if($role->name=="admin" ) return true;
+        //    }
+        if($this->is_admin($user)) {
+            return true;
+        }
+           return ($user->id === $model->id)?true:false;
+
     }
 
     /**
@@ -70,7 +85,11 @@ if($user->is_admin && in_array($ability,['update','delete','create','view','view
      */
     public function delete(User $user, User $model)
     {
-        return $user->id === $model->id ;
+           if($this->is_admin($user)) {
+            return true;
+        }
+           return ($user->id === $model->id)?true:false;
+
     }
 
     /**
@@ -82,7 +101,7 @@ if($user->is_admin && in_array($ability,['update','delete','create','view','view
      */
     public function restore(User $user, User $model)
     {
-        
+
     }
 
     /**
@@ -94,6 +113,6 @@ if($user->is_admin && in_array($ability,['update','delete','create','view','view
      */
     public function forceDelete(User $user, User $model)
     {
-         
+
     }
 }

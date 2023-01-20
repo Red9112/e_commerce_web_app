@@ -24,6 +24,7 @@
                       <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror"  value="{{old('password')}}" placeholder="Password" name="password">
                       <x-errors name="password"></x-errors>
                     </div>
+                    <x-edit-select  :savedobjects="$user->roles"  :objects="$roles"  idLabel="roleLabel" selectType="role">Role:</x-edit-select>
                   @include('includes.uploadImage')
           <button type="submit" class="btn btn-success my-3">Edit</button>
         </form>

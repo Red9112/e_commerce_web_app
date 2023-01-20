@@ -24,8 +24,8 @@
         <x-errors name="sku"></x-errors>
       </div>
 
-    <x-editCategory :categories="$categories" :productcats="$product->categories"></x-editCategory>
 
+    <x-edit-select  :savedobjects="$product->categories"  :objects="$categories"  idLabel="categoryLabel" selectType="category_id">Category  :</x-edit-select>
       <div class="mb-3 mt-3">
         <label for="qty_in_stock">Quantity</label>
         <input id="qty_in_stock" name="qty_in_stock" type="text" class="form-control @error('qty_in_stock') is-invalid @enderror" value="{{old('name',$product->qty_in_stock ?? null)}}">
@@ -63,8 +63,6 @@
 
   {{-- End Edit Category --}}
 
-      {{-- // send categories from view to file js : --}}
-      <div id="objects" data-objects='{{ json_encode($categories) }}'></div>
-      {{-- ----------------------- --}}
+
 
   @endsection

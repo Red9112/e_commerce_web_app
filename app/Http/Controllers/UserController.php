@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -14,8 +16,8 @@ class UserController extends Controller
 
     public function __construct()
     {
-     $this->middleware('auth');
-     $this->authorizeResource(User::class, 'user');
+
+     //$this->authorizeResource(User::class,'user');
     }
     /**
      * Display a listing of the resource.
@@ -24,10 +26,9 @@ class UserController extends Controller
      */
     public function index()
     {
-
-       $id=auth()->id();
-       $user=User::findOrFAil($id);
-      // $this->authorize('viewAny',$user);
+        $id=auth()->id();
+        $user=User::findOrFail($id);
+        $this->authorize('viewAny',$user);
        $users=User::orderBy('id')->get();
        return view('users.index',[
         'users'=>$users
@@ -42,11 +43,10 @@ class UserController extends Controller
     public function create()
     {
         $roles=Role::all();
-        //$user=auth()->id();
-       // $this->authorize('create',$user);
         return view('users.create',[
             'roles'=>$roles,
         ]);
+
     }
 
     /**
@@ -57,57 +57,52 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $user=auth()->id();
-       // $this->authorize('create',$user);
+
      $data=$request->only(['name','email','password']);
-      User::create([
+     $user=User::create([
         'name'           => $data['name'],
         'email'          => $data['email'],
         'password'       => bcrypt($data['password']),
         'remember_token' => null,
     ]);
+         //store roles--
+$filteredAttributeNames = array_filter($request->keys(), function ($key){
+    return strpos($key, 'role-') === 0;
+});
+$filteredAttributeNames = collect($filteredAttributeNames);
+$filteredAttributeNames->push('role');
+$users=$request->only($filteredAttributeNames->toArray());
+$userIds=collect($users)->values()->toArray();
+$user->roles()->sync($userIds);
+//end store roles
+$request->session()->flash('status',' User created !!');
         return redirect()->route('user.index');
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(User $user)
     {
-
-       // $this->authorize('view',$user);
+        $id=auth()->id();
+        $authUser=User::findOrFail($id);
+        $this->authorize('view',$authUser);
         return view('users.show', compact('user'));
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(User $user)
     {
-     // $this->authorize('update',$user);
+        $this->authorize('update',$user);
+        $roles=Role::all();
         return view('users.edit', [
             'user'=>$user,
+            'roles'=>$roles,
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(StoreUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-       // $this->authorize('update',$user);
+        $this->authorize('update',$user);
        $data=$request->only(['name','email','password']);
        $user->update([
          'name'           => $data['name'],
@@ -127,20 +122,25 @@ class UserController extends Controller
                 $image=Image::make(['url'=>$path]);
                 $user->image()->save($image);
             }
-
         }
+                 //store roles--
+$filteredAttributeNames = array_filter($request->keys(), function ($key){
+    return strpos($key, 'role-') === 0;
+});
+$filteredAttributeNames = collect($filteredAttributeNames);
+$filteredAttributeNames->push('role');
+$users=$request->only($filteredAttributeNames->toArray());
+$userIds=collect($users)->values()->toArray();
+$user->roles()->sync($userIds);
+//end store roles
+
         $request->session()->flash('status',' User Updated !!');
         return redirect()->route('user.show',['user'=>$user->id]);
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Request $request,User $user)
     {
-        //$this->authorize('delete',$user);
+        $this->authorize('update',$user);
      User::destroy($user->id);
       $request->session()->flash('failed',' User Deleted !!');
       return redirect()->route('user.index');

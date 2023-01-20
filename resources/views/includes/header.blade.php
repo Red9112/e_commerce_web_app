@@ -34,7 +34,7 @@
         @endif
         @if (Route::has('register'))
         <li class="nav-item">
-          <a class="nav-link text-success" href="{{ route('register') }}" >{{__('Register')}}</a>
+          <a class="nav-link text-success" href="{{ route('user.create') }}" >{{__('Register')}}</a>
         </li>
         @endif
         @else
