@@ -42,9 +42,12 @@ class UserController extends Controller
      */
     public function create()
     {
+        $id=auth()->id();
+        $user=User::findOrFail($id);
         $roles=Role::all();
         return view('users.create',[
             'roles'=>$roles,
+            'user'=>$user,
         ]);
 
     }
@@ -77,7 +80,7 @@ $user->roles()->sync($userIds);
 //end store roles
 $request->session()->flash('status',' User created !!');
         return redirect()->route('user.index');
-
+ 
     }
 
     public function show(User $user)

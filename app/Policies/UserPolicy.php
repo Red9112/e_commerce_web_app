@@ -10,23 +10,14 @@ class UserPolicy
     use HandlesAuthorization;
 
 
-    public function is_admin(User $user){
-        foreach ($user->roles as $role) {
-                if($role->name=="admin" ) return true;
-               }
-               return false;
-            }
-
-
-
     public function before(User $user, $ability)
     {
-if($this->is_admin($user) && in_array($ability,['update','delete','create','view','viewAny'])) return true;
+if($user->is_admin() && in_array($ability,['update','delete','create','view','viewAny'])) return true;
     }
     public function viewAny(User $user)
     {
 
-        return($this->is_admin($user))?true:false;
+        return($user->is_admin())?true:false;
 
     }
 
@@ -50,9 +41,7 @@ if($this->is_admin($user) && in_array($ability,['update','delete','create','view
      */
     public function create(User $user)
     {
-
         return true;
-
     }
 
 
@@ -65,11 +54,7 @@ if($this->is_admin($user) && in_array($ability,['update','delete','create','view
      */
     public function update(User $user, User $model)
     {
-
-        // foreach ($user->roles as $role) {
-        //     if($role->name=="admin" ) return true;
-        //    }
-        if($this->is_admin($user)) {
+        if($user->is_admin()) {
             return true;
         }
            return ($user->id === $model->id)?true:false;
@@ -85,7 +70,7 @@ if($this->is_admin($user) && in_array($ability,['update','delete','create','view
      */
     public function delete(User $user, User $model)
     {
-           if($this->is_admin($user)) {
+           if($user->is_admin()) {
             return true;
         }
            return ($user->id === $model->id)?true:false;

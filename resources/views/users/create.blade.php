@@ -25,12 +25,10 @@
                     </div>
 
                     @include('includes.uploadImage')
-                    @auth
-
-                    <x-create-select idLabel="roleLabel" selectType="role" :objects="$roles">Role:</x-create-select>
-                    @endauth
-
-            @guest
+                    
+            @if ($user->is_admin())
+            <x-create-select idLabel="roleLabel" selectType="role" :objects="$roles">Role:</x-create-select> 
+            @else 
             <div id="allDiv" class="mb-3 mt-3">
             <label id="roleLabel" for="role" class="form-label">Role:</label>
             <select class="form-select @error('role') is-invalid @enderror" id="role" name="role">
@@ -44,7 +42,7 @@
            @endforeach
            </select>
            </div>
-           @endguest
+           @endif
           <button type="submit" class="btn btn-primary my-2">create</button>
         </form>
 

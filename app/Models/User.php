@@ -83,6 +83,15 @@ return $query->withCount(['blogs'=> function(Builder $query){
 ->orderBy('blogs_count','desc');
     }
 
+    //functions:
+    public function is_admin(){
+        foreach ($this->roles as $role) {
+                if($role->name=="admin" ) return true;
+               }
+               return false;
+            }
+
+
 
 
 
