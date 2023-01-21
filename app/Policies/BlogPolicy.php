@@ -19,8 +19,8 @@ class BlogPolicy
 
     public function before(User $user, $ability)
 {
-    
- if ($user->is_admin && in_array($ability,['update','delete'])) return true;
+
+ if ($user->hasRole('admin') && in_array($ability,['update','delete'])) return true;
 }
     public function viewAny(User $user)
     {

@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ProductCategoryTableSeeder::class,
             BlogCategoryTableSeeder::class,
             RoleTableSeeder::class,
+            UserRoleTableSeeder::class,
         ]);
     }
 

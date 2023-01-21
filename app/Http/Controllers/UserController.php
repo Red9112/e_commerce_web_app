@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Image;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateUserRequest;
-use App\Http\Requests\StoreUserRequest;
-use App\Models\Role;
+use App\Events\UserHasRegistered;
 use Illuminate\Support\Facades\Auth;
+use App\Events\NewVendorRequestEvent;
+use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -19,6 +21,7 @@ class UserController extends Controller
 
      //$this->authorizeResource(User::class,'user');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -26,8 +29,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $id=auth()->id();
-        $user=User::findOrFail($id);
+        $user=auth()->user();
         $this->authorize('viewAny',$user);
        $users=User::orderBy('id')->get();
        return view('users.index',[
@@ -42,8 +44,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $id=auth()->id();
-        $user=User::findOrFail($id);
+        $user=auth()->user();
         $roles=Role::all();
         return view('users.create',[
             'roles'=>$roles,
@@ -60,33 +61,45 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $authUser=auth()->user();
+        $data=$request->only(['name','email','password']);
+        $user=User::create([
+           'name'           => $data['name'],
+           'email'          => $data['email'],
+           'password'       => bcrypt($data['password']),
+           'remember_token' => null,
+       ]);
+        if ($authUser->hasRole("admin")) {
+                //store roles by admin--
+       $filteredAttributeNames = array_filter($request->keys(), function ($key){
+           return strpos($key, 'role-') === 0;
+       });
+       $filteredAttributeNames = collect($filteredAttributeNames);
+       $filteredAttributeNames->push('role');
+       $users=$request->only($filteredAttributeNames->toArray());
+       $userIds=collect($users)->values()->toArray();
+       $user->roles()->sync($userIds);
+       //end store roles
+        }
+else {
+    //store roles by user--
+    $customerRoleId=collect(Role::where("name","customer"))->pluck('id');
+    $user->roles()->sync($customerRoleId);
+      //end store roles
+    //send a notification to admin if the user asked to be vendor
+    ($request->role=="vendor")?event(new NewVendorRequestEvent($user)):null;
+}
 
-     $data=$request->only(['name','email','password']);
-     $user=User::create([
-        'name'           => $data['name'],
-        'email'          => $data['email'],
-        'password'       => bcrypt($data['password']),
-        'remember_token' => null,
-    ]);
-         //store roles--
-$filteredAttributeNames = array_filter($request->keys(), function ($key){
-    return strpos($key, 'role-') === 0;
-});
-$filteredAttributeNames = collect($filteredAttributeNames);
-$filteredAttributeNames->push('role');
-$users=$request->only($filteredAttributeNames->toArray());
-$userIds=collect($users)->values()->toArray();
-$user->roles()->sync($userIds);
-//end store roles
-$request->session()->flash('status',' User created !!');
-        return redirect()->route('user.index');
- 
+
+
+(Auth::check())?$request->session()->flash('status','A new account  created !!'):
+$request->session()->flash('status',' Registration completed !!');
+return redirect()->route('dashboard');
     }
 
     public function show(User $user)
     {
-        $id=auth()->id();
-        $authUser=User::findOrFail($id);
+        $authUser=auth()->user();
         $this->authorize('view',$authUser);
         return view('users.show', compact('user'));
 
@@ -126,6 +139,7 @@ $request->session()->flash('status',' User created !!');
                 $user->image()->save($image);
             }
         }
+
                  //store roles--
 $filteredAttributeNames = array_filter($request->keys(), function ($key){
     return strpos($key, 'role-') === 0;

@@ -25,23 +25,23 @@
                     </div>
 
                     @include('includes.uploadImage')
-                    
-            @if ($user->is_admin())
-            <x-create-select idLabel="roleLabel" selectType="role" :objects="$roles">Role:</x-create-select> 
-            @else 
+
+            @if ($user==null||!$user->hasRole('admin'))
             <div id="allDiv" class="mb-3 mt-3">
-            <label id="roleLabel" for="role" class="form-label">Role:</label>
-            <select class="form-select @error('role') is-invalid @enderror" id="role" name="role">
-           @foreach ($roles as $item)
-           @if ($item->name=="customer" )
-           <option value="{{$item->id}}" selected>{{$item->name}}</option>
-           @endif
-           @if ($item->name=="vendor" )
-           <option value="{{$item->id}}" selected>{{$item->name}}</option>
-           @endif
-           @endforeach
-           </select>
-           </div>
+                <label id="roleLabel" for="role" class="form-label">Role:</label>
+                <select class="form-select @error('role') is-invalid @enderror" id="role" name="role">
+               @foreach ($roles as $item)
+               @if ($item->name=="customer" )
+               <option value="{{$item->id}}" selected>{{$item->name}}</option>
+               @endif
+               @if ($item->name=="vendor" )
+               <option value="{{$item->id}}" selected>{{$item->name}}</option>
+               @endif
+               @endforeach
+               </select>
+               </div>
+            @elseif  ($user->hasRole('admin'))
+            <x-create-select idLabel="roleLabel" selectType="role" :objects="$roles">Role:</x-create-select>
            @endif
           <button type="submit" class="btn btn-primary my-2">create</button>
         </form>

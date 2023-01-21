@@ -12,12 +12,13 @@ class UserPolicy
 
     public function before(User $user, $ability)
     {
-if($user->is_admin() && in_array($ability,['update','delete','create','view','viewAny'])) return true;
+
+if($user->hasRole('admin') && in_array($ability,['update','delete','create','view','viewAny'])) return true;
     }
     public function viewAny(User $user)
     {
 
-        return($user->is_admin())?true:false;
+        return($user->hasRole('admin'))?true:false;
 
     }
 
@@ -54,7 +55,7 @@ if($user->is_admin() && in_array($ability,['update','delete','create','view','vi
      */
     public function update(User $user, User $model)
     {
-        if($user->is_admin()) {
+        if($user->hasRole('admin')) {
             return true;
         }
            return ($user->id === $model->id)?true:false;
@@ -70,7 +71,7 @@ if($user->is_admin() && in_array($ability,['update','delete','create','view','vi
      */
     public function delete(User $user, User $model)
     {
-           if($user->is_admin()) {
+           if($user->hasRole('admin')) {
             return true;
         }
            return ($user->id === $model->id)?true:false;

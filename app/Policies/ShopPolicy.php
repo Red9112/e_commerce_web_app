@@ -17,11 +17,11 @@ class ShopPolicy
      * @return \Illuminate\Auth\Access\Response|bool
      */
 
- 
+
     public function before(User $user, $ability)
     {
 
-if ($user->is_admin && in_array($ability,['update','delete'])) return true;
+if ($user->hasRole('admin') && in_array($ability,['update','delete'])) return true;
     }
     public function viewAny(User $user)
     {
@@ -63,7 +63,7 @@ if ($user->is_admin && in_array($ability,['update','delete'])) return true;
       if ($user->id==$shop->user_id) return true;
     }
 
-    /** 
+    /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
@@ -72,7 +72,7 @@ if ($user->is_admin && in_array($ability,['update','delete'])) return true;
      */
     public function delete(User $user, Shop $shop)
     {
-        if ($user->is_admin) return true;
+        if ($user->hasRole('admin')) return true;
     }
 
     /**

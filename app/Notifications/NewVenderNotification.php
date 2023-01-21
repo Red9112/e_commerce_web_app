@@ -4,11 +4,11 @@ namespace App\Notifications;
 
 use App\Models\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
-class NewUser extends Notification
+class NewVenderNotification extends Notification
 {
     public $user;
     use Queueable;
@@ -18,12 +18,11 @@ class NewUser extends Notification
      *
      * @return void
      */
-   
+
     public function __construct(User $user)
     {
         $this->user = $user;
     }
-
     /**
      * Get the notification's delivery channels.
      *
@@ -32,7 +31,8 @@ class NewUser extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        //return ['mail','database'];
+        return ['database'];
     }
 
     /**
@@ -58,7 +58,9 @@ class NewUser extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+"name"=>$this->user->name,
+"email"=>$this->user->email,
+"notification"=>"This user has registred and  requested to be a vendor !!",
         ];
     }
 }

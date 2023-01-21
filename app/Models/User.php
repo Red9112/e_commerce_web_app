@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -51,8 +50,8 @@ public const LANGUAGE=[
     //Relations:
     public function adresses(){
         return $this->hasMany('App\Models\Adress');
-    } 
-    public function shop(){ 
+    }
+    public function shop(){
         return $this->hasOne('App\Models\Shop');
     }
     public function blogs(){
@@ -83,13 +82,22 @@ return $query->withCount(['blogs'=> function(Builder $query){
 ->orderBy('blogs_count','desc');
     }
 
-    //functions:
-    public function is_admin(){
-        foreach ($this->roles as $role) {
-                if($role->name=="admin" ) return true;
-               }
-               return false;
-            }
+// {{>>>>Functions:<<<<<}}
+
+//>>>CheckRoles functions:
+public function hasRole($role){
+    return ($this->roles->pluck('name')->contains($role))?true:false;
+    }
+
+    public function hasAnyRole(array $roles){
+        return ($this->roles()->whereIn('name',$roles)->count())?true:false;
+        }
+            public function hasAllRoles(array $roles){
+
+                return ($this->roles()->whereIn('name',$roles)->count() == count($roles));
+                }
+///////////////////////////
+
 
 
 

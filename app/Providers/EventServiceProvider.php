@@ -3,9 +3,12 @@
 namespace App\Providers;
 
 use App\Events\CommentPosted;
-use App\Listeners\NotifyUserAboutComment;
+use App\Events\UserHasRegistered;
+use App\Events\NewVendorRequestEvent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\NotifyUserAboutComment;
+use App\Listeners\SendNewVenderNotificationLestener;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -23,6 +26,15 @@ class EventServiceProvider extends ServiceProvider
         CommentPosted::class => [
             NotifyUserAboutComment::class,
         ],
+        UserHasRegistered::class => [
+          //
+        ],
+        NewVendorRequestEvent::class => [
+            SendNewVenderNotificationLestener::class,
+        ],
+
+
+
     ];
 
     /**
