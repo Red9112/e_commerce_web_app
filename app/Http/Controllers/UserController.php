@@ -27,13 +27,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    
     public function index()
     {
         $user=auth()->user();
         $this->authorize('viewAny',$user);
        $users=User::orderBy('id')->get();
        return view('users.index',[
-        'users'=>$users
+        'users'=>$users,
+        'user'=>$user,
        ]);
     }
 
@@ -61,6 +63,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+       
         $authUser=auth()->user();
         $data=$request->only(['name','email','password']);
         $user=User::create([
@@ -69,28 +72,26 @@ class UserController extends Controller
            'password'       => bcrypt($data['password']),
            'remember_token' => null,
        ]);
-        if ($authUser->hasRole("admin")) {
-                //store roles by admin--
-       $filteredAttributeNames = array_filter($request->keys(), function ($key){
-           return strpos($key, 'role-') === 0;
-       });
-       $filteredAttributeNames = collect($filteredAttributeNames);
-       $filteredAttributeNames->push('role');
-       $users=$request->only($filteredAttributeNames->toArray());
-       $userIds=collect($users)->values()->toArray();
-       $user->roles()->sync($userIds);
-       //end store roles
-        }
-else {
-    //store roles by user--
-    $customerRoleId=collect(Role::where("name","customer"))->pluck('id');
+        if ($authUser==null ||!$authUser->hasRole('admin')) {
+      //store roles by user--
+    $customerRoleId=collect(Role::where("name","customer")->get())->pluck('id');
     $user->roles()->sync($customerRoleId);
       //end store roles
     //send a notification to admin if the user asked to be vendor
-    ($request->role=="vendor")?event(new NewVendorRequestEvent($user)):null;
+    ($request->role==2)?event(new NewVendorRequestEvent($user)):null;
+        }
+else {
+               //store roles by admin--
+               $filteredAttributeNames = array_filter($request->keys(), function ($key){
+                return strpos($key, 'role-') === 0;
+            });
+            $filteredAttributeNames = collect($filteredAttributeNames);
+            $filteredAttributeNames->push('role');
+            $users=$request->only($filteredAttributeNames->toArray());
+            $userIds=collect($users)->values()->toArray();
+            $user->roles()->sync($userIds);
+            //end store roles
 }
-
-
 
 (Auth::check())?$request->session()->flash('status','A new account  created !!'):
 $request->session()->flash('status',' Registration completed !!');

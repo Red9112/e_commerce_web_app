@@ -21,6 +21,6 @@
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
-        "font-awesome": "^4.7.0"
+        "fontawesome-4.7": "^4.7.0"
     }
 }

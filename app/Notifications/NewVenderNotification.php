@@ -58,6 +58,7 @@ class NewVenderNotification extends Notification
     public function toArray($notifiable)
     {
         return [
+"subject"=>"New vendor request",
 "name"=>$this->user->name,
 "email"=>$this->user->email,
 "notification"=>"This user has registred and  requested to be a vendor !!",

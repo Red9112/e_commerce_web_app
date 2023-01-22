@@ -45,3 +45,4 @@ Route::get('/mailPreview',function(){
     $comment=Comment::findOrFail(21);
     return new ProductCommentPosted($comment);
 });
+
