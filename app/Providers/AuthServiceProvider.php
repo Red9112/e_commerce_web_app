@@ -26,6 +26,10 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+//{{----- Gate: ---}}
+Gate::define('notification',function($user){
+    return $user->hasRole('admin');
+});
 
 // Gate::define('user.index',function($user){
 //     return ($user->is_admin);
@@ -46,6 +50,7 @@ class AuthServiceProvider extends ServiceProvider
 //  if ($user->is_admin && in_array($ability,['blog.update','blog.delete'])) return true;
 // });
 ////////////////////////
+
 
 
 

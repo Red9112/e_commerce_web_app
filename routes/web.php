@@ -45,4 +45,6 @@ Route::get('/mailPreview',function(){
     $comment=Comment::findOrFail(21);
     return new ProductCommentPosted($comment);
 });
+//notification
+Route::get('/notifications',[App\Http\Controllers\NotificationController::class, 'index'])->name('notification')->middleware('can:notification');
 

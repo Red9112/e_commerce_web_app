@@ -5,15 +5,18 @@ namespace App\Providers;
 use App\Events\CommentPosted;
 use App\Events\UserHasRegistered;
 use App\Events\NewVendorRequestEvent;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\NotifyUserAboutComment;
+use Illuminate\Routing\Events\RouteMatched;
+use App\Events\MarkNotificationsAsReadEvent;
+use App\Listeners\MarkNotificationsAsReadListener;
 use App\Listeners\SendNewVenderNotificationLestener;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {
+
     /**
      * The event listener mappings for the application.
      *
@@ -31,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         NewVendorRequestEvent::class => [
             SendNewVenderNotificationLestener::class,
+        ],
+        RouteMatched::class => [
+            MarkNotificationsAsReadListener::class,
         ],
 
 
