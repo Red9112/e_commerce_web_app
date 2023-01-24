@@ -27,5 +27,7 @@ if($language ==null){
 }
        App::setLocale($language);
         return $next($request);
-    }
+   
+    
+}
 }

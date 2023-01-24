@@ -22,14 +22,27 @@ class UserController extends Controller
      //$this->authorizeResource(User::class,'user');
     }
 
-    /**
+    /** 
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     
+    public function markAsRead()
+    {
+        
+        $user=auth()->user();
+        $this->authorize('viewAny',$user);
+       $users=User::orderBy('id')->get();
+       return view('users.index',[
+        'users'=>$users,
+        'user'=>$user,
+       ]);
+    }
+
     public function index()
     {
+        
         $user=auth()->user();
         $this->authorize('viewAny',$user);
        $users=User::orderBy('id')->get();

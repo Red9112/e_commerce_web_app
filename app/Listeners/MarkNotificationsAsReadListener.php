@@ -3,10 +3,11 @@
 namespace App\Listeners;
 
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Events\MarkNotificationsAsReadEvent;
 use Illuminate\Routing\Events\RouteMatched;
+use App\Events\MarkNotificationsAsReadEvent;
 
 
 
@@ -30,11 +31,8 @@ class MarkNotificationsAsReadListener
      * @param  object  $event
      * @return void
      */
-    public function handle(MarkNotificationsAsReadEvent $event)
+    public function handle(RouteMatched $event)
     {
-        $user =auth()->user();
-dd($user);
-        $user = $event->user;
-   $user->unreadNotifications()->update(['read_at' => now()]);
+ 
 }
 }

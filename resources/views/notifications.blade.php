@@ -17,7 +17,13 @@
       <div id="unread" class="collapse show" data-bs-parent="#accordion">
         <div class="card-body">
 @foreach (auth()->user()->unreadNotifications as $notification)
-<h6 class="fs-5 font-weight-bold">Content:</h6>
+<div class="rounded d-flex justify-content-between bg-secondary mb-3">
+  <div><h5 class="mx-1 my-1 fs-5 font-weight-bold">Content:</h5></div>
+  <div>
+  <button type="button" class="btn btn-danger">del</button>
+  <button type="button" class="btn btn-success">mark as read</button>
+  </div>
+</div>
 <div class="alert alert-light">
   <p><strong>Subject:</strong> {{ $notification->data['subject'] }}</p>
   <p><strong>name:</strong> {{ $notification->data['name'] }}</p>
