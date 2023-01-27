@@ -54,9 +54,16 @@
                       <h6 class="text-success">Free shipping</h6>
                       <div class="d-flex flex-column mt-4">
                         <a href="{{route('product.show',['product'=>$product->id])}}" class="btn btn-primary btn-sm" type="button">Details</a>
-                        <button class="btn btn-outline-primary btn-sm mt-2" type="button">
-                          Add to wishlist
-                        </button>
+                        <form method="GET" action="{{route('addToCart',['id'=>$product->id])}}">
+                            @csrf
+                            <button class="btn btn-outline-primary btn-sm mt-2" type="submit">
+                                Add to cart
+                              </button>
+                          </form>
+                          <form action="{{route('removeSessionProduct',['id'=>$product->id])}}" method="GET">
+                            @csrf
+                            <button  class="btn btn-danger my-1 mx-1" type="submit">remove</button>
+                        </form>
                       </div>
                     </div>
                   </div>

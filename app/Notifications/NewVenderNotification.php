@@ -59,6 +59,7 @@ class NewVenderNotification extends Notification
     {
         return [
 "subject"=>"New vendor request",
+"user_id"=>$this->user->id,
 "name"=>$this->user->name,
 "email"=>$this->user->email,
 "notification"=>"This user has registred and  requested to be a vendor !!",

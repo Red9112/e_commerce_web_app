@@ -20,7 +20,7 @@ class Product extends Model
         'description',
         'shop_id',
     ];
-  
+
     //Relations:
     public function comments(){
         return $this->morphMany('App\Models\Comment','commentable');
@@ -30,6 +30,9 @@ class Product extends Model
     }
     public function shop(){
         return $this->belongsTo('App\Models\Shop');
+    }
+    public function carts(){
+        return $this->belongsToMany('App\Models\Chart');
     }
 
 public function categories()
@@ -55,7 +58,7 @@ return $query->orderBy(static::CREATED_AT,'asc')->with('images');
 //         parent::boot();
 //   static::addGlobalScope(new LatestScope);
 //     }
-    
+
 
 
 

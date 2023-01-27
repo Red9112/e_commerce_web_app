@@ -47,4 +47,11 @@ Route::get('/mailPreview',function(){
 });
 //notification
 Route::get('/notifications',[App\Http\Controllers\NotificationController::class, 'index'])->name('notification')->middleware('can:notification');
+Route::delete('/notification/{id}',[App\Http\Controllers\NotificationController::class, 'destroy'])->name('notification.destroy')->middleware('can:notification');
+Route::put('/notification/{id}',[App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notification.markAsRead')->middleware('can:notification');
 
+
+// cart routes
+Route::get('/addToCart/{id}',[App\Http\Controllers\CartController::class, 'addToCart'])->name('addToCart');
+Route::get('/removeSessionProduct/{id}',[App\Http\Controllers\CartController::class, 'removeSessionProduct'])->name('removeSessionProduct');
+Route::get('/cart/',[App\Http\Controllers\CartController::class, 'index'])->name('cart.index');

@@ -21,4 +21,5 @@ mix.js('resources/js/app.js', 'public/js')
 //    mix.styles('resources/css/Solar.css','public/css/theme.css');
 //    mix.styles('resources/css/Darkly.css','public/css/theme.css');
     // mix.styles('resources/css/Morph.css','public/css/theme.css');
-   
+
+

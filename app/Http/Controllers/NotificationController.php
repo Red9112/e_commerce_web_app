@@ -21,4 +21,26 @@ class NotificationController extends Controller
     }
 
 
+    public function markAsRead(Request $request,$id){
+        $user=auth()->user();
+        $notification = $user->notifications()->findOrFail($id);
+        $notification->update(['read_at' => now()]);
+        $request->session()->flash('sucsess','notification marked as read !!');
+        return redirect()->back();
+       }
+
+
+
+       public function destroy(Request $request,$id)
+       {
+        $user=auth()->user();
+        $notification = $user->notifications()->findOrFail($id);
+        $notification->delete();
+        $request->session()->flash('failed','notification  Deleted !!');
+        return redirect()->back();
+
+}
+
+
+
 }

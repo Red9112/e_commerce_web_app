@@ -35,9 +35,7 @@ class EventServiceProvider extends ServiceProvider
         NewVendorRequestEvent::class => [
             SendNewVenderNotificationLestener::class,
         ],
-        RouteMatched::class => [
-            MarkNotificationsAsReadListener::class,
-        ],
+
 
 
 

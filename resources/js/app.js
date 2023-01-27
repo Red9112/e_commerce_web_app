@@ -1,4 +1,6 @@
 const { received } = require('laravel-mix/src/Log');
+import Swal from 'sweetalert2';
+window.Swal=Swal;
 
 require('./bootstrap');
 require('./products');
@@ -75,6 +77,9 @@ function setCookieLanguage(name,value,days) {
   }
   document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
+
+
+
 
 
 
