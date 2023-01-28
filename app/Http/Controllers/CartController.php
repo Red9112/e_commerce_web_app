@@ -12,14 +12,21 @@ class CartController extends Controller
 
     public function index()
     {
-        return view('cart');
+        //$cart = session()->get('cart');
+        //$products =$cart['product_id'];
+        //dd($products);
+        $products = Product::whereIn('id', $products)->get();
+        dd($products);
+        return view('cart',[
+            'products'=>$products
+        ]);
     }
         public function addToCart(Request $request,$id)
         {
            // Session::forget('cart');
             //dd($data = Session::all());
            //if (isset($cart['product_id'])){} test existance of seesion key
-
+dd($request->idprd);
            $cart = session()->get('cart');
             if(!$cart) {
                 $cart = [
@@ -29,7 +36,6 @@ class CartController extends Controller
                             ];
                             session()->put('cart', $cart);
                             $request->session()->flash('status',' product added to chart !!');
-                            return redirect()->back();
                         }
 
                         else{
@@ -38,15 +44,13 @@ class CartController extends Controller
                                     $cart['product_id'][]=$id;
                                     session()->put('cart', $cart);
                                     $request->session()->flash('status',' product added to chart !!');
-                                    return redirect()->back();
                                 }
                                 else{
                                     $request->session()->flash('status',' product already in chart !!');
-                                    return redirect()->back();
                                 }
                         }
-
-
+                        if($request->redirectInput=="cart") return redirect()->route('cart.index');
+                        else return redirect()->back();
                     }
 
 

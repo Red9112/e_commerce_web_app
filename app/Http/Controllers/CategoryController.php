@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\CategoriesImport;
 use function PHPUnit\Framework\isEmpty;
- 
+
 class CategoryController extends Controller
 {
 
@@ -24,17 +24,17 @@ class CategoryController extends Controller
     {
         return view('Category.category');
     }
-   
+
 
     /**
-     * Store a newly created resource in storage. 
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
 
 
-    public function import(Request $request) 
+    public function import(Request $request)
     {
      //  dd($request->all());
      Excel::import(new CategoriesImport,$request->file('categories'));
@@ -76,7 +76,7 @@ class CategoryController extends Controller
         return view('Category.edit',[
             'category'=>$category,
             'parent'=>$parent,
-            
+
         ]);
     }
 
@@ -91,7 +91,7 @@ class CategoryController extends Controller
     {
         $vldtData=$request->validate(['name'=>'min:3']);
         $category=Category::findOrFail($id);
-        $category->name=$request->input('name'); 
+        $category->name=$request->input('name');
         $category->parent_id=$request->input('parent_id');
         $category->save();
         $request->session()->flash('status','The Category was updated !!');

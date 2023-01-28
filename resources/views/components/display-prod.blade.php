@@ -54,16 +54,7 @@
                       <h6 class="text-success">Free shipping</h6>
                       <div class="d-flex flex-column mt-4">
                         <a href="{{route('product.show',['product'=>$product->id])}}" class="btn btn-primary btn-sm" type="button">Details</a>
-                        <form method="GET" action="{{route('addToCart',['id'=>$product->id])}}">
-                            @csrf
-                            <button class="btn btn-outline-primary btn-sm mt-2" type="submit">
-                                Add to cart
-                              </button>
-                          </form>
-                          <form action="{{route('removeSessionProduct',['id'=>$product->id])}}" method="GET">
-                            @csrf
-                            <button  class="btn btn-danger my-1 mx-1" type="submit">remove</button>
-                        </form>
+                             @include('includes.addToCart')
                       </div>
                     </div>
                   </div>
@@ -76,3 +67,21 @@
       </section>
 
     </div>
+
+
+    <script>
+        let modalBtns=languageSelect.querySelector('.modalBtn');
+        let idprd=languageSelect.querySelector('#idprd');
+        console.log(modalBtns);
+        console.log(idprd);
+
+        // modalBtn.addEventListener('click',function(){
+        //     var id = modalBtn.data('id');
+        //     idprd.value=id;
+        //     console.log(idprd.value);
+        // })
+
+          </script>
+
+
+
