@@ -52,6 +52,6 @@ Route::put('/notification/{id}',[App\Http\Controllers\NotificationController::cl
 
 
 // cart routes
-Route::get('/addToCart/{id}',[App\Http\Controllers\CartController::class, 'addToCart'])->name('addToCart');
+Route::get('/addToCart',[App\Http\Controllers\CartController::class, 'addToCart'])->name('addToCart');
 Route::get('/removeSessionProduct/{id}',[App\Http\Controllers\CartController::class, 'removeSessionProduct'])->name('removeSessionProduct');
 Route::get('/cart/',[App\Http\Controllers\CartController::class, 'index'])->name('cart.index');

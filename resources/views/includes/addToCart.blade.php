@@ -1,4 +1,4 @@
-<button class="modalBtn btn btn-outline-primary btn-sm mt-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
+<button  class="modalBtns btn btn-outline-primary btn-sm mt-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
     Add to cart
   </button>
   <div class="modal fade" id="myModal">
@@ -9,13 +9,12 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body d-flex justify-content-center">
-            <form method="GET" action="{{route('addToCart',['id'=>$product->id])}}">
-                @csrf
-                <input type="hidden" name="idprd" id="idprd" value="">
-                <button name="redirect" value="cart" class="btn btn-dark mt-2" type="submit" >
+            <form method="GET" action="{{route('addToCart')}}">
+                <input hidden  type="text" name="idprd" id="idprd" value="">
+                <button  name="redirect" value="cart" class="prdCart btn btn-dark mt-2" type="submit" >
                     View Shopping Cart
                   </button>
-                  <button name="redirect" value="back" class="btn btn-dark mt-2" type="submit">
+                  <button name="redirect" value="back" class="prdCart btn btn-dark mt-2" type="submit">
                     Continue Shopping
                   </button>
               </form>

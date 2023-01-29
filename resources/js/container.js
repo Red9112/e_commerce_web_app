@@ -149,5 +149,62 @@ deleteBtns.forEach(btn => {
  /*end id-4 */
 
 
+//-id:5-{--Views:dashboard && prod_show --}}
+// {{--inject product id insite the form modal--}}
+
+ function setCookie(name,value,hours) {
+    var expires = "";
+    if (hours) {
+        var date = new Date();
+        date.setTime(date.getTime() + (hours*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+  }
+   // {{{---get cookie of the product_id ---}}}
+ function getCookie(name) {
+    var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length === 2) return parts.pop().split(";").shift();
+  }
+
+  let modalBtns=document.querySelectorAll('.modalBtns');
+ if (modalBtns) {
+     modalBtns.forEach(btn => {
+         btn.addEventListener('click',function(){
+ setCookie('prod_send_to_cart', btn.dataset.id,1);
+         });
+         });
+ }
+
+ let prdCartBtns=document.querySelectorAll('.prdCart');
+ if (prdCartBtns) {
+    prdCartBtns.forEach(btn => {
+        btn.addEventListener('click',function(){
+            let input=document.getElementById("idprd");
+            let product_id = getCookie('prod_send_to_cart');
+            input.value=product_id;
+            });
+        });
+ }
+
+
+ /*end id-5 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

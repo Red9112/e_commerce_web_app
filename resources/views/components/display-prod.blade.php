@@ -69,19 +69,6 @@
     </div>
 
 
-    <script>
-        let modalBtns=languageSelect.querySelector('.modalBtn');
-        let idprd=languageSelect.querySelector('#idprd');
-        console.log(modalBtns);
-        console.log(idprd);
-
-        // modalBtn.addEventListener('click',function(){
-        //     var id = modalBtn.data('id');
-        //     idprd.value=id;
-        //     console.log(idprd.value);
-        // })
-
-          </script>
 
 
 

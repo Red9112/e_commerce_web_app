@@ -12,44 +12,43 @@ class CartController extends Controller
 
     public function index()
     {
-        //$cart = session()->get('cart');
-        //$products =$cart['product_id'];
-        //dd($products);
-        $products = Product::whereIn('id', $products)->get();
-        dd($products);
+        $cart = session()->get('cart');
+        $products = Product::whereIn('id', $cart['product_id'])->get();
         return view('cart',[
             'products'=>$products
         ]);
     }
-        public function addToCart(Request $request,$id)
+        public function addToCart(Request $request)
         {
-           // Session::forget('cart');
-            //dd($data = Session::all());
-           //if (isset($cart['product_id'])){} test existance of seesion key
-dd($request->idprd);
-           $cart = session()->get('cart');
+// Session::forget('cart');
+//dd($data = Session::all());
+ //if (isset($cart['product_id'])){} test existance of seesion key
+
+            $product_to_cart=$request->idprd;
+            $cart = session()->get('cart');
+            $products =$cart['product_id'];
             if(!$cart) {
                 $cart = [
                     "product_id" => [
-                        $id
+                        $product_to_cart
                     ],
                             ];
                             session()->put('cart', $cart);
-                            $request->session()->flash('status',' product added to chart !!');
+                            $request->session()->flash('status',' product added to cart !!');
                         }
 
                         else{
                             $cartProductsIds =collect($cart['product_id']);
-                            if(!($cartProductsIds->contains(function ($item) use ($id) { return $item === $id;}))) {
-                                    $cart['product_id'][]=$id;
+                            if(!($cartProductsIds->contains(function ($item) use ($product_to_cart) { return $item === $product_to_cart;}))) {
+                                    $cart['product_id'][]=$product_to_cart;
                                     session()->put('cart', $cart);
-                                    $request->session()->flash('status',' product added to chart !!');
+                                    $request->session()->flash('status',' product added to cart !!');
                                 }
                                 else{
-                                    $request->session()->flash('status',' product already in chart !!');
+                                    $request->session()->flash('status',' product already in cart !!');
                                 }
                         }
-                        if($request->redirectInput=="cart") return redirect()->route('cart.index');
+                        if($request->redirect=="cart") return redirect()->route('cart.index');
                         else return redirect()->back();
                     }
 
@@ -60,7 +59,7 @@ dd($request->idprd);
                         $product_id = array_search($id, $cart["product_id"]);
                         unset($cart["product_id"][$product_id]);
                          session()->put('cart', $cart);
-                         $request->session()->flash('failed',' product removed from chart !!');
+                         $request->session()->flash('failed',' product removed from cart !!');
                          return redirect()->back();
 
                     }
