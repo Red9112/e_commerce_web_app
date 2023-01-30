@@ -54,4 +54,9 @@ Route::put('/notification/{id}',[App\Http\Controllers\NotificationController::cl
 // cart routes
 Route::get('/addToCart',[App\Http\Controllers\CartController::class, 'addToCart'])->name('addToCart');
 Route::get('/removeSessionProduct/{id}',[App\Http\Controllers\CartController::class, 'removeSessionProduct'])->name('removeSessionProduct');
+//>>>cart in session
 Route::get('/cart/',[App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
+//>>>cart in database
+Route::get('/wishlist/',[App\Http\Controllers\CartController::class, 'indexWishlist'])->name('wishlist.index');
+Route::get('/wishlist/{id}',[App\Http\Controllers\CartController::class, 'storeWishlist'])->name('wishlist.store');
+Route::get('/wishlist/{id}',[App\Http\Controllers\CartController::class, 'destroyWishlist'])->name('wishlist.destroy');
