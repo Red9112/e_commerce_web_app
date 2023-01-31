@@ -1,0 +1,29 @@
+/* ----{-index cart view-} */
+.title {
+    font-size: 3em;
+    font-weight: bold;
+    color: #333;
+  }
+  /* ----{-views  =>[index cart,wishlist] -} */
+  .price-value {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: green;
+  }
+
+  .product-title {
+    font-weight: bolder;
+    font-size: 1.5em;
+    letter-spacing: 2px;
+    color: #333;
+  }
+  .prd_cart_info{
+      color: #333;
+      font-weight: bold;
+      letter-spacing: 2px;
+      word-spacing: 5px ;
+  }
+  #quantity{
+      width: 100px;
+max-width: fit-content;
+  }

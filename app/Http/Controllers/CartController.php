@@ -15,10 +15,8 @@ class CartController extends Controller
     {
         $cartSession = session()->get('cart');
        ($cartSession)? $products = Product::whereIn('id',$cartSession['product_id'])->get():$products =null;
-       $cartWishlist=auth()->user()->cart->products;
         return view('cart',[
             'products'=>$products,
-            'cartWishlist'=>$cartWishlist
         ]);
     }
         public function addToCart(Request $request)
@@ -26,7 +24,7 @@ class CartController extends Controller
 // Session::forget('cart');
 //dd($data = Session::all());
  //if (isset($cart['product_id'])){} test existance of seesion key
-//            $products =$cart['product_id'];
+// $products =$cart['product_id'];
             $product_to_cart=$request->idprd;
             $cart = session()->get('cart');
             if(!$cart) {
@@ -66,34 +64,6 @@ class CartController extends Controller
 
                     }
 
-                    // Wishlist:
-
-                    public function indexWishlist()
-                    {
-                 $products=Cart::all();
-                 return view('cart',[
-                    'products'=>$products
-                ]);
-
-                    }
-
-                    public function storeWishlist(Request $request,$id)
-                    {
-              $cart=auth()->user()->cart;
-              ($cart==null)?$cart=Cart::create(['user_id'=>auth()->id()]):null;
-              $cart->products()->syncWithoutDetaching([$id]);
-              $request->session()->flash('status',' product added to Wishlist !!');
-              return redirect()->back();
-                    }
-
-
-                    public function destroyWishlist(Request $request,$id)
-                    {
-                        $cart=auth()->user()->cart;
-                        $cart->products()->detach($id);
-                         $request->session()->flash('failed',' product removed from Wishlist !!');
-                         return redirect()->back();
-                    }
 
 
 

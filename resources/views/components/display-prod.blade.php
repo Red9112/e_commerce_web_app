@@ -54,9 +54,9 @@
                       <h6 class="text-success">Free shipping</h6>
                       <div class="d-flex flex-column mt-4">
                         <a href="{{route('product.show',['product'=>$product->id])}}" class="btn btn-primary btn-sm" type="button">Details</a>
+                        @auth
                         @include('includes.addToCart')
-                        <a href="{{route('wishlist.store',['id'=>$product->id])}}" class="btn btn-primary btn-sm" type="button"> save for later</a>
-
+                        @endauth
                       </div>
                     </div>
                   </div>

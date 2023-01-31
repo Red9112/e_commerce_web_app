@@ -1,7 +1,9 @@
-<button  class="modalBtns btn btn-outline-primary btn-sm mt-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
+<button  class="modalBtns btn btn-outline-primary btn-sm my-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
     Add to cart
   </button>
   <div class="modal fade" id="myModal">
+
+
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -25,4 +27,5 @@
       </div>
     </div>
   </div>
+  <a href="{{route('wishlist.store',['id'=>$product->id])}}" class="btn btn-primary btn-sm" type="button"> save for later</a>
 
