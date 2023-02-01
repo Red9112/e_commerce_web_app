@@ -51,11 +51,14 @@ public const LANGUAGE=[
     public function adresses(){
         return $this->hasMany('App\Models\Adress');
     }
+    public function payments(){
+        return $this->hasMany('App\Models\Payment');
+    }
     public function shop(){
         return $this->hasOne('App\Models\Shop');
     }
-    public function cart(){
-        return $this->hasOne('App\Models\Cart');
+    public function Wishlist(){
+        return $this->hasOne('App\Models\Wishlist');
     }
     public function blogs(){
         return $this->hasMany('App\Models\Blog');

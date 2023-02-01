@@ -31,8 +31,8 @@ class Product extends Model
     public function shop(){
         return $this->belongsTo('App\Models\Shop');
     }
-    public function carts(){
-        return $this->belongsToMany('App\Models\Chart');
+    public function wishlists(){
+        return $this->belongsToMany('App\Models\Wishlist');
     }
 
 public function categories()

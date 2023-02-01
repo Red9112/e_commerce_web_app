@@ -26,7 +26,7 @@ class StoreProductRequest extends FormRequest
         return [
            'sku'=>'required',
            'name'=>'required',
-           'price'=>'required|integer',
+           'price'=>'required|numeric',
            'qty_in_stock'=>'integer',
            'category_id'=>'required',
            'picture'=>'image|mimes:jpeg,jpg,svg,png|max:1024|'
