@@ -34,7 +34,13 @@
             <a   class="nav-link" href="{{route('discount.index')}}">Discounts</a>
           </li>
           <li class="nav-item">
+            <a   class="nav-link" href="{{route('address.index')}}">Address</a>
+          </li>
+          <li class="nav-item">
             <a   class="nav-link" href="{{route('shipping.index')}}">Shipping</a>
+          </li>
+          <li class="nav-item">
+            <a   class="nav-link" href="{{route('orderStatus.index')}}">Order Status</a>
           </li>
           <li class="nav-item">
             <a   class="nav-link" href="{{route('role.index')}}">Roles</a>

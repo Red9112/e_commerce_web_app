@@ -48,8 +48,8 @@ public const LANGUAGE=[
     ];
 
     //Relations:
-    public function adresses(){
-        return $this->hasMany('App\Models\Adress');
+    public function addresses(){
+        return $this->hasMany('App\Models\Address');
     }
     public function payments(){
         return $this->hasMany('App\Models\Payment');

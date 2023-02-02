@@ -54,9 +54,9 @@ Route::put('/notification/{id}',[App\Http\Controllers\NotificationController::cl
 // cart routes
 Route::get('/addToCart',[App\Http\Controllers\CartController::class, 'addToCart'])->name('addToCart');
 Route::get('/removeSessionProduct/{id}',[App\Http\Controllers\CartController::class, 'removeSessionProduct'])->name('removeSessionProduct');
-//>>>cart in session
+//>>>cart
 Route::get('/cart/',[App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
-//>>>cart in database
+//>>>wishlist
 Route::get('/wishlist/',[App\Http\Controllers\WishlistController::class, 'index'])->name('wishlist.index');
 Route::get('/destroyWishlist/{id}',[App\Http\Controllers\WishlistController::class, 'destroy'])->name('wishlist.destroy');
 Route::get('/storeWishlist/{id}',[App\Http\Controllers\WishlistController::class, 'store'])->name('wishlist.store');
@@ -65,3 +65,12 @@ Route::get('/storeWishlist/{id}',[App\Http\Controllers\WishlistController::class
 Route::resource('/discount','App\Http\Controllers\DiscountController')->only(['index','store','edit','update','destroy']);
 //Shipping
 Route::resource('/shipping','App\Http\Controllers\ShippingController')->only(['index','store','edit','update','destroy']);
+
+//order_status
+Route::resource('/orderStatus','App\Http\Controllers\OrderStatusController')->only(['index','store','edit','update','destroy']);
+//adress
+Route::resource('/address','App\Http\Controllers\AddressController')->only(['index','create','store','edit','update','destroy']);
+
+
+Route::post('/checkout_process', [App\Http\Controllers\CartController::class, 'checkout_process'])->name('checkout_process');
+

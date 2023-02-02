@@ -19,6 +19,26 @@ class CartController extends Controller
             'products'=>$products,
         ]);
     }
+
+    public function checkout_process(Request $request){
+
+        $productIds = $request->input('products', []);
+        $selectedQuantities = $request->input('quantity', []);
+        $selectedQuantities = array_filter($selectedQuantities, function ($productId) use ($productIds) {
+            return in_array($productId, $productIds);
+        }, ARRAY_FILTER_USE_KEY);
+    $products = Product::whereIn('id', $productIds)->get();
+return view('checkout_process',[
+    'products'=>$products,
+]);
+    }
+
+
+
+
+
+
+
         public function addToCart(Request $request)
         {
 // Session::forget('cart');
