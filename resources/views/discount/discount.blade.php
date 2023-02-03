@@ -9,6 +9,7 @@
 <div class="d-flex flex-row justify-content-between">
 <div class="w-50 mx-5 my-3">
 <h2>List of Discounts :</h2>
+<a type="button" class=" btn btn-outline-info btn-lg" href="{{route('discount.create')}}">+</a>
   <table class="table">
     <thead>
       <tr>
@@ -29,6 +30,7 @@
   @method('DELETE')
   <button class="btn btn-danger" type="submit" >Delete </button>
  </form>
+ <a type="button" class="btn btn-info mx-2" href="{{route('affect_to_products',['disId'=>$item->id])}}">Affect</a>
 </div>
       {{--END_Actions--}}
         </td>
@@ -42,55 +44,61 @@
 
 {{-- End index --}}
 
-{{-- Create Discount --}}
+
+{{-- Create --}}
 
 <div class="w-25 mx-5">
-  <h2>Discount :</h2>
-  <button type="button" id="createBtn" class=" btn btn-outline-info btn-lg">+</button>
-  <form style="display: none" id="createForm" method="POST" action="{{route('discount.store')}}" enctype="multipart/form-data" >
-    @csrf
-    <div class="mb-3 mt-3">
-      <label for="code">Code</label>
-        <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" value="{{old('code')}}" name="code">
-        <x-errors name="code"></x-errors>
+    <h2>Create Discount Type :</h2>
+    <button type="button" id="createBtn" class=" btn btn-outline-info btn-lg">+</button>
+    <form style="display: none" id="createForm" method="POST" action="{{route('discount_type.store')}}" enctype="multipart/form-data" >
+      @csrf
+
+        <div class="mb-3 mt-3">
+          <label for="name">Name</label>
+            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{old('name')}}" name="name">
+            <x-errors name="name"></x-errors>
+          </div>
+            <div class="form-group mb-3 mt-3">
+              <label for="description">Description: </label>
+             <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+            </div>
+        <button type="submit" class="btn btn-primary">create</button>
+      </form>
+      <div class="col-md-6">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Loop through saved products -->
+            @foreach ($types as $type)
+              <tr>
+                <td>{{$type->name}}</td>
+                <td>{{$type->description}}</td>
+                <td>
+                 <div class="d-inline-flex">
+                  <a type="button" class="btn btn-success mx-2" href="{{route('discount_type.edit',['discount_type'=>$type->id])}}">Edit</a>
+             <form class="form-inline" method="POST" action="{{route('discount_type.destroy',['discount_type'=>$type->id])}}">
+              @csrf
+                  @method('DELETE')
+                   <button class="btn btn-danger" type="submit" >del</button>
+                   </form>
+                   </div>
+
+            </td>
+            </tr>
+              @endforeach
+          </tbody>
+        </table>
       </div>
-      <div class="mb-3 mt-3">
-        <label for="name">Name</label>
-          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{old('name')}}" name="name">
-          <x-errors name="name"></x-errors>
-        </div>
-            <div class="mb-3 mt-3">
-                <label for="">Type</label>
-                  <input type="text" class="form-control @error('type') is-invalid @enderror" id="type" value="{{old('type')}}" name="type">
-                  <x-errors name="type"></x-errors>
-                </div>
-                <div class="mb-3 mt-3">
-                    <label for="">Value Or Percent</label>
-                      <input type="number" class="form-control @error('value_percent') is-invalid @enderror" id="value_percent" value="{{old('value_percent')}}" name="value_percent">
-                      <x-errors name="value_percent"></x-errors>
-                    </div>
-                    <div class="mb-3 mt-3">
-                        <label for="">Description</label>
-                        <textarea class="form-control" rows="5" id="description" value="{{old('description')}}" name="description"></textarea>
-                          <x-errors name="description"></x-errors>
-                        </div>
-                        <div class="mb-3 mt-3">
-                            <label for="">Start Date</label>
-                              <input type="date" class="form-control @error('start_date') is-invalid @enderror" id="start_date" value="{{old('start_date')}}" name="start_date">
-                              <x-errors name="start_date"></x-errors>
-                            </div>
-                            <div class="mb-3 mt-3">
-                                <label for="">Expired Date</label>
-                                  <input type="date" class="form-control @error('end_date') is-invalid @enderror" id="end_date" value="{{old('end_date')}}" name="end_date">
-                                  <x-errors name="end_date"></x-errors>
-                                </div>
+    </div>
 
-      <button type="submit" class="btn btn-primary">create</button>
-    </form>
 
-  </div>
-
-  {{-- End Create Discount --}}
+    {{-- End Create --}}
 </div>
 
 

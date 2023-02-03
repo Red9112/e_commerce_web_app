@@ -26,7 +26,7 @@ class CartController extends Controller
         $selectedQuantities = $request->input('quantity', []);
         $selectedQuantities = array_filter($selectedQuantities, function ($productId) use ($productIds) {
             return in_array($productId, $productIds);
-        }, ARRAY_FILTER_USE_KEY);
+        });
     $products = Product::whereIn('id', $productIds)->get();
 return view('checkout_process',[
     'products'=>$products,

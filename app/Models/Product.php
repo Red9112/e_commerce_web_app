@@ -34,6 +34,10 @@ class Product extends Model
     public function wishlists(){
         return $this->belongsToMany('App\Models\Wishlist');
     }
+    public function discounts()
+    {
+        return $this->belongsToMany('App\Models\Discount');
+    }
 
 public function categories()
 {

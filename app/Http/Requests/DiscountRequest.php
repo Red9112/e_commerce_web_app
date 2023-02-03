@@ -17,8 +17,8 @@ class DiscountRequest extends FormRequest
         return [
             'code'=>'required|min:3',
             'name'=>'required',
-            'type'=>'required|string',
-            'value_percent'=>'required|integer',
+            'discount_type_id'=>'required',
+            'value'=>'required|numeric',
          ];
     }
 }

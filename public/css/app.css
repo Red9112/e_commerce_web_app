@@ -52,6 +52,12 @@ max-width: -moz-fit-content;
 max-width: fit-content;
   }
 
+  /* {{{css for checkbox field---- Views:cart.index}}} */
+.selectProduct {
+    width: 30px;
+    height: 30px;
+}
+
 /* {{{css for header:}}} */
 .header{
 height: 45px;
@@ -69,11 +75,7 @@ font-weight: 450;
 body{
     box-sizing: border-box;
 }
-/* {{{css for checkbox field---- Views:cart.index}}} */
-input[type="checkbox"] {
-    width: 30px;
-    height: 30px;
-}
+
 
 
 

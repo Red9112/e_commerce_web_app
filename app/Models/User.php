@@ -57,6 +57,9 @@ public const LANGUAGE=[
     public function shop(){
         return $this->hasOne('App\Models\Shop');
     }
+    public function discounts(){
+        return $this->hasMany('App\Models\Discount');
+     }
     public function Wishlist(){
         return $this->hasOne('App\Models\Wishlist');
     }

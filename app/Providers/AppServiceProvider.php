@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
      view()->composer('blogs.sidebar',ActivityComposer::class);
-     view()->composer(['includes.menu','Category.category'],CategoryComposer::class);
+     view()->composer(['includes.menu','Category.category','discount.affect_to_products'],CategoryComposer::class);
 
     //  view()->composer('*',ActivityComposer::class); ==>>>to inject data in all the views
     Comment::observe(CommentObserver::class);
