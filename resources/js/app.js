@@ -6,6 +6,7 @@ require('./bootstrap');
 require('./products');
 require('./users');
 require('./container');
+require('./discount');
 
 
 

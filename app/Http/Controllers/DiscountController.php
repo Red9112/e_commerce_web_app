@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Category;
 use App\Models\Discount;
 use App\Models\DiscountType;
 use Illuminate\Http\Request;
@@ -28,8 +29,33 @@ class DiscountController extends Controller
             'products'=>$products,
         ]);
     }
-    public function discount_product()
+    public function discount_product(Request $request,$id)
     {
+        $discount=Discount::findOrfail($id);
+        $user=auth()->user();
+        if($request->applyToAll){
+            $products=collect($user->shop->products);
+            $productsIds=$products->pluck('id');
+            $discount->products()->syncWithoutDetaching($productsIds);
+            $request->session()->flash('status',"The discount affected to all products !! ");
+        }
+        elseif($request->input('products', [])){
+            $productsIds=$request->input('products', []);
+            $discount->products()->syncWithoutDetaching($productsIds);
+            $request->session()->flash('status',"The discount  affected to selected products !! ");
+        }
+        elseif($request->input('cats', [])){
+            $categoriesIds=$request->input('cats', []);
+            $categories=Category::where('id', $categoriesIds)->get();
+            foreach ($categories as $cat) {
+                $productsIds=collect($cat->products)->pluck('id');
+                $discount->products()->syncWithoutDetaching($productsIds);
+            }
+            $request->session()->flash('status',"The discount affected to products by selected categories !! ");
+        }
+
+        else $request->session()->flash('failed',"The discount doesn't affected to any product !! ");
+
         return redirect()->route('discount.index');
     }
     public function index()

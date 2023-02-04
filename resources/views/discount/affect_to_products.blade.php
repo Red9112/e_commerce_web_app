@@ -4,13 +4,12 @@
 @endsection
 @section('content')
 
-<div class=" p-3 my-3 mx-5 w-50 ">
+<div class="p-3 my-3 mx-5 w-50 ">
 <h2>Affect discount to products:</h2>
-<h3>discount name :<span class="badge bg-secondary">{{$discount->name}}</span></h3>
-
-
-<button type="button" id="createBtn" class=" btn btn-outline-info btn-lg">all products</button>
-<form method="POST" action="{{route('discount_product')}}" enctype="multipart/form-data" >
+<h3>discount name :<span class="badge bg-success">{{$discount->name}}</span></h3>
+<div class="my-3 p-2">
+<button type="button" id="disAllProducts" class=" btn btn-outline-info btn-lg mx-2">all products</button>
+<form id="disAllProdForm" style="display:none" method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
     <div class="mx-5 my-4 p-3 bg-light rounded w-50 border">
 <div class="form-check">
     <h4>
@@ -23,10 +22,10 @@
 </form>
 
 
-<button type="button" id="createBtn" class=" btn btn-outline-info btn-lg">specify products</button>
-<div   class="d-flex mx-5 my-4 p-3 bg-light text-white rounded w-50 border">
-    <form style="display: none" id="createForm" method="POST" action="{{route('discount_product')}}" enctype="multipart/form-data" >
-        @csrf
+<button type="button" id="disSpecific" class=" btn btn-outline-info btn-lg ">specify products</button>
+<form id="disSpecificForm" style="display:none"  method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
+    @csrf
+    <div   class=" mx-5 my-4 p-3 bg-light text-white rounded w-50 border">
           <div class="col-md-12">
             <table class="table">
               <thead>
@@ -48,16 +47,14 @@
               </tbody>
             </table>
           </div>
-
           <button type="submit" class="btn btn-success">affect</button>
-        </form>
-    </div>
+        </div>
+    </form>
 
-
-    <button type="button" id="" class=" btn btn-outline-info btn-lg">add by category</button>
-    <div   class="d-flex mx-5 my-4 p-3 bg-light text-white rounded w-50 border">
-        <form  id="" method="POST" action="{{route('discount_product')}}" enctype="multipart/form-data" >
-            @csrf
+    <button type="button" id="disByCatgr" class=" btn btn-outline-info btn-lg mx-2">add by category</button>
+    <form  id="disByCatgrForm" style="display: none"  method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
+        @csrf
+        <div   class="mx-5 my-4 p-3 bg-light text-white rounded w-50 border">
               <div class="col-md-12">
                 <table class="table">
                   <thead>
@@ -81,8 +78,8 @@
               </div>
 
               <button type="submit" class="btn btn-success">affect</button>
+            </div>
             </form>
-        </div
 
 
 
@@ -97,13 +94,6 @@
 
 
 
-
-
-
-
-
-
-
-
+        </div>
     </div>
 @endsection

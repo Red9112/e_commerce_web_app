@@ -64,7 +64,8 @@ Route::get('/storeWishlist/{id}',[App\Http\Controllers\WishlistController::class
 //Discount
 Route::resource('/discount','App\Http\Controllers\DiscountController')->only(['index','create','store','edit','update','destroy']);
 Route::get('/affect_to_products/{disId}',[App\Http\Controllers\DiscountController::class, 'affect_to_products'])->name('affect_to_products');
-Route::get('/discount_product',[App\Http\Controllers\DiscountController::class, 'discount_product'])->name('discount_product');
+Route::get('/discount_product/{discountId}',[App\Http\Controllers\DiscountController::class, 'discount_product'])->name('discount_product');
+
 //Discount Type
 Route::resource('/discount_type','App\Http\Controllers\DiscountTypeController')->only(['index','store','edit','update','destroy']);
 

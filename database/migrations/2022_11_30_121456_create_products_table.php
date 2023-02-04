@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateProductsTable extends Migration
 {
-    /** 
+    /**
      * Run the migrations.
      *
      * @return void
@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->integer('qty_in_stock')->nullable();
             $table->double('price');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->foreignId('shop_id')->constrained();
             $table->timestamps();
         });
