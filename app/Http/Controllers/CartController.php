@@ -26,11 +26,43 @@ class CartController extends Controller
         $selectedQuantities = $request->input('quantity', []);
         $selectedQuantities = array_filter($selectedQuantities, function ($productId) use ($productIds) {
             return in_array($productId, $productIds);
-        });
+        },ARRAY_FILTER_USE_KEY);
     $products = Product::whereIn('id', $productIds)->get();
+    $totalOrderPrice=0;
+    $quantitiesWithOffer=$selectedQuantities;
+foreach ($products as $product) {
+    $discounts=$product->discounts;
+    $quantity = $selectedQuantities[$product->id];
+    $disPrice=0;
+    foreach ($discounts as $discount){
+        if($discount->discount_type->name=="percent"){
+
+        $disPrice+=$discount->percent($product->price);
+        }
+    }
+    foreach ($discounts as $discount){
+        if($discount->discount_type->name=="fixed"){
+            $disPrice+=$discount->value;
+        }
+    }
+    $productPrice=($product->price-$disPrice)*$quantity;
+    foreach ($discounts as $discount){
+     $quantitiesWithOffer[$product->id]=$discount->get_one_free($quantity);//order quantity after apply discount
+     }
+    $productsPrices[$product->id]=$productPrice;
+    $totalOrderPrice+=$productPrice;
+    }
+
+
+
 return view('checkout_process',[
     'products'=>$products,
+    'totalOrderPrice'=>$totalOrderPrice,
+    'selectedQuantities'=>$selectedQuantities,
+    'quantitiesWithOffer'=>$quantitiesWithOffer,
+    'productsPrices'=>$productsPrices,
 ]);
+
     }
 
 

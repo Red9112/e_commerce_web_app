@@ -4,17 +4,17 @@
 @endsection
 @section('content')
 
-<div class="p-3 my-3 mx-5 w-50 ">
+<div class="p-3 my-3 mx-5 w-75 ">
 <h2>Affect discount to products:</h2>
 <h3>discount name :<span class="badge bg-success">{{$discount->name}}</span></h3>
 <div class="my-3 p-2">
-<button type="button" id="disAllProducts" class=" btn btn-outline-info btn-lg mx-2">all products</button>
-<form id="disAllProdForm" style="display:none" method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
+<button type="button" id="my_products" class=" btn btn-outline-info btn-lg mx-2">My products</button>
+<form id="my_productsForm" style="display:none" method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
     <div class="mx-5 my-4 p-3 bg-light rounded w-50 border">
 <div class="form-check">
     <h4>
-<input class="selectProduct form-check-input" type="checkbox" name="applyToAll" value="1">
-<label for="applyToAll">Apply this discount to all products</label>
+<input class="selectProduct form-check-input" type="checkbox" name="my_products" value="1">
+<label for="my_products">Apply this discount to my  all products</label>
     </h4>
 </div>
 <button type="submit" class="btn btn-success">affect</button>
@@ -80,7 +80,49 @@
               <button type="submit" class="btn btn-success">affect</button>
             </div>
             </form>
+{{-- Admin Discount: --}}
+<button type="button" id="disAllProducts" class=" btn btn-outline-warning btn-lg mx-2">all products</button>
+<form id="disAllProdForm" style="display:none" method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
+    <div class="mx-5 my-4 p-3 bg-light rounded w-50 border">
+<div class="form-check">
+    <h4>
+<input class="selectProduct form-check-input" type="checkbox" name="applyToAll" value="1">
+<label for="applyToAll">Apply this discount to all products</label>
+    </h4>
+</div>
+<button type="submit" class="btn btn-success">affect</button>
+    </div>
+</form>
 
+    <button type="button" id="disByCatgrToAllPrd" class=" btn btn-outline-warning btn-lg mx-2">By category (all products)</button>
+    <form  id="disByCatgrToAllPrdForm" style="display: none"  method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
+        @csrf
+        <div   class="mx-5 my-4 p-3 bg-light text-white rounded w-50 border">
+              <div class="col-md-12">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                 @foreach ($categories  as $cat)
+                      <tr>
+                        <td>
+                           <div class="form-check">
+                                <input class="selectProduct form-check-input" type="checkbox" name="catsToAll[]" value="{{ $cat->id }}">
+                             <label>{{$cat->name}}</label>
+                            </div>
+                        </td>
+                    </tr>
+                      @endforeach
+                  </tbody>
+                </table>
+              </div>
+
+              <button type="submit" class="btn btn-success">affect</button>
+            </div>
+            </form>
 
 
 

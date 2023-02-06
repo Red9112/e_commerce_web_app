@@ -30,6 +30,25 @@ if (disByCatgr && disByCatgrForm) {
   });
 
 }
+let my_products=document.querySelector("#my_products");
+let my_productsForm=document.querySelector("#my_productsForm");
+if (my_products && my_productsForm) {
+    my_products.addEventListener("click",function(){
+ (my_productsForm.style.display=="inline")?my_productsForm.style.display="none":my_productsForm.style.display="inline";
+
+  });
+
+}
+let disByCatgrToAllPrd=document.querySelector("#disByCatgrToAllPrd");
+let disByCatgrToAllPrdForm=document.querySelector("#disByCatgrToAllPrdForm");
+if (disByCatgrToAllPrd && disByCatgrToAllPrdForm) {
+    disByCatgrToAllPrd.addEventListener("click",function(){
+ (disByCatgrToAllPrdForm.style.display=="inline")?disByCatgrToAllPrdForm.style.display="none":disByCatgrToAllPrdForm.style.display="inline";
+
+  });
+
+}
+
 
 //=============End ==>{id-1}=============
 

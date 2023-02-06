@@ -11,4 +11,9 @@ class DiscountType extends Model
     protected $fillable = [
         'name','description',
     ];
+
+
+    public function discounts(){
+        return $this->hasMany('App\Models\Discount');
+     }
 }

@@ -7,20 +7,36 @@
 
 {{-- index --}}
 <div class="d-flex flex-row justify-content-between">
-<div class="w-50 mx-5 my-3">
+<div class="w-75 mx-5 my-3">
 <h2>List of Discounts :</h2>
 <a type="button" class=" btn btn-outline-info btn-lg" href="{{route('discount.create')}}">+</a>
-  <table class="table">
+  <table class="table text-center">
     <thead>
       <tr>
+        <th>Code</th>
         <th>Name</th>
+        <th>Type</th>
+        <th>Discount creator</th>
+        <th>Value</th>
+        <th>Description</th>
+        <th>start date</th>
+        <th>end date</th>
+        <th>Expired</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       @foreach ($discounts as $item)
       <tr>
+        <td>{{$item->code}}</td>
         <td>{{$item->name}}</td>
+        <td>{{$item->discount_type->name}}</td>
+        <td><a class="btn" href="{{route('user.show',['user'=>$item->user->id])}}">{{$item->user->name}}</a></td>
+        <td>{{$item->value}}</td>
+        <td>{{$item->description ?? 'undefined'}}</td>
+        <td> {{$item->start_date ?? 'undefined'}}</td>
+        <td>{{$item->end_date ?? 'undefined'}}</td>
+        <td>{{ ($item->expired)?'true':'false'}}</td>
         <td>
 {{--Actions--}}
 <div class="d-inline-flex">
