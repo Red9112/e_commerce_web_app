@@ -53,3 +53,29 @@ if (disByCatgrToAllPrd && disByCatgrToAllPrdForm) {
 //=============End ==>{id-1}=============
 
 
+//-id:2-{--Views:cart --}}
+// {{--display && hide discount card--}}
+let discountDropdown=document.querySelectorAll(".discountDropdown");
+console.log(discountDropdown);
+discountDropdown.forEach(elm => {
+    let divNext=elm.nextElementSibling;
+    console.log(divNext);
+    elm.addEventListener("mouseover",function(){
+        (divNext.style.display=="inline")?divNext.style.display="none":divNext.style.display="inline";
+         });
+         elm.addEventListener("mouseout",function(){
+        (divNext.style.display=="inline")?divNext.style.display="none":divNext.style.display="inline";
+         });
+});
+
+//=============End ==>{id-2}=============
+
+//-id:3-{--Views:checkout_process --}}
+// {{--display && hide discounts details--}}
+let discountsDetailsBtn=document.querySelector("#discountsDetailsBtn");
+let discountsDetailsTable=document.querySelector("#discountsDetailsTable");
+discountsDetailsBtn.addEventListener("click",function(){
+    (discountsDetailsTable.style.display=="inline")?discountsDetailsTable.style.display="none":discountsDetailsTable.style.display="inline";
+     });
+//=============End ==>{id-3}=============
+

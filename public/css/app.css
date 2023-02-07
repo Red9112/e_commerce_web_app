@@ -10879,6 +10879,24 @@ max-width: fit-content;
     height: 30px;
 }
 
+/* ----{-View:checkout_process -} */
+#totalPriceCard{
+    background-color: bisque;
+    letter-spacing: 2px;
+    font-family:  'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#discountsDetailsTable{
+    background-color: azure;
+}
+
+#discountsDetailsBtn{
+    font-size: 20px;
+    font-family: Verdana;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
 /* {{{css for header:}}} */
 .header{
 height: 45px;

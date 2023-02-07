@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Shipping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -13,62 +14,14 @@ class CartController extends Controller
 
     public function index()
     {
+        $shipping=Shipping::all();
         $cartSession = session()->get('cart');
-       ($cartSession)? $products = Product::whereIn('id',$cartSession['product_id'])->get():$products =null;
+       ($cartSession)? $products = Product::whereIn('id',$cartSession['product_id'])->with('discounts')->get():$products =null;
         return view('cart',[
             'products'=>$products,
+            'shipping'=>$shipping,
         ]);
     }
-
-    public function checkout_process(Request $request){
-
-        $productIds = $request->input('products', []);
-        $selectedQuantities = $request->input('quantity', []);
-        $selectedQuantities = array_filter($selectedQuantities, function ($productId) use ($productIds) {
-            return in_array($productId, $productIds);
-        },ARRAY_FILTER_USE_KEY);
-    $products = Product::whereIn('id', $productIds)->get();
-    $totalOrderPrice=0;
-    $quantitiesWithOffer=$selectedQuantities;
-foreach ($products as $product) {
-    $discounts=$product->discounts;
-    $quantity = $selectedQuantities[$product->id];
-    $disPrice=0;
-    foreach ($discounts as $discount){
-        if($discount->discount_type->name=="percent"){
-
-        $disPrice+=$discount->percent($product->price);
-        }
-    }
-    foreach ($discounts as $discount){
-        if($discount->discount_type->name=="fixed"){
-            $disPrice+=$discount->value;
-        }
-    }
-    $productPrice=($product->price-$disPrice)*$quantity;
-    foreach ($discounts as $discount){
-     $quantitiesWithOffer[$product->id]=$discount->get_one_free($quantity);//order quantity after apply discount
-     }
-    $productsPrices[$product->id]=$productPrice;
-    $totalOrderPrice+=$productPrice;
-    }
-
-
-
-return view('checkout_process',[
-    'products'=>$products,
-    'totalOrderPrice'=>$totalOrderPrice,
-    'selectedQuantities'=>$selectedQuantities,
-    'quantitiesWithOffer'=>$quantitiesWithOffer,
-    'productsPrices'=>$productsPrices,
-]);
-
-    }
-
-
-
-
-
 
 
         public function addToCart(Request $request)

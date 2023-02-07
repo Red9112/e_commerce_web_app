@@ -11,8 +11,18 @@
  </div>
   </div>
   <h1 class="mx-5 my-5 title">Cart:</h1>
-  <form action="{{route('checkout_process')}}" method="POST">
+  <form action="{{route('checkout_process_discount')}}" method="POST">
   @csrf
+  <div class="d-flex mx-5 my-4 p-3 bg-light text-dark rounded w-50 border">
+    <label class="py-1 mx-3" for="shipping"><h5>Shipping: </h5> </label>
+    <select class="form-select @error('shipping') is-invalid @enderror" id="shipping" name="shipping">
+    <option  selected disabled hidden>Choose Shipping method</option>
+    @foreach ($shipping as $item)
+    <option value="{{$item->id}}">{{$item->name}}</option>
+    @endforeach
+    </select>
+  <x-errors name="shipping"></x-errors>
+  </div>
   @foreach ($products as $product)
   <div class="d-flex mx-5 my-4 p-3 bg-light text-white rounded w-50 border">
     <div class="form-check">
@@ -38,6 +48,33 @@
             <svg width="35px" height="35px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" stroke-width="3" stroke="red" fill="none"><path d="M9.06,25C7.68,17.3,12.78,10.63,20.73,10c7-.55,10.47,7.93,11.17,9.55a.13.13,0,0,0,.25,0c3.25-8.91,9.17-9.29,11.25-9.5C49,9.45,56.51,13.78,55,23.87c-2.16,14-23.12,29.81-23.12,29.81S11.79,40.05,9.06,25Z"/></svg>
             </a>
             </div>
+
+ <div class="dropdown dropend">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+      Available Discounts
+    </button>
+    <ul class="dropdown-menu">
+        @forelse ($product->discounts as $discount)
+        <li class="discountDropdown"><h4><span class="dropdown-item bg-light text-dark text-center" >{{$discount->name}}:</span></h4></li>
+        <div style="display: none" class="card w-100 bg-secondary">
+            <div class="card-body">
+              <h5 class="card-title">Value: <strong>{{$discount->value}}</strong>, Type: <strong>{{$discount->discount_type->name}}</strong></h5>
+              <h5><p class="card-text"><strong>{{$discount->code}}</strong></p></h5>
+              <span  class="card-link">Start:<strong>{{$discount->start_date ?? 'undefined'}}</strong></span>
+              <span  class="card-link">End:<strong> {{$discount->end_date ?? 'undefined'}}</strong></span>
+            </div>
+          </div>
+        @empty
+        <li><span class="dropdown-item disabled" href="#">No available discounts</span></li>
+        @endforelse
+    </ul>
+  </div>
+
+
+
+
+
+
     </div>
   </div>
 
@@ -45,6 +82,7 @@
 <button class="btn btn-danger mx-5 my-4 p-2 rounded border" type="submit">Checkout</button>
 
   </form>
+
 
 
 

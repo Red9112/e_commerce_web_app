@@ -23,6 +23,7 @@ class DiscountController extends Controller
 
     public function affect_to_products($id)
     {
+
         $discount=Discount::findOrfail($id);
         $user=auth()->user();
         $products=$user->shop->products;
