@@ -42,8 +42,8 @@
                         <div class="mb-3 mt-3">
                             <label for="is_default" class="form-label">Is a default address:</label>
                             <select class="form-select" id="is_default" name="is_default">
-                              <option value="0">True</option>
-                              <option value="1" >false</option>
+                              <option value="1">True</option>
+                              <option value="0" >false</option>
                             </select>
                           </div>
 

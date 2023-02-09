@@ -33,7 +33,7 @@
         <td>{{$item->region}}</td>
         <td>{{$item->postal_code}}</td>
         <td>{{$item->country}}</td>
-        <td>{{$item->is_default}}</td>
+        <td>{{($item->is_default)?'True':'False'}}</td>
         <td><a class="btn" href="{{route('user.show',['user'=>$item->user->id])}}">{{$item->user->name}}</a></td>
         <td>
 {{--Actions--}}

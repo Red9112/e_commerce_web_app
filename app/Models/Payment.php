@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment extends Model
 {
     use HasFactory;
-    protected $fillable=['user_id','account_number'];
+    protected $fillable=['user_id','account_number','is_default'];
 
 
     public function user(){

@@ -19,8 +19,8 @@
         <th>Discount creator</th>
         <th>Value</th>
         <th>Description</th>
-        <th>start date</th>
-        <th>end date</th>
+        <th>Start date</th>
+        <th>End date</th>
         <th>Expired</th>
         <th>Actions</th>
       </tr>

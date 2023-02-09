@@ -74,8 +74,11 @@ discountDropdown.forEach(elm => {
 // {{--display && hide discounts details--}}
 let discountsDetailsBtn=document.querySelector("#discountsDetailsBtn");
 let discountsDetailsTable=document.querySelector("#discountsDetailsTable");
-discountsDetailsBtn.addEventListener("click",function(){
-    (discountsDetailsTable.style.display=="inline")?discountsDetailsTable.style.display="none":discountsDetailsTable.style.display="inline";
-     });
+if (discountsDetailsBtn) {
+    discountsDetailsBtn.addEventListener("click",function(){
+        (discountsDetailsTable.style.display=="inline")?discountsDetailsTable.style.display="none":discountsDetailsTable.style.display="inline";
+         });
+}
+
 //=============End ==>{id-3}=============
 

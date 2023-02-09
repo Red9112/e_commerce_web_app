@@ -82,6 +82,8 @@ Route::resource('/shipping','App\Http\Controllers\ShippingController')->only(['i
 Route::resource('/orderStatus','App\Http\Controllers\OrderStatusController')->only(['index','store','edit','update','destroy']);
 //adress
 Route::resource('/address','App\Http\Controllers\AddressController')->only(['index','create','store','edit','update','destroy']);
+//payment
+Route::resource('/payment','App\Http\Controllers\PaymentController')->only(['index','store','edit','update','destroy']);
 
 
 

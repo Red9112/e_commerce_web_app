@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Address;
 use App\Models\Product;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -12,6 +15,9 @@ class OrderController extends Controller
     public function checkout_process_discount(Request $request){
         $request->validate(['shipping'=>'required']);
         $shipping=Shipping::findOrfail($request->shipping);
+        $user=User::findOrfail(auth()->id());
+        $addresses=$user->addresses;
+        $payments=$user->payments;
         $productIds = $request->input('products', []);
         $selectedQuantities = $request->input('quantity', []);
         $selectedQuantities = array_filter($selectedQuantities, function ($productId) use ($productIds) {
@@ -52,14 +58,15 @@ return view('checkout.checkout_process',[
     'selectedQuantities'=>$selectedQuantities,
     'quantitiesWithOffer'=>$quantitiesWithOffer,
     'productsPrices'=>$productsPrices,
+    'addresses'=>$addresses,
+    'payments'=>$payments,
 ]);
 
     }
 
     public function confirm_order(Request $request){
-
+dd($request);
         return view('checkout.confirm_order',[
-
         ]);
     }
     public function save_order(Request $request){

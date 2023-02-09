@@ -7,6 +7,7 @@ require('./products');
 require('./users');
 require('./container');
 require('./discount');
+require('./checkout');
 
 
 

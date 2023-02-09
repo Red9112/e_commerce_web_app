@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+<nav class="navbar navbar-expand-sm navbar-dark " style="background-color: #609EA2">
     <div class="container-fluid">
       <a class="navbar-brand" href="{{route('dashboard')}}">Home</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -35,6 +35,9 @@
           </li>
           <li class="nav-item">
             <a   class="nav-link" href="{{route('address.index')}}">Address</a>
+          </li>
+          <li class="nav-item">
+            <a   class="nav-link" href="{{route('payment.index')}}">Payment</a>
           </li>
           <li class="nav-item">
             <a   class="nav-link" href="{{route('shipping.index')}}">Shipping</a>
