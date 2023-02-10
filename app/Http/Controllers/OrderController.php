@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class OrderController extends Controller
 {
 
+// Checkout:
     public function checkout_process_discount(Request $request){
         $request->validate(['shipping'=>'required']);
         $shipping=Shipping::findOrfail($request->shipping);
@@ -89,12 +90,45 @@ $address=Address::findOrfail($request->address);
     }
     public function save_order(Request $request){
         $data=$request->only(['address_id', 'shipping_id','payment_id','order_total','order_status_id']);
-        Order::create($data);
+        $order=Order::create($data);
+        $products=$request->input('products', []);
+        $order->products()->syncWithoutDetaching($products);
         $request->session()->flash('status','Order Saved !!');
         return redirect()->route('cart.index');
     }
 
+// Order:
 
+ public function customer_orders_index(Request $request){
+       
+        return view('order.customer_index',[
+           // ''=>$,
+        ]);
+    }
+    public function vendor_orders_index(Request $request){
+        return view('order.vendor_index',[
+           // ''=>$,
+        ]);
+    }
+    
+    public function admin_orders_index(Request $request){
+       
+        return view('order.admin_index',[
+          //  ''=>$,
+        ]);
+    }
+    public function show(Request $request){
+
+        return view('order.show',[
+          //  ''=>$,
+        ]);
+    }
+    public function destroy(Request $request,$id)
+    {
+        Order::destroy($id);
+        $request->session()->flash('failed',' Order deleted !!');
+        return redirect()->back();
+    }
 }
 
 

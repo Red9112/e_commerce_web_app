@@ -60,7 +60,7 @@ class BlogController extends Controller
         'title'=>'required|string|min:4',
         'description'=>'required|string',
         'category_id'=>'required', 
-    ]);
+    ]); 
 
        $validData['user_id']=$user;
        $blog=Blog::create($validData);
@@ -73,7 +73,7 @@ $filteredAttributeNames->push('category_id');
 $categories=$request->only($filteredAttributeNames->toArray());
 $categoriesIds=collect($categories)->values()->toArray();
 $blog->categories()->sync($categoriesIds);
-$blog->save();
+$blog->save(); 
 //end store categories
 
  $request->session()->flash('status','you created a blog !! ');

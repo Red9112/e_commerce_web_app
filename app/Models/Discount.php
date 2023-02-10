@@ -12,9 +12,13 @@ class Discount extends Model
         'name', 'code', 'discount_type_id','user_id', 'value', 'description', 'start_date', 'end_date', 'expired',
     ];
 
+    // public function products()
+    // {
+    //     return $this->belongsToMany('App\Models\Product');
+    // }
     public function products()
     {
-        return $this->belongsToMany('App\Models\Product');
+        return $this->morphToMany(Product::class, 'productable');
     }
     public function user(){
         return $this->belongsTo('App\Models\User');

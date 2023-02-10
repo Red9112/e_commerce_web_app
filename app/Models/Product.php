@@ -32,13 +32,16 @@ class Product extends Model
         return $this->belongsTo('App\Models\Shop');
     }
     public function wishlists(){
-        return $this->belongsToMany('App\Models\Wishlist');
+        return $this->morphedByMany(Wishlist::class, 'productable');
     }
     public function discounts()
     {
-        return $this->belongsToMany('App\Models\Discount');
+        return $this->morphedByMany(Discount::class, 'productable');
     }
-
+    public function orders()
+    {
+        return $this->morphedByMany(Order::class, 'productable');
+    }
 public function categories()
 {
     return $this->morphToMany('App\Models\Category','categoreable')->withTimestamps();

@@ -64,6 +64,9 @@
            <div class="col-md-12">
          <form action="{{ route('order.store') }}" method="POST">
         @csrf
+        @foreach($products as $product)
+        <input hidden type="text" name="products[]" value="{{ $product->id }}">
+        @endforeach 
         <input type="hidden" name="address_id" value="{{$shipping->id}}">
         <input type="hidden" name="shipping_id" value="{{$address->id}}">
         <input type="hidden" name="payment_id" value="{{$payment->id}}">
