@@ -52,7 +52,13 @@
 <h2>Total :<strong>{{ $total }}</strong></h2>
 <input hidden type="text" name="total" value="{{$total}}">
 <input hidden type="text" name="shipping" value="{{$shipping->id}}">
-    </div>
+
+@foreach($products as $product)
+<input hidden type="text" name="prices[]" value="{{$productsPrices[$product->id]}}">
+<input hidden type="text" name="products[]" value="{{ $product->id }}">
+<input hidden type="text" name="quantities[]" value="{{$quantitiesWithOffer[$product->id]}}">
+@endforeach
+</div> 
 </div>
   <div class="card w-50 my-3 bg-light mx-3">
       <div class="card-header bg-secondary"><h3>Payment Method</h3></div>

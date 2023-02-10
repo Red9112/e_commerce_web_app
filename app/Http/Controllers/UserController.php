@@ -18,19 +18,12 @@ class UserController extends Controller
 
     public function __construct()
     {
-
      //$this->authorizeResource(User::class,'user');
     }
 
-    /** 
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     
     public function markAsRead()
     {
-        
         $user=auth()->user();
         $this->authorize('viewAny',$user);
        $users=User::orderBy('id')->get();

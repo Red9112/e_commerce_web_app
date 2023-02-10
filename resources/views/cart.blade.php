@@ -25,8 +25,8 @@
   </div>
   @foreach ($products as $product)
   <div class="d-flex mx-5 my-4 p-3 bg-light text-white rounded w-50 border">
-    <div class="form-check">
-        <input class="selectProduct form-check-input" type="checkbox" name="products[]" value="{{ $product->id }}">
+    <div> 
+        <input class="selectProduct" type="checkbox" name="products[]" value="{{ $product->id }}">
     </div>
 <div>
 <img src="{{$product->getFirstImage()}}" class="rounded" alt="product photo" width="304" height="236">

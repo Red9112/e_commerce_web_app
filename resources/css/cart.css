@@ -29,7 +29,7 @@ max-width: fit-content;
   }
 
   /* {{{css for checkbox field---- Views:cart.index}}} */
-.selectProduct {
+  .selectProduct {
     width: 30px;
     height: 30px;
 }

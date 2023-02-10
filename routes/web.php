@@ -69,7 +69,7 @@ Route::get('/discount_product/{discountId}',[App\Http\Controllers\DiscountContro
 // checkout
 Route::post('/checkout_process_discount', [App\Http\Controllers\OrderController::class, 'checkout_process_discount'])->name('checkout_process_discount');
 Route::post('/confirm_order', [App\Http\Controllers\OrderController::class, 'confirm_order'])->name('confirm_order');
-Route::post('/save_order', [App\Http\Controllers\OrderController::class, 'save_order'])->name('save_order');
+Route::post('/save_order', [App\Http\Controllers\OrderController::class, 'save_order'])->name('order.store');
 
 
 //Discount Type

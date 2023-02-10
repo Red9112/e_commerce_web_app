@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Address;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
@@ -65,11 +67,30 @@ return view('checkout.checkout_process',[
     }
 
     public function confirm_order(Request $request){
-dd($request);
+        $productsPrices=$request->prices;
+        $quantities=$request->quantities;
+        $productIds = $request->input('products', []);
+        $products = Product::whereIn('id', $productIds)->get();
+        $productsPrices = array_combine($productIds, $productsPrices);
+        $quantities = array_combine($productIds, $quantities);
+$request->validate(['shipping'=>'required','total'=>'required','payment'=>'required','address'=>'required']);
+$shipping=Shipping::findOrfail($request->shipping);
+$payment=Payment::findOrfail($request->payment);
+$address=Address::findOrfail($request->address);
         return view('checkout.confirm_order',[
+            'shipping'=>$shipping,
+            'total'=>$request->total,
+            'payment'=>$payment,
+            'address'=>$address,
+            'products'=>$products,
+            'productsPrices'=>$productsPrices,
+            'quantities'=>$quantities,
         ]);
     }
     public function save_order(Request $request){
+        $data=$request->only(['address_id', 'shipping_id','payment_id','order_total','order_status_id']);
+        Order::create($data);
+        $request->session()->flash('status','Order Saved !!');
         return redirect()->route('cart.index');
     }
 
