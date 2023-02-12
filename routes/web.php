@@ -76,7 +76,7 @@ Route::get('/customer_orders', [App\Http\Controllers\OrderController::class, 'cu
 Route::get('/vendor_orders', [App\Http\Controllers\OrderController::class, 'vendor_orders_index'])->name('vendor.orders');
 Route::get('/admin_orders', [App\Http\Controllers\OrderController::class, 'admin_orders_index'])->name('admin.orders');
 Route::get('/order_show/{order}', [App\Http\Controllers\OrderController::class, 'order_show'])->name('order.show');
-Route::post('/order_cancel', [App\Http\Controllers\OrderController::class, 'order_cancel'])->name('order.cancel');
+Route::post('/order_cancel/{order}', [App\Http\Controllers\OrderController::class, 'order_cancel'])->name('order.cancel');
 
 //Discount Type
 Route::resource('/discount_type','App\Http\Controllers\DiscountTypeController')->only(['index','store','edit','update','destroy']);

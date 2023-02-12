@@ -33,7 +33,8 @@
                           <button class="btn btn-danger" type="submit" >Cancel </button>
                          </form>
                         </div>
-                              {{--END_Actions--}}
+                        {{--END_Actions--}}
+                    </td>
                 </tr>
             @endforeach
         </tbody>

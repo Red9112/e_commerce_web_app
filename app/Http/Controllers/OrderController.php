@@ -8,6 +8,7 @@ use App\Models\Address;
 use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Shipping;
+use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,7 +29,6 @@ class OrderController extends Controller
         },ARRAY_FILTER_USE_KEY);
     $products = Product::whereIn('id', $productIds)->get();
     $subtotal=0;
-    $quantitiesWithOffer=$selectedQuantities;
 foreach ($products as $product) {
     $discounts=$product->discounts;
     $quantity = $selectedQuantities[$product->id];
@@ -45,13 +45,15 @@ foreach ($products as $product) {
         }
     }
     $productPrice=($product->price-$disPrice)*$quantity;
+
     foreach ($discounts as $discount){
-     $quantitiesWithOffer[$product->id]=$discount->get_one_free($quantity);//order quantity after apply discount
+     $bonusQuantities[$product->id]=$discount->get_one_free($quantity)-$selectedQuantities[$product->id];
      }
     $productsPrices[$product->id]=$productPrice;
     $subtotal+=$productPrice;
     }
 
+   
     $total= $subtotal+ $shipping->price;
 return view('checkout.checkout_process',[
     'products'=>$products,
@@ -59,7 +61,7 @@ return view('checkout.checkout_process',[
     'shipping'=>$shipping,
     'total'=>$total,
     'selectedQuantities'=>$selectedQuantities,
-    'quantitiesWithOffer'=>$quantitiesWithOffer,
+    'bonusQuantities'=>$bonusQuantities,
     'productsPrices'=>$productsPrices,
     'addresses'=>$addresses,
     'payments'=>$payments,
@@ -69,11 +71,14 @@ return view('checkout.checkout_process',[
 
     public function confirm_order(Request $request){
         $productsPrices=$request->prices;
-        $quantities=$request->quantities;
+        $bonusQuantities=$request->bonusQuantities;
+        $selectedQuantities=$request->selectedQuantities;
         $productIds = $request->input('products', []);
-        $products = Product::whereIn('id', $productIds)->get();
+        $bonusQuantities = array_combine($productIds, $bonusQuantities);
+        $selectedQuantities = array_combine($productIds, $selectedQuantities);
         $productsPrices = array_combine($productIds, $productsPrices);
-        $quantities = array_combine($productIds, $quantities);
+        $products = Product::whereIn('id', $productIds)->get();
+
 $request->validate(['shipping'=>'required','total'=>'required','payment'=>'required','address'=>'required']);
 $shipping=Shipping::findOrfail($request->shipping);
 $payment=Payment::findOrfail($request->payment);
@@ -85,17 +90,30 @@ $address=Address::findOrfail($request->address);
             'address'=>$address,
             'products'=>$products,
             'productsPrices'=>$productsPrices,
-            'quantities'=>$quantities,
+            'bonusQuantities'=>$bonusQuantities,
+            'selectedQuantities'=>$selectedQuantities,
         ]);
-    }
-    public function save_order(Request $request){
+    } 
+     public function save_order(Request $request){
+        
         $data=$request->only(['address_id', 'shipping_id','payment_id','order_total','order_status_id']);
         $data['user_id']=auth()->id();
         $order=Order::create($data);
-        $products=$request->input('products', []);
-        $order->products()->syncWithoutDetaching($products);
+        $productsIds=$request->input('products', []);
+       // $order->products()->syncWithoutDetaching($productsIds);
+       $bonusQuantities = array_combine($productsIds, $request->bonusQuantities);
+        $selectedQuantities = array_combine($productsIds, $request->selectedQuantities);
+        $productsPrices = array_combine($productsIds, $request->productsPrices);
+        foreach ($productsIds as  $id) {
+            $order->products()->attach($id,[
+                'price' => $productsPrices[$id],
+                'selected_quantity' => $selectedQuantities[$id],
+                'bonus_quantity' =>$bonusQuantities[$id],
+            ]);
+        }
         $request->session()->flash('status','Order Saved !!');
         return redirect()->route('cart.index');
+
     }
 
 // Order:
@@ -105,19 +123,31 @@ public function order_show($id){
           'order'=>$order,
         ]);
     }
+
     public function order_cancel(Request $request,$id){
         $order=Order::findOrfail($id);
-        $request->session()->flash('failed','Order Canceled !!');
-           return redirect()->route('customer.orders');
+        if ($order->order_status=="shipped") {
+            $request->session()->flash('failed',"Error : Order cannot be cancelled because it's already shipped !!");
+        } else {
+            $cancelledStatus = OrderStatus::where('name', 'cancelled')->first();
+            if (!$cancelledStatus) {
+           $request->session()->flash('failed','Error : Cancelled status not found !!');
+          return  redirect()->back();
+            }
+            $order->order_status=$cancelledStatus->id;
+            $order->save();
+            $request->session()->flash('failed','Order Canceled !!');
         }
- public function customer_orders_index(Request $request){
+           return redirect()->back();
+        }
+ public function customer_orders_index(){
     $user=User::findOrfail(auth()->id());
        $orders=$user->orders;
         return view('order.customer_index',[
           'orders'=>$orders,
         ]);
     }
-    public function vendor_orders_index(Request $request){
+    public function vendor_orders_index(){
         return view('order.vendor_index',[
            // ''=>$,
         ]);

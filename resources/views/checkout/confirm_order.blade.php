@@ -18,7 +18,8 @@
           <thead>
             <tr>
               <th>Product</th>
-              <th>Qty</th>
+              <th>Selected quantities</th>
+              <th>Bonus quantities</th>
               <th>Price</th>
             </tr>
           </thead>
@@ -29,8 +30,13 @@
              <img src="{{$product->getFirstImage()}}" class="rounded" alt="product photo" width="100" height="100">
              {{$product->name}}
             </td>
-             @if (array_key_exists($product->id, $quantities))
-              <td>{{$quantities[$product->id]}}</td>
+             @if (array_key_exists($product->id, $selectedQuantities))
+              <td>{{$selectedQuantities[$product->id]}}</td>
+              @else
+              <td>none</td>
+              @endif
+              @if (array_key_exists($product->id, $bonusQuantities))
+              <td>{{$bonusQuantities[$product->id]}}</td>
               @else
               <td>none</td>
               @endif
@@ -66,6 +72,9 @@
         @csrf
         @foreach($products as $product)
         <input hidden type="text" name="products[]" value="{{ $product->id }}">
+        <input hidden type="text" name="bonusQuantities[]" value="{{$bonusQuantities[$product->id]}}">
+        <input hidden type="text" name="selectedQuantities[]" value="{{$selectedQuantities[$product->id]}}">
+        <input hidden type="text" name="productsPrices[]" value="{{$productsPrices[$product->id]}}">
         @endforeach 
         <input type="hidden" name="address_id" value="{{$shipping->id}}">
         <input type="hidden" name="shipping_id" value="{{$address->id}}">

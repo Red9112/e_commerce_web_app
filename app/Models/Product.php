@@ -40,7 +40,8 @@ class Product extends Model
     }
     public function orders()
     {
-        return $this->morphedByMany(Order::class, 'productable');
+        return $this->belongsToMany('App\Models\Order')
+        ->withPivot(['price','selected_quantity','bonus_quantity']);
     }
 public function categories()
 {

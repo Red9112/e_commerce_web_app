@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
@@ -14,7 +15,8 @@ class Order extends Model
     
     public function products()
     {
-        return $this->morphToMany(Product::class, 'productable');
+        return $this->belongsToMany('App\Models\Product')
+        ->withPivot(['price','selected_quantity','bonus_quantity']);
     }
     public function user()
     { 
@@ -36,4 +38,15 @@ class Order extends Model
     {
         return $this->belongsTo('App\Models\OrderStatus');
     }
+    
+    // local scopes
+    public function scopeIndexOrders(Builder $query){
+        return $query->orderBy(static::CREATED_AT,'asc')->with(['user','order_status']);
+            }
+
+
+
+
+
+
 }

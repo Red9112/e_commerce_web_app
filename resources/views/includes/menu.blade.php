@@ -49,6 +49,16 @@
             <a   class="nav-link" href="{{route('role.index')}}">Roles</a>
           </li>
         </ul>
+        <div class="dropdown">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+            Order
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{route('customer.orders')}}">My orders</a></li>
+            <li><a class="dropdown-item" href="{{route('vendor.orders')}}">My shop orders</a></li>
+            <li><a class="dropdown-item" href="{{route('admin.orders')}}">All orders</a></li>
+          </ul>
+        </div>
         @auth
         @if (auth()->user()->hasRole('admin'))
         <div class="dropdown">

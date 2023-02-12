@@ -64,7 +64,7 @@ public const LANGUAGE=[
         return $this->hasOne('App\Models\Wishlist');
     }
     public function orders(){
-        return $this->hasMany('App\Models\Order');
+        return $this->hasMany('App\Models\Order')->indexOrders();
     }
     public function blogs(){
         return $this->hasMany('App\Models\Blog');

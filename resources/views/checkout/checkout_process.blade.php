@@ -17,8 +17,8 @@
                 <th>Product Name</th>
                 <th>Original Price</th>
                 <th>Discounted Price</th>
-                <th>Selected quantity</th>
-                <th>Total quantity (with Free items) </th>
+                <th>Selected quantities</th>
+                <th>Bonus quantities</th>
             </tr>
         </thead>
         <tbody>
@@ -33,10 +33,14 @@
                  @endif
                  @if (array_key_exists($product->id, $selectedQuantities))
                 <td>{{$selectedQuantities[$product->id]}}</td>
+                @else
+                <td>none</td>
                  @endif
-                 @if (array_key_exists($product->id, $quantitiesWithOffer))
-                 <td>{{$quantitiesWithOffer[$product->id]}}</td>
-                  @endif
+                 @if (array_key_exists($product->id, $bonusQuantities))
+                 <td>{{$bonusQuantities[$product->id]}}</td>
+                 @else
+                 <td>none</td>
+                 @endif
                 </tr>
             @endforeach
         </tbody>
@@ -55,8 +59,9 @@
 
 @foreach($products as $product)
 <input hidden type="text" name="prices[]" value="{{$productsPrices[$product->id]}}">
+<input hidden type="text" name="bonusQuantities[]" value="{{$bonusQuantities[$product->id]}}">
+<input hidden type="text" name="selectedQuantities[]" value="{{$selectedQuantities[$product->id]}}">
 <input hidden type="text" name="products[]" value="{{ $product->id }}">
-<input hidden type="text" name="quantities[]" value="{{$quantitiesWithOffer[$product->id]}}">
 @endforeach
 </div> 
 </div>
