@@ -90,6 +90,7 @@ $address=Address::findOrfail($request->address);
     }
     public function save_order(Request $request){
         $data=$request->only(['address_id', 'shipping_id','payment_id','order_total','order_status_id']);
+        $data['user_id']=auth()->id();
         $order=Order::create($data);
         $products=$request->input('products', []);
         $order->products()->syncWithoutDetaching($products);
@@ -98,11 +99,22 @@ $address=Address::findOrfail($request->address);
     }
 
 // Order:
-
+public function order_show($id){
+    $order=Order::findOrfail($id);
+        return view('order.customer_show',[
+          'order'=>$order,
+        ]);
+    }
+    public function order_cancel(Request $request,$id){
+        $order=Order::findOrfail($id);
+        $request->session()->flash('failed','Order Canceled !!');
+           return redirect()->route('customer.orders');
+        }
  public function customer_orders_index(Request $request){
-       
+    $user=User::findOrfail(auth()->id());
+       $orders=$user->orders;
         return view('order.customer_index',[
-           // ''=>$,
+          'orders'=>$orders,
         ]);
     }
     public function vendor_orders_index(Request $request){

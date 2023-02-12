@@ -63,6 +63,9 @@ public const LANGUAGE=[
     public function Wishlist(){
         return $this->hasOne('App\Models\Wishlist');
     }
+    public function orders(){
+        return $this->hasMany('App\Models\Order');
+    }
     public function blogs(){
         return $this->hasMany('App\Models\Blog');
     }
