@@ -148,8 +148,12 @@ public function order_show($id){
         ]);
     }
     public function vendor_orders_index(){
+        $user=User::findOrfail(auth()->id());
+        $orders=$user->shop->products;
+        $productOrders = $product->orders()->whereIn('id', $orders->pluck('id'))->get();
+
         return view('order.vendor_index',[
-           // ''=>$,
+            'orders'=>$orders,
         ]);
     }
     

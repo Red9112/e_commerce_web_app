@@ -30,7 +30,7 @@
                         <h4 class="mb-1 me-1">{{$product->pivot->price}}</h4>
                         <span class="text-danger"><s>{{$product->price}}</s></span>
                         {{-- </div> --}}
-                    </td>
+                        </td>
                 </tr>
             @endforeach
         </tbody>
