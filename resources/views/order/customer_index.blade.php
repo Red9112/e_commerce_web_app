@@ -27,7 +27,7 @@
                     <td>
                         {{--Actions--}}
                         <div class="d-inline-flex">
-                        <a type="button" class="btn btn-info mx-2" href="{{route('order.show',['order'=>$order->id])}}">Details</a>
+                        <a type="button" class="btn btn-info mx-2" href="{{route('order.customer.show',['order'=>$order->id])}}">Details</a>
                         <form class="form-inline" method="POST" action="{{route('order.cancel',['order'=>$order->id])}}">
                           @csrf
                           <button class="btn btn-danger" type="submit" >Cancel </button>

@@ -24,7 +24,7 @@
             </tr>
           </thead>
           <tbody>
-             @foreach($products as $product) 
+             @foreach($products as $product)
             <tr>
              <td>
              <img src="{{$product->getFirstImage()}}" class="rounded" alt="product photo" width="100" height="100">
@@ -46,7 +46,7 @@
                 <td>none</td>
                  @endif
             </tr>
-             @endforeach 
+             @endforeach
           </tbody>
         </table>
       </div>
@@ -63,7 +63,7 @@
         <h3><span class="badge bg-success d-flex justify-content-center">{{$total}}</span></h3>
   </div>
 </div>
-        
+
       </div>
     </div>
     <div class="row">
@@ -75,9 +75,9 @@
         <input hidden type="text" name="bonusQuantities[]" value="{{$bonusQuantities[$product->id]}}">
         <input hidden type="text" name="selectedQuantities[]" value="{{$selectedQuantities[$product->id]}}">
         <input hidden type="text" name="productsPrices[]" value="{{$productsPrices[$product->id]}}">
-        @endforeach 
-        <input type="hidden" name="address_id" value="{{$shipping->id}}">
-        <input type="hidden" name="shipping_id" value="{{$address->id}}">
+        @endforeach
+        <input type="hidden" name="shipping_id" value="{{$shipping->id}}">
+        <input type="hidden" name="address_id" value="{{$address->id}}">
         <input type="hidden" name="payment_id" value="{{$payment->id}}">
         <input type="hidden" name="order_total" value="{{$total}}">
         <input type="hidden" name="order_status_id" value="1">
@@ -86,6 +86,6 @@
         </div>
     </div>
   </div>
-  
-  
+
+
 @endsection

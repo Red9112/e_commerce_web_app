@@ -8,6 +8,8 @@ prosess to run the app:
 1. run `php artisan serve` and then visit `http://127.0.0.1:8000/`
 1. credentials to access admin panel (email: ``, password: `password`)
 1. create the storage racourcie after delete storage folder in public: `php artisan storage:link`
+1. run: `composer require doctrine/dbal`
+
 
 
 
