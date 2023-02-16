@@ -20,7 +20,8 @@ class CreateProductsTable extends Migration
             $table->integer('qty_in_stock')->nullable();
             $table->double('price');
             $table->longText('description')->nullable();
-            $table->foreignId('shop_id')->constrained();
+            $table->foreignId('shop_id')
+            ->onDelete('cascade')->constrained();
             $table->timestamps();
         });
     }

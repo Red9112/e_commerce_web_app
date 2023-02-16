@@ -55,7 +55,7 @@ public const LANGUAGE=[
         return $this->hasMany('App\Models\Payment');
     }
     public function shop(){
-        return $this->hasOne('App\Models\Shop');
+        return $this->hasOne('App\Models\Shop')->with('products');
     }
     public function discounts(){
         return $this->hasMany('App\Models\Discount');
@@ -86,6 +86,7 @@ public const LANGUAGE=[
     public function scopeMostBlogsCreators(Builder $query){
 return $query->withCount('blogs')->orderBy('blogs_count','desc');
     }
+   
     public function scopeMostActiveUsersThisMonth(Builder $query){
 return $query->withCount(['blogs'=> function(Builder $query){
     return $query->whereBetween(static::CREATED_AT,[now()->subMonth(1),now()]);

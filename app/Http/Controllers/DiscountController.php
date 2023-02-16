@@ -9,21 +9,23 @@ use App\Models\Discount;
 use App\Models\DiscountType;
 use Illuminate\Http\Request;
 use App\Http\Requests\DiscountRequest;
+use App\Repositories\DiscountRepository;
 use League\CommonMark\Parser\Block\AbstractBlockContinueParser;
 
 class DiscountController extends Controller
 {
 
+public $discountRepository;
 
-    public function __construct()
+    public function __construct(DiscountRepository $discountRepository)
     {
         $this->middleware('auth');
+        $this->discountRepository=$discountRepository;
     }
 
 
     public function affect_to_products($id)
     {
-
         $discount=Discount::findOrfail($id);
         $user=auth()->user();
         $products=$user->shop->products;
@@ -34,47 +36,7 @@ class DiscountController extends Controller
     }
     public function discount_product(Request $request,$id)
     {
-        // Vendor discount:can apply just to his products
-        $discount=Discount::findOrfail($id);
-        $user=auth()->user();
-        if($request->my_products){
-            $products=collect($user->shop->products);
-            $productsIds=$products->pluck('id');
-            $discount->products()->syncWithoutDetaching($productsIds);
-            $request->session()->flash('status',"The discount affected to all your products !! ");
-        }
-        elseif($request->input('products', [])){
-            $productsIds=$request->input('products', []);
-            $discount->products()->syncWithoutDetaching($productsIds);
-            $request->session()->flash('status',"The discount  affected to selected products !! ");
-        }
-        elseif($request->input('cats', [])){
-            $categoriesIds=$request->input('cats', []);
-            $products=collect($user->shop->products);
-            foreach ($products as $product) {
-            $ProdCategoriesIds=collect($product->categories)->pluck('id');
-            foreach ($categoriesIds as $catId) {
-(in_array($ProdCategoriesIds,$catId) )?$discount->products()->syncWithoutDetaching($product->id):null;
-            }
-            }
-            $request->session()->flash('status',"The discount affected to products by selected categories !! ");
-        }
-        //admin discount:can apply to all site products
-        elseif($request->input('catsToAll', [])){
-            $categoriesIds=$request->input('cats', []);
-            $categories=Category::where('id', $categoriesIds)->get();
-            foreach ($categories as $cat) {
-                $productsIds=collect($cat->products)->pluck('id');
-                $discount->products()->syncWithoutDetaching($productsIds);
-            }
-        }
-        elseif($request->applyToAll){
-            $productsIds=Product::get()->pluck('id');
-            $discount->products()->syncWithoutDetaching($productsIds);
-            $request->session()->flash('status',"The discount affected to all site  products !! ");
-        }
-
-        else $request->session()->flash('failed',"The discount doesn't affected to any product !! ");
+        $this->discountRepository->affect_discount_to_product($request,$id);
         return redirect()->route('discount.index');
     }
     public function index()
@@ -118,9 +80,12 @@ class DiscountController extends Controller
     public function update(DiscountRequest $request, $id)
     {
         $data=$request->only([
-            'code','name','discount_type_id','value','start_date','end_date','description','expired'
+            'code','name','discount_type_id','value','start_date','end_date','description',
         ]);
-        Discount::findOrfail($id)->update($data);
+        $discount=Discount::findOrfail($id);
+        $is_expired=$request->has('expired');
+        $discount->setIsExpiredAttribute($is_expired);
+        $discount->update($data);
         $request->session()->flash('status','The disocunt  updated !!');
       return redirect()->route('discount.index');
     }

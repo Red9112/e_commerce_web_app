@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\BlogRepository;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Resources\CommentBlogResource;
@@ -15,16 +16,12 @@ use App\Http\Resources\CommentBlogResource;
 
 class BlogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
- 
-    // public function __construct()
-    // {
+ private $blogRepositoty;
+    public function __construct(BlogRepository $blogRepositoty)
+     {
     //    $this->middleware('auth');
-    // }
+    $this->blogRepositoty=$blogRepositoty;
+     }
     public function index()
     {
         $blogs=Blog::with('user')->withCount('comments')->get();
@@ -53,30 +50,10 @@ class BlogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
-
-        $user=auth()->id();// or $request->user()->id
-        $validData=$request->validate([ 
-        'title'=>'required|string|min:4',
-        'description'=>'required|string',
-        'category_id'=>'required', 
-    ]); 
-
-       $validData['user_id']=$user;
-       $blog=Blog::create($validData);
-            //store categories--
-$filteredAttributeNames = array_filter($request->keys(), function ($key){
-    return strpos($key, 'category-') === 0;
-});
-$filteredAttributeNames = collect($filteredAttributeNames);
-$filteredAttributeNames->push('category_id');
-$categories=$request->only($filteredAttributeNames->toArray());
-$categoriesIds=collect($categories)->values()->toArray();
-$blog->categories()->sync($categoriesIds);
-$blog->save(); 
-//end store categories
-
- $request->session()->flash('status','you created a blog !! ');
+    {  
+      $blog=$this->blogRepositoty->store_blog($request);
+       $this->blogRepositoty->store_blog_categories($blog,$request);
+       $request->session()->flash('status','you created a blog !! ');
 return redirect()->route('blog.index');
     }
 
@@ -91,7 +68,6 @@ return redirect()->route('blog.index');
         $blog=Cache::remember("blog-{$id}",60, function() use($id)  { // 60=>60 seconds
            return Blog::with(['comments','comments.user'])->findOrfail($id);
         });
-        
        return view('blogs.show',[
         'blog'=>$blog,
        ]);
@@ -111,7 +87,6 @@ return redirect()->route('blog.index');
             'blog'=>$blog,
             'categories'=>$categories
         ]);
-   
     }
 
     /**
@@ -125,20 +100,9 @@ return redirect()->route('blog.index');
     {
         
         $this->authorize('update',$blog);
- 
         $data=$request->only(['title','description']);
         $blog->update($data);
-                    //store categories--
-$filteredAttributeNames = array_filter($request->keys(), function ($key){
-    return strpos($key, 'category-') === 0;
-});
-$filteredAttributeNames = collect($filteredAttributeNames);
-$filteredAttributeNames->push('category_id');
-$categories=$request->only($filteredAttributeNames->toArray());
-$categoriesIds=collect($categories)->values()->toArray();
-$blog->categories()->sync($categoriesIds);
-$blog->save();
-//end store categories
+        $this->blogRepositoty->store_blog_categories($blog,$request);
         $request->session()->flash('status','Blog updated !!');
         return redirect()->route('blog.index');
     }
@@ -151,9 +115,8 @@ $blog->save();
      */
     public function destroy(Request $request,Blog $blog)
     {
-      
-   $this->authorize('delete',$blog);
-       Blog::destroy($blog->id);
+        $this->authorize('delete',$blog);
+        Blog::destroy($blog->id);
         $request->session()->flash('failed',' Blog Deleted !!');
         return redirect()->route('blog.index');
     }

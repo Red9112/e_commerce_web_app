@@ -27,5 +27,7 @@ class Shop extends Model
      public function scopeShopProducts(Builder $query){
       return $query->withCount('products')->orderBy('products_count','desc');
      }
+     
+     
 }
  

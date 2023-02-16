@@ -47,7 +47,7 @@ if ($request->optradio == "excel") {
         
         $shops = Shop::with('user')->withCount('products')->orderBy('id', 'ASC')->get();
         $shopProducts=Shop::shopProducts()->take(5)->get();
-    
+  
         return view('shop.index',[
             'shops'=>$shops,
             'shopProducts'=>$shopProducts,

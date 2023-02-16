@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Events\CommentPosted;
+use App\Events\DiscountExpired;
 use App\Events\UserHasRegistered;
 use App\Events\NewVendorRequestEvent;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\DeleteExpiredProducts;
 use App\Listeners\NotifyUserAboutComment;
 use Illuminate\Routing\Events\RouteMatched;
 use App\Events\MarkNotificationsAsReadEvent;
@@ -34,6 +36,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         NewVendorRequestEvent::class => [
             SendNewVenderNotificationLestener::class,
+        ],
+        DiscountExpired::class => [
+            DeleteExpiredProducts::class,
         ],
 
 

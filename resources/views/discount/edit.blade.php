@@ -9,7 +9,7 @@
 {{-- Edit Shipping --}}
 
 <div class="container w-50 mx-3 my-3">
-    <h2>Edit Shipping Method :</h2>
+    <h2>Edit Discount :</h2>
 <form id="editForm" method="POST" action="{{route('discount.update',['discount'=>$discount->id])}}">
   @method('PUT')
   @csrf
@@ -54,9 +54,9 @@
                       <x-errors name="end_date"></x-errors>
                     </div>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="expired" name="expired" value="1" checked>
+                        <input class="form-check-input" type="checkbox" id="expired" name="expired"  @if($discount->expired)checked @endif> 
                         <label class="form-check-label" for="expired">Is Expired</label>
-                      </div>
+                      </div> 
       <button  type="submit" class="btn btn-primary">Edit</button>
                              </form>
                               </div>

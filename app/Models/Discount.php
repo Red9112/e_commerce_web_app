@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Events\DiscountExpired;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Discount extends Model
 {
@@ -41,7 +42,19 @@ public function get_one_free($quantity){
             return ($quantity+floor($quantity*0.5));
                }
     else return $quantity;
+} 
+public function setIsExpiredAttribute($value)
+{
+    
+    $this->attributes['expired'] = $value;
+    if ($value) {
+        event(new DiscountExpired($this));
+    }
+
 }
+
+
+
 
 
 }

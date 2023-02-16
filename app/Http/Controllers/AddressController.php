@@ -27,14 +27,12 @@ class AddressController extends Controller
 
     public function store(AddressRequest $request)
     {
-
         $data=$request->only([
             'street_number','address','city','region','postal_code','country','is_default',
         ]);
         $data['user_id']=auth()->id();
-
         Address::create($data);
-   $request->session()->flash('status','an address was created !! ');
+        $request->session()->flash('status','an address was created !! ');
        return redirect()->route('address.index');
     }
 
