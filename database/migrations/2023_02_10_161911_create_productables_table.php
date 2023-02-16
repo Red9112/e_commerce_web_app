@@ -18,8 +18,7 @@ class CreateProductablesTable extends Migration
         Schema::create('productables', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')
-            ->constrained()
-            ->onDelete('cascade');
+            ->constrained();
             $table->morphs('productable');
             $table->timestamps();
         });
@@ -36,20 +35,16 @@ class CreateProductablesTable extends Migration
         Schema::create('product_wishlist', function (Blueprint $table) {
             $table->id();
             $table->foreignId('wishlist_id')
-            ->onDelete('cascade')
             ->constrained();
             $table->foreignId('product_id')
-            ->onDelete('cascade')
             ->constrained();
             $table->timestamps();
         });
         Schema::create('discount_product', function (Blueprint $table) {
             $table->id();
             $table->foreignId('discount_id')
-            ->onDelete('cascade')
             ->constrained();
             $table->foreignId('product_id')
-            ->onDelete('cascade')
             ->constrained();
             $table->timestamps();
         });

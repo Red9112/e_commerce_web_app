@@ -8,7 +8,7 @@ class CreateCategoreablesTable extends Migration
 {
     /**
      * Run the migrations.
-     * 
+     *
      * @return void
      */
     public function up()
@@ -16,12 +16,11 @@ class CreateCategoreablesTable extends Migration
         Schema::create('categoreables', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')
-            ->constrained()
-            ->onDelete('cascade');
+            ->constrained();
             $table->morphs('categoreable');
             $table->timestamps();
 
-            
+
       });
     }
 

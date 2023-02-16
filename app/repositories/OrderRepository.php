@@ -64,12 +64,17 @@ foreach ($products as $product) {
             $disPrice+=$discount->value;
         }}
     $productPrice=($product->price-$disPrice)*$quantity;
+    if (!$discounts->isEmpty()) {
     foreach ($discounts as $discount){
-     $bonusQuantities[$product->id]=$discount->get_one_free($quantity)-$selectedQuantities[$product->id];
+ $bonusQuantities[$product->id]=$discount->get_one_free($quantity)-$selectedQuantities[$product->id];
+        }}
+        else{
+      $bonusQuantities[$product->id]=0;
+        }
      }
     $productsPrices[$product->id]=$productPrice;
     $subtotal+=$productPrice;
-    }
+
 $result['products']=$products;
 $result['productsPrices']=$productsPrices;
 $result['bonusQuantities']=$bonusQuantities;
@@ -138,7 +143,7 @@ $address=Address::findOrfail($request->address);
         }
            return redirect()->back();
     }
-    
+
 
 
 

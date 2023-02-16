@@ -12,10 +12,8 @@ class CreateDiscountProductTable extends Migration
         Schema::create('discount_product', function (Blueprint $table) {
             $table->id();
             $table->foreignId('discount_id')
-            ->onDelete('cascade')
             ->constrained();
             $table->foreignId('product_id')
-            ->onDelete('cascade')
             ->constrained();
             $table->timestamps();
         });

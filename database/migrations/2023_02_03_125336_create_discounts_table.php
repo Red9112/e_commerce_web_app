@@ -14,9 +14,9 @@ class CreateDiscountsTable extends Migration
             $table->string('name');
             $table->string('code')->unique();
             $table->foreignId('discount_type_id')
-            ->onDelete('cascade')->constrained();
+            ->constrained();
             $table->foreignId('user_id')
-            ->onDelete('cascade')->constrained();
+           ->constrained();
             $table->double('value');
             $table->text('description')->nullable();
             $table->date('start_date')->nullable();

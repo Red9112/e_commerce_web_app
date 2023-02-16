@@ -8,15 +8,17 @@ use Illuminate\Queue\InteractsWithQueue;
 
 class DeleteExpiredProducts
 {
-    
+
     public function __construct()
     {
         //
     }
 
-    
+
     public function handle(DiscountExpired $event)
     {
-        $event->discount->products()->delete();
+        $event->discount->products()->detach();
+        $event->discount->expired = true;
+        $event->discount->save();
     }
 }
