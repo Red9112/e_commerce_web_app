@@ -111,7 +111,10 @@ $address=Address::findOrfail($request->address);
     ////////Save order:
 
     public function save_order(Request $request){
-        $data=$request->only(['address_id', 'shipping_id','payment_id','order_total','order_status_id']);
+        $data=$request->only(['address_id', 'shipping_id','payment_id','order_total']);
+        $order_status_id=OrderStatus::where('name','Pending')->pluck('id');
+        (!$order_status_id)?$order_status_id=1:null;
+        $data['order_status_id']= $order_status_id;
         $data['user_id']=auth()->id();
         $order=Order::create($data);
         $productsIds=$request->input('products', []);

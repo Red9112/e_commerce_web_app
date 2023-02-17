@@ -3,7 +3,7 @@
 @include('includes.header')
 @endsection
 @section('content')
-<div class="container">
+<div class="container my-3">
     <h1>Order Details</h1>
     <table class="table table-bordered">
         <thead>
@@ -11,7 +11,7 @@
                 <th>Product</th>
                 <th>Selected quantity</th>
                 <th>Bonus quantity</th>
-                <th>Price</th>  
+                <th>Price</th>
             </tr>
         </thead>
         <tbody>
@@ -47,6 +47,24 @@
             <p><strong>User Name:</strong> {{ $order->user->name }}</p>
         </div>
     </div>
+    <div class="my-5">
+    <h2>Set status</h2>
+    <form id="editForm" method="POST" action="{{route('set.order.status',['order'=>$order->id])}}">
+        @method('PUT')
+        @csrf
+            <div class="mb-3 mt-3 w-25">
+              <label for="order_status">Select status :</label>
+              <select class="form-select @error('order_status') is-invalid @enderror" id="order_status" name="order_status">
+              @foreach ($order_statuses as $status)
+              <option value="{{$status->id}}"
+              @if($status->id==$order->order_status->id)selected @endif>{{ $status->name }}</option>
+              @endforeach
+              </select>
+            <x-errors name="order_status"></x-errors>
+            </div>
+            <button  type="submit" class="btn btn-primary">save</button>
+          </form>
+           </div>
 </div>
 
 @endsection

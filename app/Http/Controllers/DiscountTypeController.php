@@ -8,13 +8,19 @@ use Illuminate\Http\Request;
 class DiscountTypeController extends Controller
 {
 
-
+    public function index()
+    {
+        $types=DiscountType::all();
+        return view('discount.discount_type.index_create',[
+            'types'=>$types,
+        ]);
+    }
     public function store(Request $request)
     {
         $vldtData=$request->validate(['name'=>'min:3','description'=>'string',]);
         DiscountType::create($vldtData);
-   $request->session()->flash('status','a Discount Type  was created !! ');
-       return redirect()->route('discount.index');
+        $request->session()->flash('status','a Discount Type  was created !! ');
+        return redirect()->route('discount_type.index');
     }
     public function edit($id)
     {

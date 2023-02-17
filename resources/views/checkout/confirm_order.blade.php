@@ -80,7 +80,6 @@
         <input type="hidden" name="address_id" value="{{$address->id}}">
         <input type="hidden" name="payment_id" value="{{$payment->id}}">
         <input type="hidden" name="order_total" value="{{$total}}">
-        <input type="hidden" name="order_status_id" value="1">
         <button type="submit" class="btn btn-danger  btn-block my-5">Confirm Order</button>
         </form>
         </div>

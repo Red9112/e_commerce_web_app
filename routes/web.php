@@ -84,11 +84,14 @@ Route::get('/order_destroy/{id}', [App\Http\Controllers\OrderController::class, 
 //Discount Type
 Route::resource('/discount_type','App\Http\Controllers\DiscountTypeController')->only(['index','store','edit','update','destroy']);
 
+
 //Shipping
 Route::resource('/shipping','App\Http\Controllers\ShippingController')->only(['index','store','edit','update','destroy']);
 
 //order_status
 Route::resource('/orderStatus','App\Http\Controllers\OrderStatusController')->only(['index','store','edit','update','destroy']);
+Route::put('/set_order_status/{order}', [App\Http\Controllers\OrderController::class, 'set_order_status'])->name('set.order.status');
+
 //adress
 Route::resource('/address','App\Http\Controllers\AddressController')->only(['index','create','store','edit','update','destroy']);
 //payment

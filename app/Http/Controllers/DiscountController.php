@@ -37,16 +37,14 @@ public $discountRepository;
     }
     public function discount_product(Request $request,$id)
     {
-        $this->discountRepository->affect_discount_to_product($request,$id);
+        $this->discountRepository->attach_discount_to_product($request,$id);
         return redirect()->route('discount.index');
     }
     public function index()
     {
         $discounts=Discount::all();
-        $types=DiscountType::all();
         return view('discount.discount',[
             'discounts'=>$discounts,
-            'types'=>$types,
         ]);
     }
     public function create()

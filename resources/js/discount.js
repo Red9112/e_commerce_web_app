@@ -1,6 +1,6 @@
 //-id:1-{--Views:discount.affect_to_products --}}
 // {{--display && hide content--}}
-
+//attach dis to products
 let disAllProducts=document.querySelector("#disAllProducts");
 let disAllProdForm=document.querySelector("#disAllProdForm");
 if (disAllProducts && disAllProdForm) {
@@ -48,8 +48,52 @@ if (disByCatgrToAllPrd && disByCatgrToAllPrdForm) {
   });
 
 }
+//detach dis to products
+let detachDisAllProducts=document.querySelector("#detachDisAllProducts");
+let detachDisAllProdForm=document.querySelector("#detachDisAllProdForm");
+if (detachDisAllProducts && detachDisAllProdForm) {
+    detachDisAllProducts.addEventListener("click",function(){
+ (detachDisAllProdForm.style.display=="inline")?detachDisAllProdForm.style.display="none":detachDisAllProdForm.style.display="inline";
 
+  });
 
+}
+////
+let detachDisSpecific=document.querySelector("#detachDisSpecific");
+let detachDisSpecificForm=document.querySelector("#detachDisSpecificForm");
+if (detachDisSpecific && detachDisSpecificForm) {
+    detachDisSpecific.addEventListener("click",function(){
+ (detachDisSpecificForm.style.display=="inline")?detachDisSpecificForm.style.display="none":detachDisSpecificForm.style.display="inline";
+
+  });
+
+}
+////
+let detachDisByCatgr=document.querySelector("#detachDisByCatgr");
+let detachDisByCatgrForm=document.querySelector("#detachDisByCatgrForm");
+if (detachDisByCatgr && detachDisByCatgrForm) {
+    detachDisByCatgr.addEventListener("click",function(){
+ (detachDisByCatgrForm.style.display=="inline")?detachDisByCatgrForm.style.display="none":detachDisByCatgrForm.style.display="inline";
+  });
+}
+let detach_my_products=document.querySelector("#detach_my_products");
+let detach_my_productsForm=document.querySelector("#detach_my_productsForm");
+if (detach_my_products && detach_my_productsForm) {
+    detach_my_products.addEventListener("click",function(){
+ (detach_my_productsForm.style.display=="inline")?detach_my_productsForm.style.display="none":detach_my_productsForm.style.display="inline";
+
+  });
+
+}
+let detachDisByCatgrToAllPrd=document.querySelector("#detachDisByCatgrToAllPrd");
+let detachDisByCatgrToAllPrdForm=document.querySelector("#detachDisByCatgrToAllPrdForm");
+if (detachDisByCatgrToAllPrd && detachDisByCatgrToAllPrdForm) {
+    detachDisByCatgrToAllPrd.addEventListener("click",function(){
+ (detachDisByCatgrToAllPrdForm.style.display=="inline")?detachDisByCatgrToAllPrdForm.style.display="none":detachDisByCatgrToAllPrdForm.style.display="inline";
+
+  });
+
+}
 //=============End ==>{id-1}=============
 
 

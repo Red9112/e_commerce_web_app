@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Order;
+use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\OrderRepository;
@@ -38,14 +39,24 @@ public function confirm_order(Request $request){
 
 public function order_show($id){
 $order=Order::findOrfail($id);
+$order_statuses=OrderStatus::all();
     return view('order.show',[
       'order'=>$order,
+      'order_statuses'=>$order_statuses,
     ]);
 }
 
 public function order_cancel(Request $request,$id){
    return   $this->orderRepository->order_cancel($request,$id);
     }
+
+    public function set_order_status(Request $request,$id){
+        $order=Order::findOrfail($id);
+        $order->order_status_id=$request->order_status;
+        $order->save();
+        $request->session()->flash('status','Order status : "'.$order->order_status->name.'"  is saved for this order !!');
+        return redirect()->back();
+         }
 
 
 
