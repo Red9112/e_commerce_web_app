@@ -10899,15 +10899,27 @@ max-width: fit-content;
 
 /* includes view:['includes.lateral_menu','layouts.layout'] */
 
+ .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+  }
+  .lateral-menu {
+    flex: 1;
+  }
+  .yield-content {
+    flex: 100;
+  } 
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
     #parent{
        position: relative;
-       z-index: 1;
     }
 
     #sidebar {
-     margin-top: -18px;
       position: absolute;
-       z-index: 0;
       top: 0;
       bottom: 0;
       left: -250px;

@@ -11,12 +11,23 @@
     <title>Document</title>
 </head>
 <body >
+    
     @yield('header')
-    {{-- Flash --}}<x-alert></x-alert>
-    <div class="countainer" id="parent">
-     @include('includes.lateral_menu')
-    @yield('content')
+    {{-- Flash ==>--}}<x-alert></x-alert>
+    <div class="wrapper">
+    <div class="flex-container">
+    <div class="lateral-menu">
+        <div class="countainer" id="parent">
+        @include('includes.lateral_menu')
+      </div>
+      </div>
+    <div class="yield-content">
+        @yield('content')
+      </div>
+      </div>
+   
     </div>
+    
 
 
 <script src="{{mix('/js/app.js')}}"></script>
