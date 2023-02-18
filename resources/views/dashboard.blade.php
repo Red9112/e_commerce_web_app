@@ -4,18 +4,21 @@
 @endsection
 @section('content')
 
-<center>
-<a class="nav-link" href="{{route('dashboard')}}">
-<h2>{{__('welcome')}}</h2>
-</a>
 
 
-</center>
-
-
+<center><h2> <a class="nav-link justify-content-center" href="{{route('dashboard')}}">{{__('welcome')}}</a></h2></center>
 <x-display-prod :products="$products"></x-display-prod>
 
 
 
 
+
+
 @endsection
+
+
+
+
+
+
+
