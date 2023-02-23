@@ -10,7 +10,9 @@
     <h2>
   <x-badge val="info">Nbr: {{$blogs->count()}}</x-badge>
     </h2>
+    @auth
     <a   class=" btn btn-outline-info btn-lg my-2" href="{{route('blog.create')}}">+</a>
+    @endauth
     <div class="all d-flex">
     <div id="accordion">
 @foreach ($blogs as $blog)

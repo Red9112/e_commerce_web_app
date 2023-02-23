@@ -37,6 +37,8 @@ class BlogController extends Controller
      */
     public function create()
     {
+        $user=auth()->user();
+       $this->authorize('update',$user);
         $categories=Category::all();
         return view('blogs.create',[
             'categories'=>$categories
@@ -51,6 +53,8 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {  
+        $user=auth()->user();
+        $this->authorize('update',$user);
       $blog=$this->blogRepositoty->store_blog($request);
        $this->blogRepositoty->store_blog_categories($blog,$request);
        $request->session()->flash('status','you created a blog !! ');

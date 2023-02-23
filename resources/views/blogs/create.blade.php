@@ -8,12 +8,12 @@
 <h2>New Blog</h2>
 <form method="POST" action="{{route('blog.store')}}">
 
-    @include('blogs.forms')
+@include('blogs.forms')
+<div class="w-50">
  <x-create-select idLabel="categoryLabel" selectType="category_id" :objects="$categories">Select blog category: </x-create-select>
+</div>
 
-
-        <button class="btn btn-block btn-primary my-2" type="submit" >Add Blog </button>
-
+<button class="btn btn-block btn-primary my-2" type="submit" >Add Blog </button>
 </form>
 </div>
 

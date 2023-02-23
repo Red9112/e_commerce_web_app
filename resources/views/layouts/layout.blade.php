@@ -12,21 +12,28 @@
 </head>
 <body >
     
+ 
+
+   <div class="countainer">
     @yield('header')
     {{-- Flash ==>--}}<x-alert></x-alert>
-    <div class="wrapper">
-    <div class="flex-container">
-    <div class="lateral-menu">
-        <div class="countainer" id="parent">
-        @include('includes.lateral_menu')
-      </div>
-      </div>
-    <div class="yield-content">
-        @yield('content')
-      </div>
-      </div>
-   
+    <div id="menu_content">
+    <div id="menu_parent">
+      @include('includes.lateral_menu')
     </div>
+      <div id="yield_content">
+        @yield('content')
+         </div>
+    </div>
+    </div>
+  
+
+    
+
+     
+       
+   
+  
     
 
 

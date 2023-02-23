@@ -92,8 +92,11 @@ Route::resource('/shipping','App\Http\Controllers\ShippingController')->only(['i
 Route::resource('/orderStatus','App\Http\Controllers\OrderStatusController')->only(['index','store','edit','update','destroy']);
 Route::put('/set_order_status/{order}', [App\Http\Controllers\OrderController::class, 'set_order_status'])->name('set.order.status');
 
-//adress
+//address
 Route::resource('/address','App\Http\Controllers\AddressController')->only(['index','create','store','edit','update','destroy']);
+Route::get('/My_addresses', [App\Http\Controllers\AddressController::class, 'user_addresses'])->name('My_addresses');
+
+
 //payment
 Route::resource('/payment','App\Http\Controllers\PaymentController')->only(['index','store','edit','update','destroy']);
 

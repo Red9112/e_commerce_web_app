@@ -19,11 +19,12 @@ class ProductController extends Controller
 
     public function __construct(ProductRepository $productRepository)
     {
-        $this->middleware('auth');
         $this->productRepository=$productRepository;
     }
     public function index()
     {
+        $user=auth()->user();
+        $this->authorize('viewAny',$user);
        $user=User::with(['shop','shop.products','shop.products.images','shop.products.categories'])
        ->findOrfail(auth()->id());
        ($user->shop!=null)? $products=$user->shop->products:$products=null;
@@ -35,7 +36,8 @@ class ProductController extends Controller
 
     public function create()
     {
-
+        $user=auth()->user();
+        $this->authorize('create',$user);
      $categories=Category::all();
         return view('product.create',[
             'categories'=>$categories
@@ -44,6 +46,8 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
+        $user=auth()->user();
+        $this->authorize('create',$user);
         $vender=User::findOrfail(auth()->id());
         $data=$request->only(['sku','name','description','qty_in_stock','price']);
         $data['shop_id']=$vender->shop->id;
@@ -68,7 +72,8 @@ return redirect()->route('product.index');
 
     public function edit($id)
     {
-        $product=Product::with(['categories','images'])->findOrfail($id);
+        $product=Product::with(['categories','images','shop','shop.user'])->findOrfail($id);
+        $this->authorize('update',$product);
         $categories=Category::all();
         return view('product.edit',[
             'product'=>$product,
@@ -77,7 +82,8 @@ return redirect()->route('product.index');
     }
     public function update(StoreProductRequest $request, $id)
     {
-
+        $product=Product::with(['categories','images','shop','shop.user'])->findOrfail($id);
+        $this->authorize('update',$product);
       $data=$request->only(['sku','name','description','qty_in_stock','price']);
       $product=Product::findOrfail($id);
       $product->update($data);
@@ -90,6 +96,8 @@ return redirect()->route('product.index');
 
     public function destroy(Request $request,$id)
     {
+        $product=Product::with(['shop','shop.user'])->findOrfail($id);
+        $this->authorize('delete',$product);
       $this->productRepository->destroy_product($id);
       $request->session()->flash('failed',' product Deleted !!');
       return redirect()->route('product.index');

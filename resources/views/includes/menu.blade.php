@@ -27,15 +27,6 @@
           <li class="nav-item">
             <a   class="nav-link" href="{{route('blog.index')}}">Blogs</a>
           </li>
-          <li class="nav-item">
-            <a   class="nav-link" href="{{route('address.index')}}">Address</a>
-          </li>
-          <li class="nav-item">
-            <a   class="nav-link" href="{{route('payment.index')}}">Payment</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{route('customer.orders')}}">My orders</a>
-          </li>
         </ul>
 
         <div class="container-fluid w-25 justify-content-center" id="navbarNav">

@@ -20,6 +20,15 @@ class AddressController extends Controller
             'addresses'=>$addresses
         ]);
     }
+    public function user_addresses()
+    {
+        $user=auth()->user();
+        $addresses=$user->addresses;
+
+        return view('address.index',[
+            'addresses'=>$addresses
+        ]);
+    }
     public function create()
     {
         return view('address.create');

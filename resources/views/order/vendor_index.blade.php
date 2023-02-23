@@ -6,6 +6,7 @@
 
 <div class="container my-3">
     <div class="my-5">
+        @if ($orders!=null)
     <h2>Orders for shop: <span class="badge bg-info">{{ $user->shop->name }}</span></h2>
     <h2>Vendor: <span class="badge bg-info">{{ $user->name }}</span></h2>
       </div>
@@ -21,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($orders as $order)
+             @forelse($orders as $order) 
                 <tr>
                     <td>{{$order->id}}</td>
                     <td>{{ $order->created_at->format('d/m/Y') }}</td>
@@ -31,9 +32,18 @@
                         <a type="button" class="btn btn-info mx-2" href="{{route('order.vendor.show',['order'=>$order->id])}}">Details</a>
                         </td>
                 </tr>
-            @endforeach
+                @empty
+                <div class="container mx-1 my-3">
+                <div class="alert alert-warning text-center">
+                 <strong>Alert: </strong> There is no orders found !!
+                </div>
+              </div>
+                @endforelse
         </tbody>
     </table>
+    @else
+    <center> <div><h3><x-badge val="warning mx-3 my-3">You don't have shop !!</x-badge></h3></div> </center>
+       @endif
 </div>
 
 @endsection

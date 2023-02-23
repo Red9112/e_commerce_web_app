@@ -16,10 +16,11 @@ class OrderController extends Controller
 
     public function __construct(OrderRepository $orderRepository)
 {
+    $this->middleware('auth');
     $this->orderRepository=$orderRepository;
 }
 
-// Checkout:
+// Checkout: 
 public function checkout_process_discount(Request $request){
     $request->validate(['shipping'=>'required']);
     $result=$this->orderRepository->checkout_process_discount($request);
@@ -36,22 +37,37 @@ public function confirm_order(Request $request){
 }
 
 // Order:
-
+  
 public function order_show($id){
-$order=Order::findOrfail($id);
+$order=Order::with('user')->findOrfail($id);
+$this->authorize('view',$order);
 $order_statuses=OrderStatus::all();
     return view('order.show',[
       'order'=>$order,
       'order_statuses'=>$order_statuses,
     ]);
-}
-
+} 
+public function order_vendor_show($id){
+    $user=auth()->user();
+    $order=Order::findOrfail($id);
+    $this->authorize('create',$order);
+    $vendorProducts=$user->shop->products;
+    $products = $order->products()->whereIn('products.id', $vendorProducts->pluck('id'))->get();
+        return view('order.vendor_show',[
+          'order'=>$order,
+          'products'=>$products,
+        ]);
+    }
 public function order_cancel(Request $request,$id){
+    $order=Order::with('user')->findOrfail($id);
+    $this->authorize('view',$order);
    return   $this->orderRepository->order_cancel($request,$id);
     }
 
     public function set_order_status(Request $request,$id){
         $order=Order::findOrfail($id);
+        $user=auth()->user();
+        $this->authorize('update',$user);
         $order->order_status_id=$request->order_status;
         $order->save();
         $request->session()->flash('status','Order status : "'.$order->order_status->name.'"  is saved for this order !!');
@@ -60,49 +76,50 @@ public function order_cancel(Request $request,$id){
 
 
 
-
+public function admin_orders_index(){
+    $user=auth()->user();
+    $this->authorize('viewAny',$user);
+$orders=Order::with(['user','order_status'])->get();
+return view('order.admin_index',[
+    'orders'=>$orders,
+]);
+        }
 public function customer_orders_index(){
-$user=User::findOrfail(auth()->id());
-   $orders=$user->orders;
+$user=auth()->user();
+$orders=$user->orders;
     return view('order.customer_index',[
       'orders'=>$orders,
     ]);
 }
 
-
 public function vendor_orders_index(){
     $user=auth()->user();
-    $vendorProducts=$user->shop->products;
-    $orderIds = DB::table('order_product')
-->whereIn('product_id', $vendorProducts->pluck('id'))
-->pluck('order_id')
-->toArray();
-$orders = Order::whereIn('id', $orderIds)->get();
+    $this->authorize('create',$user);
+    if ($user->shop) {
+        $vendorProducts=$user->shop->products;
+        $orderIds = DB::table('order_product')
+    ->whereIn('product_id', $vendorProducts->pluck('id'))
+    ->pluck('order_id')
+    ->toArray();
+    $orders = Order::whereIn('id', $orderIds)->get();
+    }
+    else{
+        $orders=null;
+    }
+ 
     return view('order.vendor_index',[
         'orders'=>$orders,
         'user'=>$user,
     ]);
 }
-public function order_vendor_show($id){
-    $user=auth()->user();
-    $order=Order::findOrfail($id);
-    $vendorProducts=$user->shop->products;
-    $products = $order->products()->whereIn('products.id', $vendorProducts->pluck('id'))->get();
-        return view('order.vendor_show',[
-          'order'=>$order,
-          'products'=>$products,
-        ]);
-    }
 
-public function admin_orders_index(){
-    $orders=Order::with(['user','order_status'])->get();
-    return view('order.admin_index',[
-        'orders'=>$orders,
-    ]);
-}
+
+
 
 public function destroy(Request $request,$id)
 {
+    $user=auth()->user();
+    $this->authorize('delete',$user);
     Order::destroy($id);
     $request->session()->flash('failed',' Order deleted !!');
     return redirect()->back();

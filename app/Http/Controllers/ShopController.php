@@ -21,12 +21,7 @@ class ShopController extends Controller
             'email' => 'regex:/^.+@.+$/i',
         ];
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
+    
  
     public function exportShopsList(){
         return view('shop.exportShopsList');
@@ -44,23 +39,21 @@ if ($request->optradio == "excel") {
 
     public function index() 
     { 
-        
+        $user=auth()->user(); 
+        $this->authorize('viewAny',$user);
         $shops = Shop::with('user')->withCount('products')->orderBy('id', 'ASC')->get();
         $shopProducts=Shop::shopProducts()->take(5)->get();
-  
+       
         return view('shop.index',[
             'shops'=>$shops,
             'shopProducts'=>$shopProducts,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
+        $user=auth()->user(); 
+        $this->authorize('create',$user);
         $users=User::all();
         return view('shop.create',[
             'users'=>$users
@@ -68,15 +61,12 @@ if ($request->optradio == "excel") {
  
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
-        $validData=$request->validate($this->validatedData());
+        $user=auth()->user(); 
+        $this->authorize('create',$user);
+        $request->validate($this->validatedData());
         $shop=new Shop();
        $shop->name=$request->input('name');
        $shop->phone_number=$request->input('phone_number');
@@ -91,12 +81,7 @@ if ($request->optradio == "excel") {
        return redirect()->route('dashboard');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
         $shop=Shop::with('user')->findOrfail($id);
@@ -106,51 +91,36 @@ if ($request->optradio == "excel") {
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $shop=Shop::findOrfail($id);
+        $this->authorize('update',$shop);
     $this->authorize('update',$shop);
         return view('shop.edit',[
             'shop'=>$shop
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, $id)
     {
-        $validData=$request->validate($this->validatedData());
         $shop=Shop::findOrfail($id);
+        $this->authorize('update',$shop);
+        $request->validate($this->validatedData());
         $this->authorize('update',$shop);
         $data=$request->only(['name','phone_number','email']);
         $shop->update($data);
-       $shop->save();
-       $request->session()->flash('status',' shop updated !!');
-      return redirect()->route('dashboard');
+        $shop->save();
+        $request->session()->flash('status',' shop updated !!');
+        return redirect()->route('dashboard');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Request $request,Shop $shop)
     {
         $this->authorize('delete',$shop);
        Shop::destroy($shop->id);
-     
       $request->session()->flash('failed',' shop Deleted !!');
       return redirect()->route('shop.index');
     }

@@ -46,15 +46,12 @@
 
     <div class="text-center dropdown-menu dropdown-menu-end aria-labelledby="navbarDropdown">
         <a class="dropdown-item text-success" href="{{ route('logout') }}"
-           onclick="event.preventDefault();
-                         document.getElementById('logout-form').submit();">
-           <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>
-        </a>
+           onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+           Logout @include('includes.icons.logout')</a>
         <a class="dropdown-item text-success" href="{{route('user.show',['user'=>Auth::user()])}}">
-          <i class="fa fa-user fa-lg" aria-hidden="true"></i></a>
+          Profile @include('includes.icons.profile')</a>
          <a class="dropdown-item text-success" href="{{route('user.edit',['user'=>Auth::user()])}}">
-          <i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
-
+          Edit  @include('includes.icons.profile_edit')</a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
         </form>

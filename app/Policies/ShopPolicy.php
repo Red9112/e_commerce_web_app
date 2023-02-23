@@ -21,13 +21,13 @@ class ShopPolicy
     public function before(User $user, $ability)
     {
 
-if ($user->hasRole('admin') && in_array($ability,['update','delete'])) return true;
+if ($user->hasRole('admin') && in_array($ability,['update','delete','viewAny','create'])) return true;
     }
     public function viewAny(User $user)
     {
-        //
+       return ($user->hasRole('admin'));
     }
-
+ 
     /**
      * Determine whether the user can view the model.
      *
@@ -37,7 +37,7 @@ if ($user->hasRole('admin') && in_array($ability,['update','delete'])) return tr
      */
     public function view(User $user, Shop $shop)
     {
-        //
+       
     }
 
     /**
@@ -48,52 +48,28 @@ if ($user->hasRole('admin') && in_array($ability,['update','delete'])) return tr
      */
     public function create(User $user)
     {
-        //
+        return ($user->hasRole('vendor'));
     }
 
-    /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Shop  $shop
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+    
     public function update(User $user, Shop $shop)
     {
       if ($user->id==$shop->user_id) return true;
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Shop  $shop
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+  
     public function delete(User $user, Shop $shop)
     {
         if ($user->hasRole('admin')) return true;
     }
 
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Shop  $shop
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+
     public function restore(User $user, Shop $shop)
     {
         //
     }
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Shop  $shop
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
+    
     public function forceDelete(User $user, Shop $shop)
     {
         //
