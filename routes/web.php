@@ -99,7 +99,7 @@ Route::get('/My_addresses', [App\Http\Controllers\AddressController::class, 'use
 
 //payment
 Route::resource('/payment','App\Http\Controllers\PaymentController')->only(['index','store','edit','update','destroy']);
-
+Route::get('/payment/user_cards', [App\Http\Controllers\PaymentController::class, 'user_cards'])->name('user_cards');
 
 
 

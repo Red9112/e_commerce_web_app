@@ -18,6 +18,14 @@ class AuthServiceProvider extends ServiceProvider
           'App\Models\User' => 'App\Policies\UserPolicy',
           'App\Models\Product' => 'App\Policies\ProductPolicy',
           'App\Models\Order' => 'App\Policies\OrderPolicy',
+          'App\Models\Category' => 'App\Policies\CategoryPolicy',
+          'App\Models\Discount' => 'App\Policies\DiscountPolicy',
+          'App\Models\DiscountType' => 'App\Policies\DiscountTypePolicy',
+          'App\Models\Shipping' => 'App\Policies\ShippingPolicy',
+          'App\Models\Payment' => 'App\Policies\PaymentPolicy',
+          'App\Models\Address' => 'App\Policies\AddressPolicy',
+          'App\Models\OrderStatus' => 'App\Policies\OrderStatusPolicy',
+          'App\Models\Role' => 'App\Policies\RolePolicy',
     ];
 
     /**

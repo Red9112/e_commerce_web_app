@@ -15,29 +15,41 @@ class OrderPolicy
     public function before(User $user, $ability)
     {
    if ($user->hasRole('admin') &&
-      in_array($ability,['update','delete','create','viewAny','view'])) 
+      in_array($ability,
+      ['update','delete','order_cancel','admin_orders_index','vendor_orders_index']))
       return true;
     }
 
-    public function viewAny(User $user)
+
+    public function vendor_orders_index(User $user)
+    {
+        return ($user->hasRole('vendor'));
+    }
+    public function admin_orders_index(User $user)
     {
         return ($user->hasRole('admin'));
-    } 
+    }
 
-    public function view(User $user, Order $order)
+    public function order_show(User $user, Order $order)
     {
         return ($user->id==$order->user->id);
     }
 
-    public function create(User $user)
+    public function order_vendor_show(User $user)
     {
         return ($user->hasRole('vendor'));
     }
 
 
-    public function update(User $user)
+    public function set_order_status(User $user)
     {
         return ($user->hasRole('admin'));
+    }
+
+
+    public function order_cancel(User $user, Order $order)
+    {
+        return ($user->id==$order->user->id);
     }
 
     public function delete(User $user, Order $order)

@@ -87,7 +87,7 @@ class UserController extends Controller
 
     public function destroy(Request $request,User $user)
     {
-     $this->authorize('update',$user);
+     $this->authorize('delete',$user);
      User::destroy($user->id);
       $request->session()->flash('failed',' User Deleted !!');
       return redirect()->route('user.index');

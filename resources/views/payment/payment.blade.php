@@ -8,7 +8,11 @@
 {{-- index --}}
 <div class="d-flex flex-row justify-content-between">
 <div class="w-50 mx-5 my-3">
-<h2>List of payment cards :</h2>
+    @if(Route::currentRouteName() == 'user_cards')
+    <h2>My payment cards :</h2>
+    @else
+    <h2>List of payment cards :</h2>
+    @endif
   <table class="table">
     <thead>
       <tr>

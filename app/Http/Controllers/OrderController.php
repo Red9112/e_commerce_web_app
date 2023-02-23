@@ -20,7 +20,7 @@ class OrderController extends Controller
     $this->orderRepository=$orderRepository;
 }
 
-// Checkout: 
+// Checkout:
 public function checkout_process_discount(Request $request){
     $request->validate(['shipping'=>'required']);
     $result=$this->orderRepository->checkout_process_discount($request);
@@ -37,20 +37,20 @@ public function confirm_order(Request $request){
 }
 
 // Order:
-  
+
 public function order_show($id){
 $order=Order::with('user')->findOrfail($id);
-$this->authorize('view',$order);
+$this->authorize('order_show',$order);
 $order_statuses=OrderStatus::all();
     return view('order.show',[
       'order'=>$order,
       'order_statuses'=>$order_statuses,
     ]);
-} 
+}
 public function order_vendor_show($id){
     $user=auth()->user();
     $order=Order::findOrfail($id);
-    $this->authorize('create',$order);
+    $this->authorize('order_vendor_show',$order);
     $vendorProducts=$user->shop->products;
     $products = $order->products()->whereIn('products.id', $vendorProducts->pluck('id'))->get();
         return view('order.vendor_show',[
@@ -60,14 +60,14 @@ public function order_vendor_show($id){
     }
 public function order_cancel(Request $request,$id){
     $order=Order::with('user')->findOrfail($id);
-    $this->authorize('view',$order);
+    $this->authorize('order_cancel',$order);
    return   $this->orderRepository->order_cancel($request,$id);
     }
 
     public function set_order_status(Request $request,$id){
         $order=Order::findOrfail($id);
         $user=auth()->user();
-        $this->authorize('update',$user);
+        $this->authorize('set_order_status',$user);
         $order->order_status_id=$request->order_status;
         $order->save();
         $request->session()->flash('status','Order status : "'.$order->order_status->name.'"  is saved for this order !!');
@@ -78,12 +78,13 @@ public function order_cancel(Request $request,$id){
 
 public function admin_orders_index(){
     $user=auth()->user();
-    $this->authorize('viewAny',$user);
+    $this->authorize('admin_orders_index',$user);
 $orders=Order::with(['user','order_status'])->get();
 return view('order.admin_index',[
     'orders'=>$orders,
 ]);
-        }
+}
+
 public function customer_orders_index(){
 $user=auth()->user();
 $orders=$user->orders;
@@ -94,7 +95,7 @@ $orders=$user->orders;
 
 public function vendor_orders_index(){
     $user=auth()->user();
-    $this->authorize('create',$user);
+    $this->authorize('vendor_orders_index',$user);
     if ($user->shop) {
         $vendorProducts=$user->shop->products;
         $orderIds = DB::table('order_product')
@@ -106,7 +107,7 @@ public function vendor_orders_index(){
     else{
         $orders=null;
     }
- 
+
     return view('order.vendor_index',[
         'orders'=>$orders,
         'user'=>$user,

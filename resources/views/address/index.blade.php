@@ -9,7 +9,12 @@
 <div class="d-flex flex-row justify-content-between">
 <div class="w-50 mx-5 my-3">
     <a id="createBtn"  class=" btn btn-outline-info btn-lg my-3" href="{{route('address.create')}}">+</a>
-<h2>List of Addresses :</h2>
+    @if(Route::currentRouteName() == 'My_addresses')
+    <h2>My Addresses :</h2>
+    @else
+    <h2>List of Addresses :</h2>
+    @endif
+
   <table class="table text-center">
     <thead>
       <tr>

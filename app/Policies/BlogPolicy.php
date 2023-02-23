@@ -9,7 +9,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class BlogPolicy
 {
     use HandlesAuthorization;
- 
+
 
     public function before(User $user, $ability)
 {
@@ -27,8 +27,8 @@ class BlogPolicy
     {
         //
     }
- 
-    
+
+
     public function create(User $user)
     {
         return ($user!=null);
@@ -40,19 +40,19 @@ class BlogPolicy
         return ($user->id == $blog->user_id);
     }
 
-   
+
     public function delete(User $user, Blog $blog)
     {
         return ($user->id == $blog->user_id);
     }
 
-  
+
     public function restore(User $user, Blog $blog)
     {
         //
     }
 
-   
+
     public function forceDelete(User $user, Blog $blog)
     {
         //

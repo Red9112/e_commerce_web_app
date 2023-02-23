@@ -26,9 +26,9 @@ public $discountRepository;
 
     public function affect_to_products($id)
     {
-
-        $discount=Discount::findOrfail($id);
         $user=auth()->user();
+        $this->authorize('affect_to_products',$user);
+        $discount=Discount::findOrfail($id);
         $products=$user->shop->products;
         return view('discount.affect_to_products',[
             'discount'=>$discount,
@@ -37,11 +37,15 @@ public $discountRepository;
     }
     public function discount_product(Request $request,$id)
     {
+        $user=auth()->user();
+        $this->authorize('affect_to_products',$user);
         $this->discountRepository->attach_discount_to_product($request,$id);
         return redirect()->route('discount.index');
     }
     public function index()
     {
+        $user=auth()->user();
+        $this->authorize('viewAny',$user);
         $discounts=Discount::all();
         return view('discount.discount',[
             'discounts'=>$discounts,
@@ -49,6 +53,8 @@ public $discountRepository;
     }
     public function create()
     {
+        $user=auth()->user();
+        $this->authorize('store',$user);
         $types=DiscountType::all();
         return view('discount.create',[
             'types'=>$types,
@@ -57,6 +63,8 @@ public $discountRepository;
 
     public function store(DiscountRequest $request)
     {
+        $user=auth()->user();
+        $this->authorize('store',$user);
         $data=$request->only([
             'code','name','discount_type_id','value','start_date','end_date','description'
         ]);
@@ -68,6 +76,8 @@ public $discountRepository;
 
     public function edit($id)
     {
+        $user=auth()->user();
+        $this->authorize('edit',$user);
         $discount=Discount::findOrFail($id);
         $types=DiscountType::all();
         return view('discount.edit',[
@@ -78,6 +88,8 @@ public $discountRepository;
 
     public function update(DiscountRequest $request, $id)
     {
+        $user=auth()->user();
+        $this->authorize('update',$user);
         $data=$request->only([
             'code','name','discount_type_id','value','start_date','end_date','description',
         ]);
@@ -91,6 +103,8 @@ public $discountRepository;
 
     public function destroy(Request $request,$id)
     {
+        $user=auth()->user();
+        $this->authorize('delete',$user);
         Discount::destroy($id);
         $request->session()->flash('failed',' Discount Deleted !!');
         return redirect()->route('discount.index');

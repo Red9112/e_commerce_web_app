@@ -38,7 +38,7 @@ class BlogController extends Controller
     public function create()
     {
         $user=auth()->user();
-       $this->authorize('update',$user);
+       $this->authorize('create',$user);
         $categories=Category::all();
         return view('blogs.create',[
             'categories'=>$categories
@@ -52,9 +52,9 @@ class BlogController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  
+    {
         $user=auth()->user();
-        $this->authorize('update',$user);
+        $this->authorize('create',$user);
       $blog=$this->blogRepositoty->store_blog($request);
        $this->blogRepositoty->store_blog_categories($blog,$request);
        $request->session()->flash('status','you created a blog !! ');
@@ -102,7 +102,6 @@ return redirect()->route('blog.index');
      */
     public function update(Request $request,Blog $blog)
     {
-        
         $this->authorize('update',$blog);
         $data=$request->only(['title','description']);
         $blog->update($data);

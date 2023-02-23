@@ -17,9 +17,7 @@ if($user->hasRole('admin') && in_array($ability,['update','delete','create','vie
     }
     public function viewAny(User $user)
     {
-
         return($user->hasRole('admin'))?true:false;
-
     }
 
     /**
@@ -55,10 +53,7 @@ if($user->hasRole('admin') && in_array($ability,['update','delete','create','vie
      */
     public function update(User $user, User $model)
     {
-        if($user->hasRole('admin')) {
-            return true;
-        }
-           return ($user->id === $model->id)?true:false;
+           return ($user->id == $model->id);
 
     }
 
@@ -71,11 +66,7 @@ if($user->hasRole('admin') && in_array($ability,['update','delete','create','vie
      */
     public function delete(User $user, User $model)
     {
-           if($user->hasRole('admin')) {
-            return true;
-        }
-           return ($user->id === $model->id)?true:false;
-
+       return ($user->hasRole('admin'));
     }
 
     /**

@@ -15,6 +15,8 @@ class AddressController extends Controller
 
     public function index()
     {
+        $user=auth()->user();
+        $this->authorize('viewAny',$user);
         $addresses=Address::with('user')->get();
         return view('address.index',[
             'addresses'=>$addresses
@@ -24,11 +26,11 @@ class AddressController extends Controller
     {
         $user=auth()->user();
         $addresses=$user->addresses;
-
         return view('address.index',[
             'addresses'=>$addresses
         ]);
     }
+
     public function create()
     {
         return view('address.create');
@@ -48,6 +50,7 @@ class AddressController extends Controller
     public function edit($id)
     {
         $address=Address::findOrFail($id);
+        $this->authorize('edit',$address);
         return view('address.edit',[
             'address'=>$address,
         ]);
@@ -55,16 +58,20 @@ class AddressController extends Controller
 
     public function update(AddressRequest $request, $id)
     {
+        $address=Address::findOrFail($id);
+        $this->authorize('update',$address);
         $data=$request->only([
             'street_number','address','city','region','postal_code','country','is_default',
         ]);
-        Address::findOrfail($id)->update($data);
+        $address->update($data);
         $request->session()->flash('status','The address  updated !!');
       return redirect()->route('address.index');
     }
 
     public function destroy(Request $request,$id)
     {
+        $address=Address::findOrFail($id);
+        $this->authorize('delete',$address);
         Address::destroy($id);
         $request->session()->flash('failed',' Address Deleted !!');
         return redirect()->route('address.index');

@@ -7,11 +7,11 @@
       <h5>User Space</h5>
       <div id="user_space">
       <li class="list-group-item"><a href="{{route('My_addresses')}}">My address</a></li>
-      <li class="list-group-item"><a href="{{route('payment.index')}}">My cards</a></li>
+      <li class="list-group-item"><a href="{{route('user_cards')}}">My cards</a></li>
       <li class="list-group-item"><a href="{{route('customer.orders')}}">My orders</a></li>
       </div>
-    
-      
+
+
       <h5>Vendor Space</h5>
       <div id="vendor_space">
       <li class="list-group-item"><a href="#">My shop</a></li>
@@ -34,7 +34,7 @@
      </div>
 
      </ul>
-     
+
   </nav>
 
 </div>

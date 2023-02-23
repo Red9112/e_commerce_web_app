@@ -22,6 +22,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $user=auth()->user();
+        $this->authorize('viewAny',$user);
         return view('Category.category');
     }
 
@@ -45,13 +47,14 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request);
-        $vldtData=$request->validate(['name'=>'min:3']);
+        $user=auth()->user();
+        $this->authorize('store',$user);
+        $request->validate(['name'=>'min:3']);
         $cat=new Category();
        $cat->name=$request->input('name');
        $cat->parent_id=$request->input('parent_id');
        $cat->save();
-    // dd($request->parent);
+
 
    $request->session()->flash('status','a category was created !! ');
        return redirect()->route('category.index');
@@ -71,6 +74,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        $user=auth()->user();
+        $this->authorize('edit',$user);
         $parent=Category::all();
         $category=Category::findOrFail($id);
         return view('Category.edit',[
@@ -89,7 +94,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $vldtData=$request->validate(['name'=>'min:3']);
+        $user=auth()->user();
+        $this->authorize('update',$user);
+        $request->validate(['name'=>'min:3']);
         $category=Category::findOrFail($id);
         $category->name=$request->input('name');
         $category->parent_id=$request->input('parent_id');
@@ -107,6 +114,8 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request,$id)
     {
+        $user=auth()->user();
+        $this->authorize('delete',$user);
         Category::destroy($id);
         $request->session()->flash('failed',' Category Deleted !!');
         return redirect()->route('category.index');

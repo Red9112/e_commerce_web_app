@@ -9,6 +9,8 @@ class ShippingController extends Controller
 {
     public function index()
     {
+        $user=auth()->user();
+        $this->authorize('viewAny',$user);
         $shippings=Shipping::all();
         return view('shipping.shipping',[
             'shippings'=>$shippings
@@ -16,6 +18,8 @@ class ShippingController extends Controller
     }
     public function store(Request $request)
     {
+        $user=auth()->user();
+        $this->authorize('store',$user);
         $vldtData=$request->validate([
             'name'=>'min:3',
             'price' => 'required|numeric',]);
@@ -26,6 +30,8 @@ class ShippingController extends Controller
 
     public function edit($id)
     {
+        $user=auth()->user();
+        $this->authorize('edit',$user);
         $shipping=Shipping::findOrFail($id);
         return view('shipping.edit',[
             'shipping'=>$shipping,
@@ -34,6 +40,8 @@ class ShippingController extends Controller
 
     public function update(Request $request, $id)
     {
+        $user=auth()->user();
+        $this->authorize('update',$user);
         $vldtData=$request->validate(['name'=>'min:3','price'=>'required|numeric']);
         Shipping::findOrfail($id)->update($vldtData);
         $request->session()->flash('status','a shipping method  updated !!');
@@ -42,6 +50,8 @@ class ShippingController extends Controller
 
     public function destroy(Request $request,$id)
     {
+        $user=auth()->user();
+        $this->authorize('delete',$user);
         Shipping::destroy($id);
         $request->session()->flash('failed',' shipping method deleted !!');
         return redirect()->route('discount.index');

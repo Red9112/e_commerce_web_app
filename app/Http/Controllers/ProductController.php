@@ -37,8 +37,8 @@ class ProductController extends Controller
     public function create()
     {
         $user=auth()->user();
-        $this->authorize('create',$user);
-     $categories=Category::all();
+        $this->authorize('store',$user);
+        $categories=Category::all();
         return view('product.create',[
             'categories'=>$categories
         ]);
@@ -47,7 +47,7 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request)
     {
         $user=auth()->user();
-        $this->authorize('create',$user);
+        $this->authorize('store',$user);
         $vender=User::findOrfail(auth()->id());
         $data=$request->only(['sku','name','description','qty_in_stock','price']);
         $data['shop_id']=$vender->shop->id;

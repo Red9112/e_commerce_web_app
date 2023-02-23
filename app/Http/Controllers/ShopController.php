@@ -21,8 +21,8 @@ class ShopController extends Controller
             'email' => 'regex:/^.+@.+$/i',
         ];
     }
-    
- 
+
+
     public function exportShopsList(){
         return view('shop.exportShopsList');
     }
@@ -34,16 +34,16 @@ if ($request->optradio == "excel") {
  else {
     return Excel::download(new ShopsExport, 'shops.html');
 }
-        
+
     }
 
-    public function index() 
-    { 
-        $user=auth()->user(); 
+    public function index()
+    {
+        $user=auth()->user();
         $this->authorize('viewAny',$user);
         $shops = Shop::with('user')->withCount('products')->orderBy('id', 'ASC')->get();
         $shopProducts=Shop::shopProducts()->take(5)->get();
-       
+
         return view('shop.index',[
             'shops'=>$shops,
             'shopProducts'=>$shopProducts,
@@ -52,20 +52,20 @@ if ($request->optradio == "excel") {
 
     public function create()
     {
-        $user=auth()->user(); 
-        $this->authorize('create',$user);
+        $user=auth()->user();
+        $this->authorize('store',$user);
         $users=User::all();
         return view('shop.create',[
             'users'=>$users
         ]);
- 
+
     }
 
-   
+
     public function store(Request $request)
     {
-        $user=auth()->user(); 
-        $this->authorize('create',$user);
+        $user=auth()->user();
+        $this->authorize('store',$user);
         $request->validate($this->validatedData());
         $shop=new Shop();
        $shop->name=$request->input('name');
@@ -81,11 +81,10 @@ if ($request->optradio == "excel") {
        return redirect()->route('dashboard');
     }
 
-    
+
     public function show($id)
     {
         $shop=Shop::with('user')->findOrfail($id);
-       
         return view('shop.show',[
             'shop'=>$shop
         ]);
@@ -94,21 +93,19 @@ if ($request->optradio == "excel") {
 
     public function edit($id)
     {
-        $shop=Shop::findOrfail($id);
-        $this->authorize('update',$shop);
+    $shop=Shop::findOrfail($id);
     $this->authorize('update',$shop);
-        return view('shop.edit',[
-            'shop'=>$shop
+    return view('shop.edit',[
+     'shop'=>$shop
         ]);
     }
 
-   
+
     public function update(Request $request, $id)
     {
         $shop=Shop::findOrfail($id);
         $this->authorize('update',$shop);
         $request->validate($this->validatedData());
-        $this->authorize('update',$shop);
         $data=$request->only(['name','phone_number','email']);
         $shop->update($data);
         $shop->save();
@@ -119,8 +116,8 @@ if ($request->optradio == "excel") {
 
     public function destroy(Request $request,Shop $shop)
     {
-        $this->authorize('delete',$shop);
-       Shop::destroy($shop->id);
+      $this->authorize('delete',$shop);
+    Shop::destroy($shop->id);
       $request->session()->flash('failed',' shop Deleted !!');
       return redirect()->route('shop.index');
     }
