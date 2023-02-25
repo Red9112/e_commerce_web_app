@@ -72,6 +72,7 @@ Route::post('/confirm_order', [App\Http\Controllers\OrderController::class, 'con
 Route::post('/save_order', [App\Http\Controllers\OrderController::class, 'save_order'])->name('order.store');
 
 //Order
+
 Route::get('/customer_orders', [App\Http\Controllers\OrderController::class, 'customer_orders_index'])->name('customer.orders');
 Route::get('/vendor_orders', [App\Http\Controllers\OrderController::class, 'vendor_orders_index'])->name('vendor.orders');
 Route::get('/admin_orders', [App\Http\Controllers\OrderController::class, 'admin_orders_index'])->name('admin.orders');

@@ -10,8 +10,8 @@ class DiscountTypeController extends Controller
 
     public function index()
     {
-        $user=auth()->user();
-        $this->authorize('viewAny',$user);
+        $discountType=new DiscountType();
+        $this->authorize('viewAny',$discountType);
         $types=DiscountType::all();
         return view('discount.discount_type.index_create',[
             'types'=>$types,
@@ -19,8 +19,8 @@ class DiscountTypeController extends Controller
     }
     public function store(Request $request)
     {
-        $user=auth()->user();
-        $this->authorize('store',$user);
+        $discountType=new DiscountType();
+        $this->authorize('store',$discountType);
         $vldtData=$request->validate(['name'=>'min:3','description'=>'string',]);
         DiscountType::create($vldtData);
         $request->session()->flash('status','a Discount Type  was created !! ');
@@ -28,9 +28,8 @@ class DiscountTypeController extends Controller
     }
     public function edit($id)
     {
-        $user=auth()->user();
-        $this->authorize('edit',$user);
         $type=DiscountType::findOrFail($id);
+        $this->authorize('edit',$type);
         return view('discount.discountType_edit',[
             'type'=>$type,
         ]);
@@ -38,18 +37,18 @@ class DiscountTypeController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user=auth()->user();
-        $this->authorize('update',$user);
+        $discountType= DiscountType::findOrfail($id);
+        $this->authorize('update',$discountType);
         $vldtData=$request->validate(['name'=>'min:3','description'=>'string',]);
-        DiscountType::findOrfail($id)->update($vldtData);
+        $discountType->update($vldtData);
         $request->session()->flash('status','a Discount Type  updated !!');
       return redirect()->route('discount.index');
     }
 
     public function destroy(Request $request,$id)
     {
-        $user=auth()->user();
-        $this->authorize('delete',$user);
+        $discountType= new DiscountType();
+        $this->authorize('delete',$discountType);
         DiscountType::destroy($id);
         $request->session()->flash('failed',' Discount Type deleted !!');
         return redirect()->route('discount.index');

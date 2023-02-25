@@ -66,8 +66,7 @@ public function order_cancel(Request $request,$id){
 
     public function set_order_status(Request $request,$id){
         $order=Order::findOrfail($id);
-        $user=auth()->user();
-        $this->authorize('set_order_status',$user);
+        $this->authorize('set_order_status',$order);
         $order->order_status_id=$request->order_status;
         $order->save();
         $request->session()->flash('status','Order status : "'.$order->order_status->name.'"  is saved for this order !!');
@@ -77,8 +76,8 @@ public function order_cancel(Request $request,$id){
 
 
 public function admin_orders_index(){
-    $user=auth()->user();
-    $this->authorize('admin_orders_index',$user);
+    $order = new Order();
+    $this->authorize('admin_viewAny',$order);
 $orders=Order::with(['user','order_status'])->get();
 return view('order.admin_index',[
     'orders'=>$orders,
@@ -95,7 +94,8 @@ $orders=$user->orders;
 
 public function vendor_orders_index(){
     $user=auth()->user();
-    $this->authorize('vendor_orders_index',$user);
+    $order = new Order();
+    $this->authorize('vendor_viewAny',$order);
     if ($user->shop) {
         $vendorProducts=$user->shop->products;
         $orderIds = DB::table('order_product')
@@ -107,11 +107,12 @@ public function vendor_orders_index(){
     else{
         $orders=null;
     }
-
+ 
     return view('order.vendor_index',[
         'orders'=>$orders,
         'user'=>$user,
     ]);
+
 }
 
 
@@ -119,8 +120,8 @@ public function vendor_orders_index(){
 
 public function destroy(Request $request,$id)
 {
-    $user=auth()->user();
-    $this->authorize('delete',$user);
+    $order = new Order();
+    $this->authorize('delete',$order);
     Order::destroy($id);
     $request->session()->flash('failed',' Order deleted !!');
     return redirect()->back();

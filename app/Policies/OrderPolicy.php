@@ -16,18 +16,18 @@ class OrderPolicy
     {
    if ($user->hasRole('admin') &&
       in_array($ability,
-      ['update','delete','order_cancel','admin_orders_index','vendor_orders_index']))
+      ['update','delete','order_cancel','admin_viewAny','vendor_viewAny']))
       return true;
     }
-
-
-    public function vendor_orders_index(User $user)
-    {
-        return ($user->hasRole('vendor'));
-    }
-    public function admin_orders_index(User $user)
+ 
+    public function admin_viewAny(User $user)
     {
         return ($user->hasRole('admin'));
+    }
+
+    public function vendor_viewAny(User $user, Order $order)
+    {
+        return ($user->hasRole('vendor'));
     }
 
     public function order_show(User $user, Order $order)

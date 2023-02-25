@@ -22,8 +22,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $user=auth()->user();
-        $this->authorize('viewAny',$user);
+        $category=new Category();
+        $this->authorize('viewAny',$category);
         return view('Category.category');
     }
 
@@ -38,7 +38,6 @@ class CategoryController extends Controller
 
     public function import(Request $request)
     {
-     //  dd($request->all());
      Excel::import(new CategoriesImport,$request->file('categories'));
      $request->session()->flash('status','categories are imported via excel file !! ');
         return redirect()->route('category.index');
@@ -47,14 +46,13 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        $user=auth()->user();
-        $this->authorize('store',$user);
+        $category=new Category();
+        $this->authorize('store',$category);
         $request->validate(['name'=>'min:3']);
         $cat=new Category();
        $cat->name=$request->input('name');
        $cat->parent_id=$request->input('parent_id');
        $cat->save();
-
 
    $request->session()->flash('status','a category was created !! ');
        return redirect()->route('category.index');
@@ -74,10 +72,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $user=auth()->user();
-        $this->authorize('edit',$user);
-        $parent=Category::all();
         $category=Category::findOrFail($id);
+        $this->authorize('edit',$category);
+        $parent=Category::all();
+        
         return view('Category.edit',[
             'category'=>$category,
             'parent'=>$parent,
@@ -94,10 +92,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user=auth()->user();
-        $this->authorize('update',$user);
         $request->validate(['name'=>'min:3']);
         $category=Category::findOrFail($id);
+        $this->authorize('update',$category);
         $category->name=$request->input('name');
         $category->parent_id=$request->input('parent_id');
         $category->save();
@@ -114,8 +111,8 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request,$id)
     {
-        $user=auth()->user();
-        $this->authorize('delete',$user);
+        $category=Category::findOrFail($id);
+        $this->authorize('delete',$category);
         Category::destroy($id);
         $request->session()->flash('failed',' Category Deleted !!');
         return redirect()->route('category.index');

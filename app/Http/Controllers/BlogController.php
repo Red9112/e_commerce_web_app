@@ -30,43 +30,29 @@ class BlogController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   
     public function create()
     {
-        $user=auth()->user();
-       $this->authorize('create',$user);
+        $blog=new Blog();
+       $this->authorize('create',$blog);
         $categories=Category::all();
         return view('blogs.create',[
             'categories'=>$categories
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   
     public function store(Request $request)
     {
-        $user=auth()->user();
-        $this->authorize('create',$user);
+        $blog=new Blog();
+        $this->authorize('create',$blog);
       $blog=$this->blogRepositoty->store_blog($request);
        $this->blogRepositoty->store_blog_categories($blog,$request);
        $request->session()->flash('status','you created a blog !! ');
 return redirect()->route('blog.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show($id)
     {
         $blog=Cache::remember("blog-{$id}",60, function() use($id)  { // 60=>60 seconds
@@ -77,12 +63,7 @@ return redirect()->route('blog.index');
        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  
     public function edit(Blog $blog)
     {
       $this->authorize('update',$blog);
@@ -93,13 +74,7 @@ return redirect()->route('blog.index');
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request,Blog $blog)
     {
         $this->authorize('update',$blog);
@@ -110,12 +85,7 @@ return redirect()->route('blog.index');
         return redirect()->route('blog.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy(Request $request,Blog $blog)
     {
         $this->authorize('delete',$blog);

@@ -39,8 +39,8 @@ if ($request->optradio == "excel") {
 
     public function index()
     {
-        $user=auth()->user();
-        $this->authorize('viewAny',$user);
+        $shop=new Shop();
+        $this->authorize('viewAny',$shop);
         $shops = Shop::with('user')->withCount('products')->orderBy('id', 'ASC')->get();
         $shopProducts=Shop::shopProducts()->take(5)->get();
 
@@ -52,8 +52,8 @@ if ($request->optradio == "excel") {
 
     public function create()
     {
-        $user=auth()->user();
-        $this->authorize('store',$user);
+        $shop=new Shop();
+        $this->authorize('store',$shop);
         $users=User::all();
         return view('shop.create',[
             'users'=>$users
@@ -64,8 +64,8 @@ if ($request->optradio == "excel") {
 
     public function store(Request $request)
     {
-        $user=auth()->user();
-        $this->authorize('store',$user);
+        $shop=new Shop();
+        $this->authorize('store',$shop);
         $request->validate($this->validatedData());
         $shop=new Shop();
        $shop->name=$request->input('name');

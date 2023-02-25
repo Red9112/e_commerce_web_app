@@ -26,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
           'App\Models\Address' => 'App\Policies\AddressPolicy',
           'App\Models\OrderStatus' => 'App\Policies\OrderStatusPolicy',
           'App\Models\Role' => 'App\Policies\RolePolicy',
+
     ];
 
     /**
@@ -40,7 +41,6 @@ class AuthServiceProvider extends ServiceProvider
 Gate::define('notification',function($user){
     return $user->hasRole('admin');
 });
-
 ////////////////////////
 
 

@@ -10,8 +10,8 @@ class RoleController extends Controller
 
     public function index()
     {
-        $user=auth()->user();
-        $this->authorize('viewAny',$user);
+        $role=new Role();
+        $this->authorize('viewAny',$role);
         $roles=Role::all();
         return view('roles.role',[
             'roles'=>$roles,
@@ -27,8 +27,8 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        $user=auth()->user();
-        $this->authorize('store',$user);
+        $role=new Role();
+        $this->authorize('store',$role);
         $vldtData=$request->validate(['name'=>'min:3']);
         Role::create($vldtData);
          $request->session()->flash('status','a role was created !! ');
@@ -38,8 +38,7 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
-        $user=auth()->user();
-        $this->authorize('edit',$user);
+        $this->authorize('edit',$role);
         return view('roles.edit',[
             'role'=>$role,
 
@@ -49,8 +48,7 @@ class RoleController extends Controller
 
     public function update(Request $request, Role $role)
     {
-        $user=auth()->user();
-        $this->authorize('update',$user);
+        $this->authorize('update',$role);
         $vldtData=$request->validate(['name'=>'min:3']);
         $role->update($vldtData);
         $request->session()->flash('status','The role was updated !!');
@@ -60,8 +58,7 @@ class RoleController extends Controller
 
     public function destroy(Request $request,Role $role)
     {
-        $user=auth()->user();
-        $this->authorize('delete',$user);
+        $this->authorize('delete',$role);
         $role->delete();
         $request->session()->flash('failed','a role Deleted !!');
         return redirect()->route('role.index');

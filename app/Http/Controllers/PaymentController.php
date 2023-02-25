@@ -15,8 +15,8 @@ class PaymentController extends Controller
 
     public function index()
     {
-        $user=auth()->user();
-        $this->authorize('viewAny',$user);
+        $payment=new Payment();
+        $this->authorize('viewAny',$payment);
         $payments=Payment::all();
         return view('payment.payment',[
             'payments'=>$payments

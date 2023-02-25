@@ -16,7 +16,9 @@ class ShopPolicy
     public function before(User $user, $ability)
     {
 
-if ($user->hasRole('admin') && in_array($ability,['update','delete','viewAny','create'])) return true;
+if ($user->hasRole('admin') && in_array($ability,
+['update','delete','viewAny','create'])) 
+return true;
     }
 
 

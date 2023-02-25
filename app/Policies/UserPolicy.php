@@ -13,7 +13,9 @@ class UserPolicy
     public function before(User $user, $ability)
     {
 
-if($user->hasRole('admin') && in_array($ability,['update','delete','create','view','viewAny'])) return true;
+if($user->hasRole('admin') && in_array($ability,
+['update','delete','create','view','viewAny'])) 
+return true;
     }
     public function viewAny(User $user)
     {

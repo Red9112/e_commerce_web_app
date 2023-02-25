@@ -15,8 +15,8 @@ class AddressController extends Controller
 
     public function index()
     {
-        $user=auth()->user();
-        $this->authorize('viewAny',$user);
+        $address=new address();
+        $this->authorize('viewAny',$address);
         $addresses=Address::with('user')->get();
         return view('address.index',[
             'addresses'=>$addresses

@@ -19,7 +19,7 @@ class NotificationController extends Controller
             'nm'=>1
         ]);
     }
-
+ 
 
     public function markAsRead(Request $request,$id){
         $user=auth()->user();

@@ -23,8 +23,8 @@ class ProductController extends Controller
     }
     public function index()
     {
-        $user=auth()->user();
-        $this->authorize('viewAny',$user);
+        $product=new Product();
+        $this->authorize('viewAny',$product);
        $user=User::with(['shop','shop.products','shop.products.images','shop.products.categories'])
        ->findOrfail(auth()->id());
        ($user->shop!=null)? $products=$user->shop->products:$products=null;
@@ -36,8 +36,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        $user=auth()->user();
-        $this->authorize('store',$user);
+        $product=new Product();;
+        $this->authorize('store',$product);
         $categories=Category::all();
         return view('product.create',[
             'categories'=>$categories
@@ -46,8 +46,8 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        $user=auth()->user();
-        $this->authorize('store',$user);
+        $product=new Product();
+        $this->authorize('store',$product);
         $vender=User::findOrfail(auth()->id());
         $data=$request->only(['sku','name','description','qty_in_stock','price']);
         $data['shop_id']=$vender->shop->id;
@@ -62,7 +62,7 @@ return redirect()->route('product.index');
     public function show($id)
     {
         $product=Cache::remember("product-{$id}",60, function() use($id)  { // 60=>60 seconds
-            return Product::with(['categories','images','comments'])->findOrfail($id);
+        return Product::with(['categories','images','comments'])->findOrfail($id);
         });
         return view('product.show',[
             'product'=>$product,
