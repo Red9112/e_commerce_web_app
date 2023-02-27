@@ -44,9 +44,9 @@ class AddressController extends Controller
         $data['user_id']=auth()->id();
         Address::create($data);
         $request->session()->flash('status','an address was created !! ');
-       return redirect()->route('address.index');
+       return redirect()->back();
     }
-
+ 
     public function edit($id)
     {
         $address=Address::findOrFail($id);
@@ -72,9 +72,8 @@ class AddressController extends Controller
     {
         $address=Address::findOrFail($id);
         $this->authorize('delete',$address);
-        Address::destroy($id);
-        $request->session()->flash('failed',' Address Deleted !!');
-        return redirect()->route('address.index');
+        return $address->check_address_orders($request);
+
     }
 
 

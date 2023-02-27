@@ -69,7 +69,7 @@
       <div class="card-header bg-secondary"><h3>Payment Method</h3></div>
     <div class="card-body ">
     <div class="mb-3 mt-3 text-left">
-        <a id="createpayment" type="button" class=" btn btn-outline-info my-1 btn-sm " href="{{route('payment.index')}}">add payment</a>
+        <a id="createpayment" type="button" class=" btn btn-outline-info my-1 btn-sm " href="{{route('user_cards')}}">add payment</a>
         <button id="selectpaymentBtn" type="button" class=" btn btn-outline-success my-1 btn-sm">Select payment</button>
         <select style="display: none" class="form-select @error('payment') is-invalid @enderror" id="payment" name="payment">
         <option  selected disabled hidden>Choose...</option>

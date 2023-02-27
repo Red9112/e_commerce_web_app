@@ -27,7 +27,7 @@ public $discountRepository;
     public function affect_to_products($id)
     {
         $user=auth()->user();
-        $discount=new Discount();
+        $discount=new Discount(); 
         $this->authorize('affect_to_products',$discount);
         $discount=Discount::findOrfail($id);
         $products=$user->shop->products;
@@ -102,9 +102,10 @@ public $discountRepository;
 
     public function destroy(Request $request,$id)
     {
-        $discount=new Discount();
+        $discount=Discount::findOrFail($id);
         $this->authorize('delete',$discount);
-        Discount::destroy($id);
+        $discount->products()->detach();
+        $discount->delete();
         $request->session()->flash('failed',' Discount Deleted !!');
         return redirect()->route('discount.index');
     }

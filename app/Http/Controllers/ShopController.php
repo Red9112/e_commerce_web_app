@@ -16,7 +16,7 @@ class ShopController extends Controller
     }
     public function validatedData(){
         return [
-            'name'=>'required|min:4|max:20',
+            'name'=>'required|min:4|max:30',
             'phone_number'=>'required|string',
             'email' => 'regex:/^.+@.+$/i',
         ];
@@ -117,8 +117,32 @@ if ($request->optradio == "excel") {
     public function destroy(Request $request,Shop $shop)
     {
       $this->authorize('delete',$shop);
-    Shop::destroy($shop->id);
-      $request->session()->flash('failed',' shop Deleted !!');
+      $is_shipped_canceled=$shop->check_products_orders();
+      if ($is_shipped_canceled) {
+        $shop->products()->delete();
+    } 
+    else {
+        $request->session()->flash('failed',
+        "shop can't be deleted because it has products that are involved in some
+         orders who are not shipped or canceled !!");
+        return redirect()->back();
+    }
+      $shop->delete();
+      $request->session()->flash('failed'," shop is Deleted with all it's products !!");
       return redirect()->route('shop.index');
     }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+} 

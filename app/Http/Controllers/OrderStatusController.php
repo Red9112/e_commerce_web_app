@@ -52,10 +52,17 @@ class OrderStatusController extends Controller
 
     public function destroy(Request $request,$id)
     {
-        $orderStatus=new OrderStatus();
+        $orderStatus=OrderStatus::findOrfail($id);
         $this->authorize('delete',$orderStatus);
-        OrderStatus::destroy($id);
-        $request->session()->flash('failed',' order_status deleted !!');
+        $orderStatus_orders_count=$orderStatus->orders->count();
+        if ($orderStatus_orders_count!=0) {
+            $request->session()->flash('failed',
+            " Error: order_status can't be deleted because it's related with some orders!!");
+        }
+        else{
+            $orderStatus->delete();
+            $request->session()->flash('failed',' order_status is deleted !!');
+        }
         return redirect()->route('orderStatus.index');
     }
 

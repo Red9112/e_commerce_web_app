@@ -47,6 +47,7 @@
             <p><strong>User Name:</strong> {{ $order->user->name }}</p>
         </div>
     </div>
+@can('set_order_status', $order)
     <div class="my-5">
     <h2>Set status</h2>
     <form id="editForm" method="POST" action="{{route('set.order.status',['order'=>$order->id])}}">
@@ -65,6 +66,7 @@
             <button  type="submit" class="btn btn-primary">save</button>
           </form>
            </div>
+@endcan
 </div>
 
 @endsection

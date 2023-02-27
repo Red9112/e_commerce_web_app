@@ -37,7 +37,7 @@ class PaymentController extends Controller
    $vldtData['user_id']=auth()->id();
    Payment::create($vldtData);
    $request->session()->flash('status','a payment card  created !! ');
-   return redirect()->route('payment.index');
+   return redirect()->back();
     }
 
     public function edit($id)
@@ -63,9 +63,7 @@ class PaymentController extends Controller
     {
         $payment=Payment::with('user')->findOrFail($id);
         $this->authorize('delete',$payment);
-        Payment::destroy($id);
-        $request->session()->flash('failed','a payment card deleted !!');
-        return redirect()->route('payment.index');
+        return $payment->check_payment_orders($request);
 
     }
 }

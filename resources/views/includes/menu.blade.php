@@ -1,13 +1,16 @@
 
  <nav class="navbar navbar-expand-sm navbar-dark " style="background-color: #609EA2;">
     <div class="container-fluid">
+      
+@auth
+<a style="display:inline;padding:0px" id="show_menu" class="navbar-brand" href="#">
+  @include('includes.icons.show_menu')
+ </a>
+  <a style="display:none" id="hide_menu" class="navbar-brand" href="#">
+    @include('includes.icons.hide_menu')
+  </a> 
+@endauth
 
-     <a style="display:inline;padding:0px" id="show_menu" class="navbar-brand" href="#">
-      @include('includes.icons.show_menu')
-     </a>
-      <a style="display:none" id="hide_menu" class="navbar-brand" href="#">
-        @include('includes.icons.hide_menu')
-      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
       <span class="navbar-toggler-icon"></span>
       </button>
@@ -52,8 +55,11 @@
           </ul>
         </div>
         @endif
+        <a href="{{route('wishlist.index')}}" title="wishlist" type="button">
+          @include('includes.icons.wishlist')
+        </a>
         @endauth
-<a class="mx-3" href="{{route('cart.index')}}">
+<a class="mx-3" href="{{route('cart.index')}}"  title="cart">
 @include('includes.icons.cart')
 </a>
 </span>

@@ -15,7 +15,7 @@
     @endauth
     <div class="all d-flex">
     <div id="accordion">
-@foreach ($blogs as $blog)
+@foreach ($blogs as $blog) 
       <div class="card w-75">
         <div class="card-header">
             <a id="{{$blog->id}}" href="{{route('blog.show',['blog'=>$blog->id])}}" class="btn"> <strong><h3>{{$blog->title}}</h3></strong></a>
@@ -60,10 +60,13 @@
 
 
   {{-- End index --}}
+  @auth
+  @if (auth()->user()->hasRole('admin'))
 <div class="container w-50">
 @include('blogs.sidebar')
 </div>
-
+@endif
+@endauth
 </div>
 </div>
 

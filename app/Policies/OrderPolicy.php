@@ -16,7 +16,7 @@ class OrderPolicy
     {
    if ($user->hasRole('admin') &&
       in_array($ability,
-      ['update','delete','order_cancel','admin_viewAny','vendor_viewAny']))
+      ['update','delete','order_cancel','admin_viewAny','vendor_viewAny','order_show','order_vendor_show']))
       return true;
     }
  
@@ -35,13 +35,13 @@ class OrderPolicy
         return ($user->id==$order->user->id);
     }
 
-    public function order_vendor_show(User $user)
+    public function order_vendor_show(User $user, Order $order)
     {
         return ($user->hasRole('vendor'));
     }
 
 
-    public function set_order_status(User $user)
+    public function set_order_status(User $user,Order $order)
     {
         return ($user->hasRole('admin'));
     }

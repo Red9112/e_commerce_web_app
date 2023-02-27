@@ -49,10 +49,17 @@ class ShippingController extends Controller
 
     public function destroy(Request $request,$id)
     {
-        $shipping=new Shipping();
+        $shipping=Shipping::findOrfail($id);
         $this->authorize('delete',$shipping);
-        Shipping::destroy($id);
-        $request->session()->flash('failed',' shipping method deleted !!');
-        return redirect()->route('discount.index');
+        $shipping_orders_count=$shipping->orders->count();
+        if ($shipping_orders_count!=0) {
+            $request->session()->flash('failed',
+            " Error: Shipping method can't be deleted because it's related with some orders!!");
+        }
+        else{
+            $shipping->delete();
+            $request->session()->flash('failed',' Shipping method is deleted !!');
+        }
+        return redirect()->back();
     }
 }

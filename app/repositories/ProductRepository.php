@@ -35,21 +35,53 @@ $path=Storage::url($file);
 // first method:
 // $image=new Image(['url'=>$path]);
 // $product->images()->save($image);
-// second method:
+// second method: 
 $image=Image::make(['url'=>$path]);
 $product->images()->save($image);
       }
 // end
 }
-public function destroy_product($id)
+public function destroy_product(Request $request,Product $product)
     {
-      $product=Product::with(['categories','comments','images','discounts','wishlists'])
-      ->findOrfail($id);
+      $user=auth()->user();
+      $orders_count=$product->orders->count();
+        if ($user->hasRole('vendor') && $orders_count!=0) {
+            $request->session()->flash('failed',
+            "product can't be deleted because its't involved in some orders !!: required authorisation:admin");
+            return redirect()->back();
+        } 
+        if ($user->hasRole('admin') && $orders_count!=0) {
+        $is_shipped_canceled=true;
+        foreach ($product->orders as $order) {
+            ($order->order_status->name!="shipped" && $order->order_status->name!="canceled")
+            ?$is_shipped_canceled=false:null;
+        }
+        if ($is_shipped_canceled) {
+            $product->orders()->detach();
+        }  
+        else {
+            $request->session()->flash('failed',
+            "product can't be deleted because it's involved in some
+             orders who are not shipped or canceled !!");
+            return redirect()->back();
+        }
+    }
       $product->categories()->detach();
       $product->comments()->delete();
       $product->images()->delete();
       $product->discounts()->detach();
       $product->wishlists()->detach();
-      $product->destroy($id);
+      $product->delete();
     }
+
+
+
+
+
+
+
+
+
+
+    
 }

@@ -92,15 +92,16 @@ return redirect()->route('product.index');
  $request->session()->flash('status',' product updated !!');
       return redirect()->route('product.index');
 
-    }
+    } 
 
     public function destroy(Request $request,$id)
-    {
-        $product=Product::with(['shop','shop.user'])->findOrfail($id);
-        $this->authorize('delete',$product);
-      $this->productRepository->destroy_product($id);
+    { 
+        
+      $product=Product::with(['shop','shop.user','orders','categories','comments','images','discounts','wishlists'])
+      ->findOrfail($id);
+      $this->authorize('delete',$product);
+      $this->productRepository->destroy_product($request,$id);
       $request->session()->flash('failed',' product Deleted !!');
       return redirect()->route('product.index');
-
     }
 }

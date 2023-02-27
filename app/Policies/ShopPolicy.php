@@ -17,7 +17,7 @@ class ShopPolicy
     {
 
 if ($user->hasRole('admin') && in_array($ability,
-['update','delete','viewAny','create'])) 
+['update','delete','viewAny','store'])) 
 return true;
     }
 

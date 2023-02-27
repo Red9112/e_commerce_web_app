@@ -19,7 +19,7 @@ class OrderRepository{
 
 ///////////// Checkout:
     public function checkout_process_discount(Request $request){
-        $request->validate(['shipping'=>'required']);
+        $request->validate(['shipping'=>'required','products'=>'required']);
         $shipping=Shipping::findOrfail($request->shipping);
         $user=User::findOrfail(auth()->id());
         $addresses=$user->addresses;
@@ -113,7 +113,7 @@ $address=Address::findOrfail($request->address);
     public function save_order(Request $request){
         $data=$request->only(['address_id', 'shipping_id','payment_id','order_total']);
         $order_status_id=OrderStatus::where('name','Pending')->pluck('id');
-        (!$order_status_id)?$order_status_id=1:null;
+        ($order_status_id->isEmpty())?$order_status_id=1:null;
         $data['order_status_id']= $order_status_id;
         $data['user_id']=auth()->id();
         $order=Order::create($data);
@@ -133,21 +133,36 @@ $address=Address::findOrfail($request->address);
     public function order_cancel(Request $request,$id){
         $order=Order::findOrfail($id);
         if ($order->order_status=="shipped") {
-            $request->session()->flash('failed',"Error : Order cannot be cancelled because it's already shipped !!");
+            $request->session()->flash('failed',"Error : Order cannot be canceled because it's already shipped !!");
         } else {
-            $cancelledStatus = OrderStatus::where('name', 'cancelled')->first();
-            if (!$cancelledStatus) {
-           $request->session()->flash('failed','Error : Cancelled status not found !!');
+            $canceledStatus = OrderStatus::where('name', 'canceled')->first();
+            if (!$canceledStatus) {
+           $request->session()->flash('failed','Error : Canceled status not found !!');
           return  redirect()->back();
             }
-            $order->order_status=$cancelledStatus->id;
+            $order->order_status_id=$canceledStatus->id;
             $order->save();
             $request->session()->flash('failed','Order Canceled !!');
         }
            return redirect()->back();
     }
 
+    
+    public function order_delete(Request $request,Order $order){
 
+        if($order->order_status->name=="shipped" || $order->order_status->name=="canceled"){
+            $order->products()->detach();
+        }
+        else {
+            $request->session()->flash('failed',
+            "order can't be deleted because it's not shipped or canceled !!");
+            return redirect()->back();
+        }
+     
+        $order->delete();
+        $request->session()->flash('failed',' Order deleted !!');
+        return redirect()->back();
+    }
 
 
 

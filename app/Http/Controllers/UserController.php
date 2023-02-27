@@ -76,7 +76,7 @@ class UserController extends Controller
     }
 
     public function update(UpdateUserRequest $request, User $user)
-    {
+    { 
         $this->authorize('update',$user);
         $this->userRepository->update_user($request,$user);
         $this->userRepository->store_image_to_user($request,$user);
@@ -88,8 +88,7 @@ class UserController extends Controller
     public function destroy(Request $request,User $user)
     {
      $this->authorize('delete',$user);
-     User::destroy($user->id);
-      $request->session()->flash('failed',' User Deleted !!');
-      return redirect()->route('user.index');
+     return $this->userRepository->user_delete($request,$user);
+
     }
 }

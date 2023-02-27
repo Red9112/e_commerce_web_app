@@ -6,11 +6,10 @@
 @section('content')
 
 
-@if ($products!=null)
-
   <h1 class="mx-5 my-5 title">Wishlist:({{$products->count()}})</h1>
-
- @foreach ($products as $product)
+ 
+ @forelse ($products as $product)
+     
  <div class="d-flex mx-5 my-4 p-3 bg-light text-white rounded w-50 border">
     <div>
         <img src="{{$product->getFirstImage()}}" class="rounded" alt="product photo" width="304" height="236">
@@ -41,16 +40,16 @@
 
  </div>
 
- @endforeach
 
 
 
 
- @else
+
+ @empty
   <div class="container mx-1 my-3">
     <div class="alert alert-warning text-center">
      <strong>Alert: </strong> There is no Products in Wishlist !!
     </div>
   </div>
-  @endif
+  @endforelse
  @endsection

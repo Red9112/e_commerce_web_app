@@ -76,6 +76,8 @@
                 </div>
                 </form>
     {{-- Admin Discount: --}}
+    @if (auth()->user()->hasRole('admin'))
+    
     <button type="button" id="detachDisAllProducts" class=" btn btn-outline-warning btn-lg mx-2">all products</button>
     <form id="detachDisAllProdForm" style="display:none" method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
         <input type="hidden" name="detach">
@@ -120,4 +122,5 @@
                   <button type="submit" class="btn btn-success">detach</button>
                 </div>
                 </form>
+                @endif
             </div>

@@ -48,7 +48,7 @@ $order_statuses=OrderStatus::all();
     ]);
 }
 public function order_vendor_show($id){
-    $user=auth()->user();
+    $user=auth()->user(); 
     $order=Order::findOrfail($id);
     $this->authorize('order_vendor_show',$order);
     $vendorProducts=$user->shop->products;
@@ -120,12 +120,22 @@ public function vendor_orders_index(){
 
 public function destroy(Request $request,$id)
 {
-    $order = new Order();
+    $order=Order::findOrfail($id);
     $this->authorize('delete',$order);
-    Order::destroy($id);
-    $request->session()->flash('failed',' Order deleted !!');
-    return redirect()->back();
+    return $this->orderRepository->order_delete($request,$order);
 }
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

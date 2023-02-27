@@ -49,6 +49,9 @@
              @endforeach
           </tbody>
         </table>
+        <a class="btn btn-danger  btn-block my-5" href="{{ route('logout') }}"
+           onclick="event.preventDefault();document.getElementById('confirm_form').submit();">
+           Confirm Order</a>
       </div>
       <div class="col-md-4">
         <div class="card">
@@ -68,7 +71,7 @@
     </div>
     <div class="row">
            <div class="col-md-12">
-         <form action="{{ route('order.store') }}" method="POST">
+         <form id="confirm_form" action="{{ route('order.store') }}" method="POST">
         @csrf
         @foreach($products as $product)
         <input hidden type="text" name="products[]" value="{{ $product->id }}">
@@ -80,10 +83,9 @@
         <input type="hidden" name="address_id" value="{{$address->id}}">
         <input type="hidden" name="payment_id" value="{{$payment->id}}">
         <input type="hidden" name="order_total" value="{{$total}}">
-        <button type="submit" class="btn btn-danger  btn-block my-5">Confirm Order</button>
         </form>
         </div>
-    </div>
+    </div> 
   </div>
 
 

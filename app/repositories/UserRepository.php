@@ -78,5 +78,59 @@ $user->roles()->sync($userIds);
     }
 
 
+    
+    public function  user_delete(Request $request,User $user)
+    {
+    $orders_count=$user->orders->count();
+    $is_shipped_canceled=true;
+    if ($orders_count!=0) {
+    foreach ($user->orders as $order) {
+        ($order->order_status->name!="shipped" && $order->order_status->name!="canceled")
+        ?$is_shipped_canceled=false:null;
+    }
+   }
+  
+    if ($is_shipped_canceled && !$user->shop) {
+       $orders=$user->orders;
+       foreach ($orders as $order) {
+           $order->products()->detach();
+       }
+       $user->orders()->delete();
+       $user->addresses()->delete();
+       $user->payments()->delete(); 
+       ($user->Wishlist)?$user->Wishlist->products()->detach():null;
+       $user->Wishlist()->delete();
+       $discounts=$user->discounts;
+       foreach ($discounts as $discount) {
+           $discount->products()->detach();
+       }
+       $user->discounts()->delete();
+       $blogs=$user->blogs;
+       foreach ($blogs as $blog) {
+           $blog->categories()->detach();
+       }
+        $user->blogs()->delete();
+        $user->comments()->delete();
+        $image=$user->image;
+        if($image){
+            Storage::delete($image->url);
+            $image->delete();
+       }
+       $user->roles()->detach();
+       $user->delete();
+       $request->session()->flash('failed',' User Deleted !!');
+       
+    }  
+
+    else {
+        $request->session()->flash('failed',
+        "user can't be deleted because he have a shop or
+         orders who are not shipped or canceled !!");
+        return redirect()->back();
+    }
+     
+     return redirect()->route('user.index');
+    }
+
 }
 

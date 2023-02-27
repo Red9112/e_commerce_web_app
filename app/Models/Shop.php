@@ -28,6 +28,21 @@ class Shop extends Model
       return $query->withCount('products')->orderBy('products_count','desc');
      }
      
-     
+
+
+
+     public function check_products_orders(){
+      $products=$this->products;
+      $is_shipped_canceled=true;
+      foreach ($products as $product) {
+          foreach ($product->orders as $order) {
+              ($order->order_status->name!="shipped" && $order->order_status->name!="canceled")
+              ?$is_shipped_canceled=false:null;
+          }
+      }
+      return $is_shipped_canceled;
+   }
+
+
 }
  

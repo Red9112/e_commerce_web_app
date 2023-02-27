@@ -43,15 +43,23 @@ class DiscountTypeController extends Controller
         $discountType->update($vldtData);
         $request->session()->flash('status','a Discount Type  updated !!');
       return redirect()->route('discount.index');
-    }
+    } 
 
     public function destroy(Request $request,$id)
     {
-        $discountType= new DiscountType();
+        $discountType= DiscountType::findOrfail($id);
         $this->authorize('delete',$discountType);
-        DiscountType::destroy($id);
-        $request->session()->flash('failed',' Discount Type deleted !!');
-        return redirect()->route('discount.index');
+        $discounts_count=$discountType->discounts->count();
+        if ($discounts_count!=0) {
+            $request->session()->flash('failed',
+            " Error: Discount Type can't be deleted because it's related with some discounts!!");
+        }
+        else{ 
+            $discountType->delete();
+            $request->session()->flash('failed',' Discount Type is deleted !!');
+        }
+       
+        return redirect()->back();
     }
 
 }

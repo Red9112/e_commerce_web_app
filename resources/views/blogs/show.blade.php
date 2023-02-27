@@ -42,9 +42,16 @@
     <x-displayComments :comments="$blog->comments"></x-displayComments>
   </div>
   </div>
-  <div class="ml-auto container w-25 ">
-    @include('blogs.sidebar')
-    </div>
+
+
+@auth
+@if (auth()->user()->hasRole('admin'))
+<div class="ml-auto container w-25 ">
+@include('blogs.sidebar')
+</div>
+@endif
+@endauth
+ 
 
 
   </div>

@@ -59,8 +59,15 @@ class RoleController extends Controller
     public function destroy(Request $request,Role $role)
     {
         $this->authorize('delete',$role);
-        $role->delete();
-        $request->session()->flash('failed','a role Deleted !!');
+        $users_count=$role->users->count();
+        if ($users_count!=0) {
+            $request->session()->flash('failed',
+            " Error: Role can't be deleted because it's affected to some users!!");
+        }
+        else{ 
+            $role->delete();
+            $request->session()->flash('failed','  Role is deleted !!');
+        }
         return redirect()->route('role.index');
     }
 }
