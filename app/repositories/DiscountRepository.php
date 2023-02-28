@@ -8,10 +8,36 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Discount;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class DiscountRepository{
 
+
+    public function search(Request $request)
+    {
+        $searchTerm  = $request->input('search');
+        $search_by  = $request->input('search_by');
+        if ($search_by=='type') {
+            $discounts = Discount::with('discount_type')->orderBy('expired','desc')
+            ->whereHas('discount_type', function(Builder $query) use ($searchTerm ) {
+                $query->where('name', 'LIKE', "%$searchTerm%");
+            })
+            ->get();
+        } elseif($search_by=='code') {
+            $discounts = Discount::with('discount_type')->orderBy('expired','desc')
+            ->where('code', 'LIKE', "%$searchTerm%")
+            ->get();
+        }
+        else {
+            $discounts = Discount::with('discount_type')->orderBy('expired','desc')
+            ->where('name', 'LIKE', "%$searchTerm%")
+            ->get();
+        }
+
+
+        return $discounts;
+    }
 
 
     public function attach_detach(Request $request,Discount $discount,$productsIds)

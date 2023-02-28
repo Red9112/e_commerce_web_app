@@ -10,12 +10,13 @@
     <h2>
   <x-badge val="info">Nbr: {{$blogs->count()}}</x-badge>
     </h2>
+   <x-search route="blog.index"></x-search>
     @auth
     <a   class=" btn btn-outline-info btn-lg my-2" href="{{route('blog.create')}}">+</a>
     @endauth
     <div class="all d-flex">
     <div id="accordion">
-@foreach ($blogs as $blog) 
+@foreach ($blogs as $blog)
       <div class="card w-75">
         <div class="card-header">
             <a id="{{$blog->id}}" href="{{route('blog.show',['blog'=>$blog->id])}}" class="btn"> <strong><h3>{{$blog->title}}</h3></strong></a>

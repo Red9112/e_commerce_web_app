@@ -27,7 +27,7 @@ public $discountRepository;
     public function affect_to_products($id)
     {
         $user=auth()->user();
-        $discount=new Discount(); 
+        $discount=new Discount();
         $this->authorize('affect_to_products',$discount);
         $discount=Discount::findOrfail($id);
         $products=$user->shop->products;
@@ -43,11 +43,14 @@ public $discountRepository;
         $this->discountRepository->attach_discount_to_product($request,$id);
         return redirect()->route('discount.index');
     }
-    public function index()
+    public function index(Request $request)
     {
         $discount=new Discount();
         $this->authorize('viewAny',$discount);
-        $discounts=Discount::all();
+        $discounts=Discount::orderBy('expired','desc')->get();
+        if(!empty($request->search)){
+            $discounts=$this->discountRepository->search($request);
+        }
         return view('discount.discount',[
             'discounts'=>$discounts,
         ]);

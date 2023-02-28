@@ -6,17 +6,20 @@ use App\Models\Cart;
 use App\Models\Product;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
+use App\Repositories\ProductRepository;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Database\Eloquent\Builder;
 
 class CartController extends Controller
 {
 
 
-    public function index()
+    public function index(Request $request)
     {
         $shipping=Shipping::all();
         $cartSession = session()->get('cart');
-       ($cartSession)? $products = Product::whereIn('id',$cartSession['product_id'])->with('discounts')->get():$products =null;
+       ($cartSession)? $products = Product::whereIn('id',$cartSession['product_id'])
+       ->with(['categories','images','discounts'])->get():$products =null;
         return view('cart',[
             'products'=>$products,
             'shipping'=>$shipping,

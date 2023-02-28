@@ -22,15 +22,18 @@ class BlogController extends Controller
     //    $this->middleware('auth');
     $this->blogRepositoty=$blogRepositoty;
      }
-    public function index()
+    public function index(Request $request)
     {
-        $blogs=Blog::with('user')->withCount('comments')->get();
+        $blogs=Blog::with(['categories','user'])->withCount('comments')->get();
+        if(!empty($request->search)){
+            $blogs=$this->blogRepositoty->search($request);
+        }
         return view('blogs.index',[
             'blogs'=>$blogs,
         ]);
     }
 
-   
+
     public function create()
     {
         $blog=new Blog();
@@ -41,7 +44,7 @@ class BlogController extends Controller
         ]);
     }
 
-   
+
     public function store(Request $request)
     {
         $blog=new Blog();
@@ -52,7 +55,7 @@ class BlogController extends Controller
 return redirect()->route('blog.index');
     }
 
-   
+
     public function show($id)
     {
         $blog=Cache::remember("blog-{$id}",60, function() use($id)  { // 60=>60 seconds
@@ -63,7 +66,7 @@ return redirect()->route('blog.index');
        ]);
     }
 
-  
+
     public function edit(Blog $blog)
     {
       $this->authorize('update',$blog);
@@ -74,7 +77,7 @@ return redirect()->route('blog.index');
         ]);
     }
 
-   
+
     public function update(Request $request,Blog $blog)
     {
         $this->authorize('update',$blog);
@@ -85,7 +88,7 @@ return redirect()->route('blog.index');
         return redirect()->route('blog.index');
     }
 
-    
+
     public function destroy(Request $request,Blog $blog)
     {
         $this->authorize('delete',$blog);

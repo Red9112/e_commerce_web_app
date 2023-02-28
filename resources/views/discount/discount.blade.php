@@ -11,7 +11,15 @@
 <h2 class="my-3">List of Discounts :</h2>
 <a type="button" class=" btn btn-outline-info btn-lg" href="{{route('discount.create')}}">+</a>
 <a type="button" class="btn btn-outline-success btn-lg m-3" href="{{route('discount_type.index')}}">Discount Type</a>
-  <table class="table text-center">
+<div class="w-50 my-3"><x-search route='discount.index'>
+           <select style="width: fit-content" class="form-select me-2" id="search_by" name="search_by">
+            <option value="none" hidden>By</option>
+            <option value="name" >name</option>
+            <option value="code" >code</option>
+            <option value="type" >type</option>
+            </select>
+    </x-search></div>
+<table class="table text-center">
     <thead>
       <tr>
         <th>Code</th>

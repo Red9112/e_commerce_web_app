@@ -5,10 +5,25 @@ use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class ProductRepository{
 
+
+
+    public function search(Request $request)
+    {
+            $searchTerm  = $request->input('search_products');
+            $products = Product::with(['categories','images'])
+            ->where('name', 'LIKE', "%$searchTerm%")
+            ->orWhere('description', 'LIKE', "%$searchTerm%")
+            ->orWhereHas('categories', function(Builder $query) use ($searchTerm ) {
+                $query->where('name', 'LIKE', "%$searchTerm%");
+            })
+            ->get();
+            return $products;
+    }
     public function store_categories_to_product(Request $request,Product $product)
     {
  //store categories--
@@ -35,7 +50,7 @@ $path=Storage::url($file);
 // first method:
 // $image=new Image(['url'=>$path]);
 // $product->images()->save($image);
-// second method: 
+// second method:
 $image=Image::make(['url'=>$path]);
 $product->images()->save($image);
       }
@@ -49,7 +64,7 @@ public function destroy_product(Request $request,Product $product)
             $request->session()->flash('failed',
             "product can't be deleted because its't involved in some orders !!: required authorisation:admin");
             return redirect()->back();
-        } 
+        }
         if ($user->hasRole('admin') && $orders_count!=0) {
         $is_shipped_canceled=true;
         foreach ($product->orders as $order) {
@@ -58,7 +73,7 @@ public function destroy_product(Request $request,Product $product)
         }
         if ($is_shipped_canceled) {
             $product->orders()->detach();
-        }  
+        }
         else {
             $request->session()->flash('failed',
             "product can't be deleted because it's involved in some
@@ -83,5 +98,5 @@ public function destroy_product(Request $request,Product $product)
 
 
 
-    
+
 }
