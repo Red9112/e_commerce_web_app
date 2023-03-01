@@ -192,6 +192,16 @@ deleteBtns.forEach(btn => {
  /*end id-5 */
 
 
+//-id:6-{--Views: order.vendor_index  --}}
+// {{--change input type from text to date --}}
+ let searchTypeSelect = document.getElementById('searchTypeSelect');
+ let searchInput = document.getElementById('searchInput');
+ if (searchTypeSelect && searchInput) {
+ searchTypeSelect.addEventListener('change', () => {
+   searchInput.type = searchTypeSelect.value === 'date' ? 'date' : 'text';
+ });
+}
+  /*end id-6 */
 
 
 

@@ -5,6 +5,14 @@
 @section('content')
 <div class="container my-3">
     <h1 class="text-center mb-5">All Orders</h1>
+    <div class="w-75 my-3"><x-search route='admin.orders'>
+        <select class="form-select me-2 w-25" id="searchTypeSelect" name="search_by">
+         <option value="none" hidden>By</option>
+         <option value="customer" >customer name</option>
+         <option value="date" >date</option>
+         <option value="status" >status</option>
+         </select>
+ </x-search></div>
     <table class="table table-striped text-center">
         <thead>
             <tr>
@@ -36,7 +44,7 @@
                               @csrf
                               @method('DELETE')
                               <button class="btn btn-danger" type="submit" >Delete </button>
-                             </form> 
+                             </form>
                         </div>
                         {{--END_Actions--}}
                     </td>

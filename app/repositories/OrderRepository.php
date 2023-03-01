@@ -10,12 +10,43 @@ use App\Models\Product;
 use App\Models\Shipping;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class OrderRepository{
 
 
 
+    public function search(Request $request,array $orderIds)
+    {
+        $searchTerm  = $request->input('search');
+        $search_by  = $request->input('search_by');
+       if($search_by=='date') {
+            $orders = Order::with(['order_status','user'])
+            ->whereIn('id', $orderIds)
+            ->whereDate('created_at',$searchTerm)
+            ->get();
+        }
+        elseif ($search_by=='status'){
+            $orders = Order::with(['order_status','user'])
+            ->whereIn('id', $orderIds)
+            ->whereHas('order_status', function(Builder $query) use ($searchTerm ) {
+                $query->where('name', 'LIKE', "%$searchTerm%");
+            })
+            ->get();
+        }
+        else {
+            $orders = Order::with(['order_status','user'])
+            ->whereIn('id', $orderIds)
+            ->whereHas('user', function(Builder $query) use ($searchTerm ) {
+                $query->where('name', 'LIKE', "%$searchTerm%");
+            })
+            ->get();
+        }
+
+
+        return $orders;
+    }
 
 ///////////// Checkout:
     public function checkout_process_discount(Request $request){
@@ -114,7 +145,7 @@ $address=Address::findOrfail($request->address);
         $data=$request->only(['address_id', 'shipping_id','payment_id','order_total']);
         $order_status_id=OrderStatus::where('name','Pending')->pluck('id');
         ($order_status_id->isEmpty())?$order_status_id=1:null;
-        $data['order_status_id']= $order_status_id;
+        $data['order_status_id']= $order_status_id[0];
         $data['user_id']=auth()->id();
         $order=Order::create($data);
         $productsIds=$request->input('products', []);
@@ -147,7 +178,7 @@ $address=Address::findOrfail($request->address);
            return redirect()->back();
     }
 
-    
+
     public function order_delete(Request $request,Order $order){
 
         if($order->order_status->name=="shipped" || $order->order_status->name=="canceled"){
@@ -158,7 +189,7 @@ $address=Address::findOrfail($request->address);
             "order can't be deleted because it's not shipped or canceled !!");
             return redirect()->back();
         }
-     
+
         $order->delete();
         $request->session()->flash('failed',' Order deleted !!');
         return redirect()->back();

@@ -10,6 +10,14 @@
     <h2>Orders for shop: <span class="badge bg-info">{{ $user->shop->name }}</span></h2>
     <h2>Vendor: <span class="badge bg-info">{{ $user->name }}</span></h2>
       </div>
+      <div class="w-75 my-3"><x-search route='vendor.orders'>
+        <select class="form-select me-2 w-25" id="searchTypeSelect" name="search_by">
+         <option value="none" hidden>By</option>
+         <option value="customer" >customer name</option>
+         <option value="date" >date</option>
+         <option value="status" >status</option>
+         </select>
+ </x-search></div>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -22,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-             @forelse($orders as $order) 
+             @forelse($orders as $order)
                 <tr>
                     <td>{{$order->id}}</td>
                     <td>{{ $order->created_at->format('d/m/Y') }}</td>
@@ -47,3 +55,4 @@
 </div>
 
 @endsection
+

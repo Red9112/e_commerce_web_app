@@ -48,7 +48,7 @@ $order_statuses=OrderStatus::all();
     ]);
 }
 public function order_vendor_show($id){
-    $user=auth()->user(); 
+    $user=auth()->user();
     $order=Order::findOrfail($id);
     $this->authorize('order_vendor_show',$order);
     $vendorProducts=$user->shop->products;
@@ -75,10 +75,14 @@ public function order_cancel(Request $request,$id){
 
 
 
-public function admin_orders_index(){
+public function admin_orders_index(Request $request){
     $order = new Order();
     $this->authorize('admin_viewAny',$order);
 $orders=Order::with(['user','order_status'])->get();
+if(!empty($request->search)){
+$orderIds =collect($orders)->pluck('id')->toArray();
+$orders=$this->orderRepository->search($request,$orderIds);
+}
 return view('order.admin_index',[
     'orders'=>$orders,
 ]);
@@ -92,7 +96,7 @@ $orders=$user->orders;
     ]);
 }
 
-public function vendor_orders_index(){
+public function vendor_orders_index(Request $request){
     $user=auth()->user();
     $order = new Order();
     $this->authorize('vendor_viewAny',$order);
@@ -103,11 +107,15 @@ public function vendor_orders_index(){
     ->pluck('order_id')
     ->toArray();
     $orders = Order::whereIn('id', $orderIds)->get();
+    if(!empty($request->search)){
+        $orders=$this->orderRepository->search($request,$orderIds);
+    }
+
     }
     else{
         $orders=null;
     }
- 
+
     return view('order.vendor_index',[
         'orders'=>$orders,
         'user'=>$user,
