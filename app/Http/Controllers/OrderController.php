@@ -8,6 +8,7 @@ use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\OrderRepository;
+use App\Http\Requests\PurchaseRequest;
 
 class OrderController extends Controller
 {
@@ -21,8 +22,7 @@ class OrderController extends Controller
 }
 
 // Checkout:
-public function checkout_process_discount(Request $request){
-    $request->validate(['shipping'=>'required']);
+public function checkout_process_discount(PurchaseRequest $request){
     $result=$this->orderRepository->checkout_process_discount($request);
 return $result;
 }

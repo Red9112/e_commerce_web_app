@@ -21,13 +21,21 @@ class ProductController extends Controller
     {
         $this->productRepository=$productRepository;
     }
-    public function index()
+    public function index(Request $request)
     {
         $product=new Product();
         $this->authorize('viewAny',$product);
        $user=User::with(['shop','shop.products','shop.products.images','shop.products.categories'])
        ->findOrfail(auth()->id());
-       ($user->shop!=null)? $products=$user->shop->products:$products=null;
+       if($user->shop!=null){
+         $products=$user->shop->products;
+         if(!empty($request->search)){
+            $productsIds=collect($products)->pluck('id')->toArray();
+            $products=$this->productRepository->search($request,$productsIds);
+        }
+         } else $products=null;
+
+
         return view('product.index',[
             'products'=>$products,
         ]);
@@ -92,11 +100,11 @@ return redirect()->route('product.index');
  $request->session()->flash('status',' product updated !!');
       return redirect()->route('product.index');
 
-    } 
+    }
 
     public function destroy(Request $request,$id)
-    { 
-        
+    {
+
       $product=Product::with(['shop','shop.user','orders','categories','comments','images','discounts','wishlists'])
       ->findOrfail($id);
       $this->authorize('delete',$product);

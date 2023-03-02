@@ -25,23 +25,24 @@
   </div>
   <div class="mx-5 px-3">
     <x-errors name="products"></x-errors></div>
-  
+
   @foreach ($products as $product)
   <div class="d-flex mx-5 my-4 p-3 bg-light text-white rounded w-50 border">
-    <div> 
+    <div>
         <input class="selectProduct" type="checkbox" name="products[]" value="{{ $product->id }}">
       </div>
 <div>
 <img src="{{$product->getFirstImage()}}" class="rounded" alt="product photo" width="304" height="236">
-</div> 
-<div> 
+</div>
+<div>
 <h3 class="product-title">{{ $product->name }}</h3>
         <div class="prd_cart_info">
           <span class="mr-2">Price: </span><span class="price-value"> {{ $product->price }}</span>
         </div>
         <div class="prd_cart_info d-flex">
           <span class="mt-3">Quantity:</span>
-          <input class="prd_cart_info form-control mt-2" type="number" name="quantity[{{ $product->id }}]" id="quantity-{{ $product->id }}" value="1">
+          <input class="prd_cart_info form-control mt-2 @error('quantity[{{ $product->id }}]') is-invalid @enderror" type="number" name="quantity[{{ $product->id }}]" id="quantity-{{ $product->id }}" value="1">
+          <x-errors name="quantity[{{ $product->id }}]"></x-errors>
         </div>
         <div class="d-flex my-3">
             <a href="{{route('removeSessionProduct',['id'=>$product->id])}}" type="button">

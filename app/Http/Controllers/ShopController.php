@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Exports\ShopsExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Database\Eloquent\Builder;
 
 class ShopController extends Controller
 {
@@ -37,11 +38,17 @@ if ($request->optradio == "excel") {
 
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $shop=new Shop();
         $this->authorize('viewAny',$shop);
         $shops = Shop::with('user')->withCount('products')->orderBy('id', 'ASC')->get();
+        if(!empty($request->search)){
+            $searchTerm  = $request->input('search');
+            $shops = Shop::with('user')->withCount('products')->orderBy('id', 'ASC')
+            ->where('name', 'LIKE', "%$searchTerm%")
+            ->get();
+        }
         $shopProducts=Shop::shopProducts()->take(5)->get();
 
         return view('shop.index',[
@@ -120,7 +127,7 @@ if ($request->optradio == "excel") {
       $is_shipped_canceled=$shop->check_products_orders();
       if ($is_shipped_canceled) {
         $shop->products()->delete();
-    } 
+    }
     else {
         $request->session()->flash('failed',
         "shop can't be deleted because it has products that are involved in some
@@ -145,4 +152,4 @@ if ($request->optradio == "excel") {
 
 
 
-} 
+}

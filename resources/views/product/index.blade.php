@@ -5,12 +5,24 @@
 @section('content')
 
 
+
+
 {{-- index --}}
 <div class="">
     <div class="container mt-3 mx-3">
-      <h2 class="my-3">My products:</h2>
       @if ($products!=null)
-      <a   class=" btn btn-outline-info btn-lg" href="{{route('product.create')}}">+</a>
+      <h2 class="my-3">My products:</h2>
+      <div class="d-flex mb-5">
+      <a   class=" btn btn-outline-info btn-lg me-2 my-3" href="{{route('product.create')}}">+</a>
+          <div class="w-75 my-3 d-flex justify-content-center "><x-search route='product.index'>
+              <select class="form-select me-2 w-25" id="searchTypeSelect" name="search_by">
+               <option value="none" hidden>By</option>
+               <option value="name" >name</option>
+               <option value="sku" >sku</option>
+               <option value="category" >category</option>
+               </select>
+       </x-search></div>
+    </div>
       <table class="table">
         <thead>
           <tr>

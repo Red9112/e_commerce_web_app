@@ -12,17 +12,49 @@ class ProductRepository{
 
 
 
-    public function search(Request $request)
+    public function search(Request $request,array $productsIds)
     {
-            $searchTerm  = $request->input('search_products');
-            $products = Product::with(['categories','images'])
-            ->where('name', 'LIKE', "%$searchTerm%")
-            ->orWhere('description', 'LIKE', "%$searchTerm%")
-            ->orWhereHas('categories', function(Builder $query) use ($searchTerm ) {
-                $query->where('name', 'LIKE', "%$searchTerm%");
+            $search_prd_dashboard  = $request->input('search_products');
+            if ($search_prd_dashboard) {
+                $products = Product::with(['categories','images'])
+            ->where('name', 'LIKE', "%$search_prd_dashboard%")
+            ->orWhere('description', 'LIKE', "%$search_prd_dashboard%")
+            ->orWhereHas('categories', function(Builder $query) use ($search_prd_dashboard ) {
+                $query->where('name', 'LIKE', "%$search_prd_dashboard%");
             })
             ->get();
             return $products;
+            }
+
+            $search_prd_vendor  = $request->input('search');
+            if ($search_prd_vendor) {
+        $search_by  = $request->input('search_by');
+       if($search_by=='sku') {
+            $products = Product::with(['categories','images'])
+            ->whereIn('id', $productsIds)
+            ->where('sku', 'LIKE', "%$search_prd_vendor%")
+            ->get();
+        }
+        elseif ($search_by=='category'){
+            $products = Product::with(['categories','images'])
+            ->whereIn('id', $productsIds)
+            ->whereHas('categories', function(Builder $query) use ($search_prd_vendor ) {
+            $query->where('name', 'LIKE', "%$search_prd_vendor%");
+            })
+            ->get();
+        }
+        else {
+            $products = Product::with(['categories','images'])
+            ->whereIn('id', $productsIds)
+            ->where('name', 'LIKE', "%$search_prd_vendor%")
+            ->get();
+        }
+        return $products;
+            }
+
+
+
+
     }
     public function store_categories_to_product(Request $request,Product $product)
     {

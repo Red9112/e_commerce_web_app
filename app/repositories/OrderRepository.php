@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Shipping;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
+use App\Http\Requests\PurchaseRequest;
 use Illuminate\Database\Eloquent\Builder;
 
 
@@ -49,8 +50,8 @@ class OrderRepository{
     }
 
 ///////////// Checkout:
-    public function checkout_process_discount(Request $request){
-        $request->validate(['shipping'=>'required','products'=>'required']);
+    public function checkout_process_discount(PurchaseRequest $request){
+       // $request->validate(['shipping'=>'required','products'=>'required']);
         $shipping=Shipping::findOrfail($request->shipping);
         $user=User::findOrfail(auth()->id());
         $addresses=$user->addresses;
@@ -60,6 +61,7 @@ class OrderRepository{
         $selectedQuantities = array_filter($selectedQuantities, function ($productId) use ($productIds) {
             return in_array($productId, $productIds);
         },ARRAY_FILTER_USE_KEY);
+
 $result=$this->affect_discounts_to_products($productIds,$selectedQuantities);
 $result['selectedQuantities']=$selectedQuantities;
 $result['shipping']=$shipping;

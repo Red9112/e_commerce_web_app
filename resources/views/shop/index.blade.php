@@ -8,12 +8,13 @@
 <div class="d-flex flex-row justify-content-between">
 
 <div class="w-50 mx-5 my-3">
-    <!-- <div class="container mt-3 mx-3"> -->
-      <h2>List of Shops :</h2>
+    <h2>List of Shops :</h2>
+  <div class="d-flex my-3 mb-5">
       <a   class=" btn btn-outline-info btn-lg" href="{{route('shop.create')}}">+</a>
-      <a   class=" btn btn-outline-info btn-lg" href="{{route('shop.export.list')}}">Export</a>
-      <!-- <div class="all d-flex">
-      <div class="w-75 mx-3"> -->
+      <a   class=" btn btn-outline-info btn-lg mx-3" href="{{route('shop.export.list')}}">Export</a>
+      <div class="w-75  d-flex justify-content-center "><x-search route='shop.index'></x-search></div>
+  </div>
+
       <table style="text-align: center" class="table ">
         <thead>
           <tr>
