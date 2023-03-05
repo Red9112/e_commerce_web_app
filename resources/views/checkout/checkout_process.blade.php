@@ -49,14 +49,24 @@
 <form action="{{route('confirm_order')}}" method="POST">
     @csrf
     <div class="d-flex">
- <div id="totalPriceCard" class="card w-50 my-3 mx-3 py-5">
-    <div class="card-body ">
-<h3>Subtotal :<strong>{{ $subtotal }}</strong></h3>
-<h3>Shipping fee :<strong>{{ $shipping->price }}</strong></h3>
-<h2>Total :<strong>{{ $total }}</strong></h2>
+ <div id="totalPriceCard" class="card w-50 my-3 mx-3 ">
+    <select class="form-select w-25 m-2 mb-5" id="prices_select">
+        <option value="$" selected>$</option>
+        <option value="DH">DH</option>
+   </select> 
+    <div class="card-body text-dark ">
+<div id="prices" style="display:inline">
+<h3>Subtotal :<strong>{{$subtotal}} $</strong></h3>
+<h3>Shipping fee :<strong>{{ $shipping->price }} $</strong></h3>
+<h2>Total :<strong>{{ $total }} $</strong></h2>
+</div>
 <input hidden type="text" name="total" value="{{$total}}">
 <input hidden type="text" name="shipping" value="{{$shipping->id}}">
-
+<div id="prices_dh"  style="display:none">
+<h3>Subtotal :<strong>{{$total_dh}} DH</strong></h3>
+<h3>Shipping fee :<strong>{{ $shipping_dh }} DH</strong></h3>
+<h2>Total :<strong>{{ $total_dh }} DH</strong></h2>
+</div>
 @foreach($products as $product)
 <input hidden type="text" name="prices[]" value="{{$productsPrices[$product->id]}}">
 <input hidden type="text" name="bonusQuantities[]" value="{{$bonusQuantities[$product->id]}}">

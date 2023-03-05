@@ -41,6 +41,9 @@ public function get_one_free($quantity){
           elseif($this->discount_type->name=="buy_two_get_one_free"){
             return ($quantity+floor($quantity*0.5));
                }
+               elseif($this->discount_type->name=="get_one_free"){
+                return ($quantity+1);
+                   }
     else return $quantity;
 }
 public function setIsExpiredAttribute($value)

@@ -16,9 +16,9 @@
       </button>
       <a class="nav-link mx-3" href="{{route('dashboard')}}">@include('includes.icons.home')</a>
       <h5><a class="nav-link" href="{{route('blog.index')}}">Blogs</a></h5>
-        <div class="container-fluid w-25  d-flex" id="navbarNav">
+        <div class="container-fluid w-50  d-flex" id="navbarNav">
             <form method="GET" action="{{ route('dashboard') }}">
-              <div class="form-group d-flex">
+              <div class="form-group d-flex ">
                 <input type="text" class="form-control me-2" placeholder="i'm shopping for..."
                  id="search_products" name="search_products" value="{{ request()->input('search_products') }}">
                 <button id="search_btn" class="btn rounded" type="submit">

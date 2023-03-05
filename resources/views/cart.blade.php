@@ -34,16 +34,17 @@
 <div>
 <img src="{{$product->getFirstImage()}}" class="rounded" alt="product photo" width="304" height="236">
 </div>
-<div>
+<div> 
 <h3 class="product-title">{{ $product->name }}</h3>
         <div class="prd_cart_info">
           <span class="mr-2">Price: </span><span class="price-value"> {{ $product->price }}</span>
         </div>
         <div class="prd_cart_info d-flex">
           <span class="mt-3">Quantity:</span>
-          <input class="prd_cart_info form-control mt-2 @error('quantity[{{ $product->id }}]') is-invalid @enderror" type="number" name="quantity[{{ $product->id }}]" id="quantity-{{ $product->id }}" value="1">
-          <x-errors name="quantity[{{ $product->id }}]"></x-errors>
-        </div>
+          <input class="prd_cart_info form-control mt-2 @error("quantity.$product->id") is-invalid @enderror"
+            type="number" name="quantity[{{$product->id}}]" id="quantity-{{$product->id}}" value="1">
+          </div>
+          <x-errors name="{{'quantity.'.$product->id}}"></x-errors>
         <div class="d-flex my-3">
             <a href="{{route('removeSessionProduct',['id'=>$product->id])}}" type="button">
                 @include('includes.icons.delete')
@@ -53,7 +54,8 @@
             </a>
             </div>
 
- <div class="dropdown dropend">
+ <div class="dropdown dropend d-flex">
+  <div>
     <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
       Available Discounts
     </button>
@@ -73,7 +75,11 @@
         @endforelse
     </ul>
   </div>
-
+  <div>
+  <button style="display: inline" id="add_dis_code_btn" type="button" class="btn btn-info mx-2">add discount</button>
+  <input style="display: none" id="add_dis_code_inpt" name="add_discnt_by_code[{{$product->id}}]" type="text" class="form-control mx-2" placeholder="discount code">
+</div>
+  </div>
 
 
 

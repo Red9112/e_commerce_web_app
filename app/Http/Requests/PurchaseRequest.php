@@ -15,23 +15,30 @@ class PurchaseRequest extends FormRequest
 
 
     public function rules()
+{
+    $rules = [
+        'shipping' => 'required',
+        'products' => 'required',
+    ];
+    $quantities = $this->input('quantity', []);
+        foreach ($quantities as $productId => $quantity) {
+            $product = Product::findOrfail($productId);
+                $rules['quantity.'.$productId] = [
+                    'required',
+                    'integer',
+                    'min:1',
+                    'max:'.$product->qty_in_stock,
+                ];
+        }
+        
+        return $rules;
+    }
+    public function messages()
     {
         return [
-            'shipping'=>'required',
-            'products'=>'required',
-            'quantity' =>'required',
+            'quantity.*.max' => 'The chosen quantity is not available in stock',
         ];
-        foreach ($this->input('quantity', []) as $product_id => $quantity) {
-            $rules['quantity.'.$product_id] = [
-                'required',
-                function ($attribute, $value, $fail) use ($product_id) {
-                    $product = Product::findOrFail($product_id);
-                    if ($value > $product->quantity) {
-                        $fail('The quantity for product ID '.$product_id.' is not available.');
-                    }
-                }
-            ];
-        }
-
     }
+    
 }
+

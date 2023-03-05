@@ -4,14 +4,17 @@ namespace  App\Repositories;
 
 use App\Models\User;
 use App\Models\Order;
+use App\Helpers\Helper;
 use App\Models\Address;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Discount;
 use App\Models\Shipping;
 use App\Models\OrderStatus;
 use Illuminate\Http\Request;
 use App\Http\Requests\PurchaseRequest;
 use Illuminate\Database\Eloquent\Builder;
+
 
 
 class OrderRepository{
@@ -47,7 +50,7 @@ class OrderRepository{
 
 
         return $orders;
-    }
+    } 
 
 ///////////// Checkout:
     public function checkout_process_discount(PurchaseRequest $request){
@@ -62,12 +65,18 @@ class OrderRepository{
             return in_array($productId, $productIds);
         },ARRAY_FILTER_USE_KEY);
 
-$result=$this->affect_discounts_to_products($productIds,$selectedQuantities);
+        $add_discnt_by_code = $request->input('add_discnt_by_code', []);
+$result=$this->affect_discounts_to_products($productIds,$selectedQuantities,$add_discnt_by_code);
 $result['selectedQuantities']=$selectedQuantities;
 $result['shipping']=$shipping;
 $result['addresses']=$addresses;
 $result['payments']=$payments;
 $result['total']= $result['subtotal'] + $result['shipping']->price;
+//convert to DH
+
+$subtotal_dh=Helper::convertPriceToDh($result['subtotal']);
+$shipping_dh=Helper::convertPriceToDh($result['shipping']->price);
+$total_dh=Helper::convertPriceToDh($result['total']);
 return view('checkout.checkout_process',[
     'products'=>$result['products'],
     'subtotal'=>$result['subtotal'],
@@ -78,13 +87,26 @@ return view('checkout.checkout_process',[
     'productsPrices'=>$result['productsPrices'],
     'addresses'=>$result['addresses'],
     'payments'=>$result['payments'],
+    'total_dh'=>$total_dh,
+    'shipping_dh'=>$shipping_dh,
+    'subtotal_dh'=>$subtotal_dh,
+
     ]);
     }
 
-    public function affect_discounts_to_products($productIds,$selectedQuantities){
-        $products = Product::whereIn('id', $productIds)->get();
+    public function affect_discounts_to_products($productIds,$selectedQuantities,$add_discnt_by_code){
+$products = Product::whereIn('id', $productIds)->get();
 $subtotal=0;
 foreach ($products as $product) {
+
+$dis_by_id=Discount::where('code',$add_discnt_by_code[$product->id])->with('discount_type')->first();
+$dis_by_id_disPrice=0;
+
+if (is_object($dis_by_id) && !$dis_by_id->expired) {
+    ($dis_by_id->discount_type->name=="percent")?$dis_by_id_disPrice+=$dis_by_id->percent($product->price):null;
+    ($dis_by_id->discount_type->name=="fixed")?$dis_by_id_disPrice+=$dis_by_id->value:null;
+    }
+ 
     $discounts=$product->discounts;
     $quantity = $selectedQuantities[$product->id];
     $disPrice=0;
@@ -96,17 +118,27 @@ foreach ($products as $product) {
         if($discount->discount_type->name=="fixed"){
             $disPrice+=$discount->value;
         }}
-    $productPrice=($product->price-$disPrice)*$quantity;
-    if (!$discounts->isEmpty()) {
+    $productPrice=($product->price-($disPrice+$dis_by_id_disPrice))*$quantity;
+    $bonusQuantities[$product->id]=0;
+    $totalQuantity=$quantity;
+    //if (!$discounts->isEmpty()) {
     foreach ($discounts as $discount){
- $bonusQuantities[$product->id]=$discount->get_one_free($quantity)-$selectedQuantities[$product->id];
-        }}
-        else{
-      $bonusQuantities[$product->id]=0;
-        }
+ $totalQuantity=$discount->get_one_free($quantity);
+}
+
+
+    if ($totalQuantity==$quantity && is_object($dis_by_id) && !$dis_by_id->expired) {
+        $totalQuantity=$dis_by_id->get_one_free($quantity);
+         }
+ ($totalQuantity > $product->qty_in_stock) 
+?$bonusQuantities[$product->id]= $quantity-$selectedQuantities[$product->id] 
+:$bonusQuantities[$product->id]= $totalQuantity-$selectedQuantities[$product->id];
+       
+       
+    
+        $productsPrices[$product->id]=$productPrice;
+        $subtotal+=$productPrice;
      }
-    $productsPrices[$product->id]=$productPrice;
-    $subtotal+=$productPrice;
 
 $result['products']=$products;
 $result['productsPrices']=$productsPrices;
@@ -115,6 +147,9 @@ $result['subtotal']=$subtotal;
 return $result;
     }
 
+    public function affect_discounts_by_code($productIds,$selectedQuantities){
+
+    }
 /////////////Confirm order:
     public function confirm_order(Request $request){
         $productsPrices=$request->prices;

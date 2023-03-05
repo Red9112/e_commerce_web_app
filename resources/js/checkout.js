@@ -1,4 +1,4 @@
-/* ----{-View:checkout_process -} */
+/* ----id:1-{-View:checkout_process -} */
 let selectAdre=document.querySelector("#selectAdre");
 if (selectAdre) {
     let selectAdreSelect=selectAdre.nextElementSibling;
@@ -15,3 +15,23 @@ if (selectpaymentBtn) {
 }
 
 /*-------------------------------------*/
+
+/* ----id:2-{-View:checkout_process -} */
+
+let  prices_select = document.getElementById("prices_select");
+let  prices = document.getElementById("prices");
+let  prices_dh = document.getElementById("prices_dh");
+if (prices_select && prices && prices_dh) {
+    prices_select.addEventListener("change", (event) => {
+        if (prices_select.value=="$") {
+            prices.style.display="inline";
+            prices_dh.style.display="none";
+        }else{
+            prices_dh.style.display="inline";
+            prices.style.display="none"; 
+        }
+        });
+}
+
+/*-------------------------------------*/
+

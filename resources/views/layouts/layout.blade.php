@@ -8,7 +8,7 @@
      <link id="lightLink"  rel="stylesheet" href="{{mix('/css/theme.css')}}">
      <link  id="darkLink" rel="stylesheet" href="{{asset('')}}">
 
-    <title>Document</title>
+    <title>E-commerce Store</title>
 </head>
 <body >
     
