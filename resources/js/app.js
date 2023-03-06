@@ -11,27 +11,6 @@ require('./checkout');
 require('./sidebar');
 require('./cart');
 
-
-// homepage
-require('./js/jquery.min');
-require('./js/popper.min');
-require('./js/bootstrap.bundle.min');
-require('./js/jquery-3.0.0.min');
-require('./js/jquery.mCustomScrollbar.concat.min');
-require('./js/custom');
-require('./cart');
-
-function openNav() {
-document.getElementById("mySidenav").style.width = "250px";
-}
-function closeNav() {
-document.getElementById("mySidenav").style.width = "0";
-}
-
-
-
-
-
 // {{------Light && Dark Mode js_code-----}}//
 let lightBtn = document.querySelector("#lightBtn");
 let darkBtn = document.querySelector("#darkBtn");
