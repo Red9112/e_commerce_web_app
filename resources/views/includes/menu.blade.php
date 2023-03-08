@@ -17,29 +17,31 @@
       <a class="nav-link mx-3" href="{{route('dashboard')}}">@include('includes.icons.home')</a>
       <h5><a class="nav-link" href="{{route('blog.index')}}">Blogs</a></h5>
       <h5><a class="nav-link mx-3" href="{{route('shop.view.user')}}">Stores</a></h5>
-        <div class="container-fluid w-50  d-flex" id="navbarNav">
+        <div class="container d-flex justify-content-center" id="navbarNav">
             <form method="GET" action="{{ route('dashboard') }}">
-              <div class="form-group d-flex ">
-                <input type="text" class="form-control me-2" placeholder="i'm shopping for..."
-                 id="search_products" name="search_products" value="{{ request()->input('search_products') }}">
-                <button id="search_btn" class="btn rounded" type="submit">
-                @include('includes.icons.search')
-                </button>
-              </div>
+            <div class="input-group">
+             <input style="width: 400px" type="text" class="form-control" placeholder="i'm shopping for..."
+                id="search_products" name="search_products" value="{{ request()->input('search_products') }}">
+             <div class="input-group-append">
+                 <button id="search_btn" class="btn btn-secondary" type="submit" style="background-color: #f26522; border-color:#f26522 ">
+                  <i class="fa fa-search"></i>
+                 </button>
+                </div>
+            </div>
             </form>
-            <button id="search_btn" class="btn rounded btn-sm mx-2" type="button">
-            <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Categories</a>
-                <ul class="dropdown-menu">
-                    @foreach ($categories as $cat)
-                    <li> <a class="dropdown-item" href="{{route('prodByCat',['id'=>$cat])}}"><h6>{{$cat->name}}</h6></a></li>
-                    @endforeach
-                </ul>
-            </li>
-        </ul>
-    </button>
-    
+            <button id="search_btn" class="btn rounded btn-sm mx-2 my-0 p-0" type="button">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Categories</a>
+                           <ul class="dropdown-menu">
+                             @foreach ($categories as $cat)
+                                 <li> <a class="dropdown-item" href="{{route('prodByCat',['id'=>$cat])}}"><h6>{{$cat->name}}</h6></a></li>
+                             @endforeach
+                            </ul>
+                     </li>
+                 </ul>
+            </button>
+
         </div>
 
         <span class="mx-5 d-flex">

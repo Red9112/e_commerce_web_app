@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Shop;
 use Pdf;
+use App\Models\Shop;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 
@@ -16,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-     $this->middleware('auth');
+     //$this->middleware('auth');
     }
 
     /**
@@ -26,8 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        
-        return view('home');
+       $categories=Category::with('products')->get();
+        return view('home',[
+            'categories'=>$categories
+        ]);
     }
 
 
@@ -38,8 +41,8 @@ class HomeController extends Controller
         // view()->share([
         //         'shops'=>$shops,
         // ]);
-        //$pdf = Pdf::loadView('invoice.pdf'); 
-        //end m1 
+        //$pdf = Pdf::loadView('invoice.pdf');
+        //end m1
 
   //{{-- method 2 to share data --}}
         $pdf = Pdf::loadView('invoice.pdf',[
@@ -47,14 +50,14 @@ class HomeController extends Controller
         ]);
         //end m2
         return $pdf->download('invoice.pdf');
-       
+
     }
     public function  downloadPDF()
     {
         return view('invoice.downloadPDF');
     }
-  
-   
-   
-   
+
+
+
+
 }

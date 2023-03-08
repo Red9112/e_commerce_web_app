@@ -5,7 +5,7 @@ footer #footer_home{
     width: 100%;
     height: fit-content;
     background-color:#20c997;
-  } 
+  }
 
   #github_link{
     font-weight: bold;
@@ -15,28 +15,36 @@ footer #footer_home{
   #github_link:hover{
 color: #f26522;
   }
+
+
  /* end_footer */
+
+
+
+
+
+
+
 
 
 
  /* header */
  #header_top{
     width: 100%;
-    float: left;
     background-color: #fd7e14 ;
-    clip-path: polygon(0 0, 100% 0, 96% 100%, 3% 100%); 
-    border-radius: 20%;
+     /* clip-path: polygon(0 0, 100% 0, 96% 100%, 3% 100%); */
+     border-radius: 10%;
     height: auto;
     padding: 10px 0px;
+    position: relative;
 }
 #header_top ul{
 margin-left:50px;
 }
 
 header #header_home{
-    background-image: url(../../public/storage/photos/banner-bg.png);
+    background-image: url(../../public/storage/photos/image_bg.jpg);
     width: 100%;
-    float: left;
     height: 100em;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -53,15 +61,66 @@ font-weight: bolder;
 }
 
 
+#user_dropdown{
+position: absolute;
+right: 0;
+font: bold;
+}
+
+#user_dropdown ul li a{
+    color: black;
+    font-weight: bold;
+    font-size: large;
+    }
+#user_dropdown ul li a:hover{
+    color: aliceblue;
+    font-size: larger;
+    font-weight: bolder;
+    letter-spacing: 4px;
+    }
+
+
+    #search_by_cat_home button{
+        background-color: #fd7e14 ;
+        font-weight: bold;
+        font-size: medium;
+    }
+    #search_by_cat_home button:hover{
+        background-color: aliceblue ;
+        font-weight: bold;
+        font-size: medium;
+    }
+
+    #cart_wishlist ul li a{
+        color: black;
+        font-weight:bold ;
+        font-size: medium;
+        }
+        #cart_wishlist ul li a:hover{
+            color: #219ebc;
+            font-weight:bold ;
+            font-size: bold;
+            }
+
+
+
+ /* end_header */
 
 
 
 
 
+
+
+
+
+
+
+ /* section content */
 #content{
     height: 100em;
     background-color: antiquewhite;
     width: 100%;
 }
 
-
+ /* end content */

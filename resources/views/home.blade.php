@@ -7,7 +7,6 @@
       <div id="header_top">
            <div class="row">
               <div class="col-sm-12">
-
                 <div class="d-flex">
                      <ul class="nav">
                             <li class="nav-item p-1">
@@ -22,27 +21,26 @@
                             @endforeach
                             </select>
                         </div>
-                </div>
+
                         <div id="user_dropdown" class="ml-auto">
                             <ul class="nav ">
                               @guest
                       @if (Route::has('login'))
                               <li class="nav-item">
-                                <a class="nav-link text-success " href="{{ route('login') }}" >{{__('Login')}}</a>
+                                <a class="nav-link " href="{{ route('login') }}" >{{__('Login')}}</a>
                               </li>
                               @endif
                               @if (Route::has('register'))
                               <li class="nav-item">
-                                <a class="nav-link text-success" href="{{ route('user.create') }}" >{{__('Register')}}</a>
+                                <a class="nav-link" href="{{ route('user.create') }}" >{{__('Register')}}</a>
                               </li>
                               @endif
                               @else
-                      
+
                       <li class="nav-item dropdown ">
-                          <a id="navbarDropdown" class="nav-link dropdown-toggle text-success " href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                          <a id="navbarDropdown" class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                               {{ Auth::user()->name }}
                           </a>
-                      
                           <div class="text-center dropdown-menu dropdown-menu-end aria-labelledby="navbarDropdown">
                               <a class="dropdown-item text-success" href="{{ route('logout') }}"
                                  onclick="event.preventDefault();document.getElementById('logout-form').submit();">
@@ -56,16 +54,72 @@
                               </form>
                           </div>
                       </li>
-                      @endguest
+                        @endguest
                             </ul>
                           </div>
-               
 
-
-
-              </div>
+                        </div>
+                </div>
             </div>
-        </div>  
+        </div>
+
+
+
+
+
+
+            <div class="d-flex justify-content-center">
+                <div id="search_by_cat_home" class="p-3 my-3">
+                    <button class="btn rounded btn-sm my-0 px-3 py-0 " type="button">
+                       <ul class="navbar-nav">
+                           <li class="nav-item dropdown">
+                               <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Categories</a>
+                                  <ul class="dropdown-menu">
+                                    @foreach ($categories as $cat)
+                                        <li> <a class="dropdown-item" href="{{route('prodByCat',['id'=>$cat])}}"><h6>{{$cat->name}}</h6></a></li>
+                                    @endforeach
+                                   </ul>
+                            </li>
+                        </ul>
+                   </button>
+               </div>
+                <div class="input-group w-50 py-3 my-3 mx-0">
+                    <form method="GET" action="{{ route('dashboard') }}">
+                        <div class="input-group d-flex ">
+                         <input style="width: 450px" type="text" class="form-control" placeholder="i'm shopping for..."
+                            id="search_products" name="search_products" value="{{ request()->input('search_products') }}">
+                         <div class="input-group-append">
+                             <button id="search_btn" class="btn btn-secondary" type="submit" style="background-color: #f26522; border-color:#f26522 ">
+                              <i class="fa fa-search"></i>
+                             </button>
+                            </div>
+                        </div>
+                        </form>
+                 </div>
+
+                 <div id="cart_wishlist" class=" d-flex justify-content-end py-3 my-3 mx-0">
+                    <ul class="nav mx-0">
+                        <li class="nav-item">
+                          <a class="nav-link" href="#" >
+                            <i style="color:#f26522" class="fa fa-shopping-cart fa-2xl" aria-hidden="true"></i> Cart</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="#" >
+                            <i style="color:#f26522" class="fa-solid fa-heart fa-2xl" aria-hidden="true"></i> Wishlist</a>
+                        </li>
+                    </ul>
+                 </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
      </div>
     </div>
 </header>
@@ -103,7 +157,7 @@
             <li><i class="fas fa-map-marker-alt"></i>  123 Main St, Tangier Morocco</li>
           </ul>
         </div>
-      </div> 
+      </div>
       <p class="text-center">
         <i class="fa-brands fa-github"></i>
         <a id="github_link" class="btn" href="http://github.com/Red9112"> compte github</a>
