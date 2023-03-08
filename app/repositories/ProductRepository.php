@@ -12,7 +12,7 @@ class ProductRepository{
 
 
 
-    public function search(Request $request,array $productsIds)
+    public function search(Request $request,array $productsIds=null)
     {
             $search_prd_dashboard  = $request->input('search_products');
             if ($search_prd_dashboard) {
@@ -77,9 +77,8 @@ $product->categories()->sync($categoriesIds);
 $hasfile=$request->hasfile('picture');
 $picture=$request->file('picture');
 if($hasfile) {
-$file=Storage::putFile('products',$picture);
-$path=Storage::url($file);
-// first method:
+$path=Storage::putFile('products',$picture);
+// first method: 
 // $image=new Image(['url'=>$path]);
 // $product->images()->save($image);
 // second method:

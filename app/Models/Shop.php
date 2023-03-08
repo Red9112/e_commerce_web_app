@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Shop extends Model
 {
@@ -21,14 +23,26 @@ class Shop extends Model
      public function user(){
         return $this->belongsTo('App\Models\User'); 
      } 
+     public function image(){ 
+        return $this->morphOne('App\Models\Image','imageable');
+    }
      public function products(){
         return $this->hasMany('App\Models\Product')->order();
      }
+
+
+//scopes:
      public function scopeShopProducts(Builder $query){
       return $query->withCount('products')->orderBy('products_count','desc');
      }
      
 
+ 
+//shop functions:
+
+public function defaultImage(){
+    return asset('http://localhost:8000/storage/shops/default_shop.jpg');
+      }
 
 
      public function check_products_orders(){
@@ -43,6 +57,23 @@ class Shop extends Model
       return $is_shipped_canceled;
    }
 
+   
+   public function store_image_to_shop(Request $request)
+   {
+       $hasfile=$request->hasFile('picture');
+       $picture=$request->file('picture');
+       if($hasfile){
+           $path=Storage::putFile('shops',$picture);
+           if ($this->image) {
+           Storage::delete($this->image->url);
+           $this->image->url= $path;
+           $this->image->save();
+           }else{
+               $image=Image::make(['url'=>$path]);
+               $this->image()->save($image);
+           }
+       }
+   }
+
 
 }
- 

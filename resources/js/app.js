@@ -11,16 +11,31 @@ require('./checkout');
 require('./sidebar');
 require('./cart');
 
+
+// fontawsome
+require('@fortawesome/fontawesome-free/js/brands');
+require('@fortawesome/fontawesome-free/js/solid');
+require('@fortawesome/fontawesome-free/js/fontawesome');
+
+
+
+
+
+
+
+
+
+
+
+//-------------------------------------------//
 // {{------Light && Dark Mode js_code-----}}//
-let lightBtn = document.querySelector("#lightBtn");
-let darkBtn = document.querySelector("#darkBtn");
 let lightLink = document.querySelector("#lightLink");
 let darkLink = document.querySelector("#darkLink");
 let themeCss='/css/theme.css';
-  let darkCss='/css/Darklyy.css';
-  console.log(lightBtn);
-  console.log(darkBtn);
+let darkCss='/css/Darklyy.css';
 
+let lightBtn = document.querySelector("#lightBtn");
+let darkBtn = document.querySelector("#darkBtn");
   function darkMode()
   {
       lightBtn.classList.remove("active");
@@ -28,6 +43,8 @@ let themeCss='/css/theme.css';
     window.localStorage.setItem("modeHref",darkCss);
     lightLink.removeAttribute("href");
     darkLink.setAttribute("href",darkCss);
+    lightBtn.style.display="inline";
+    darkBtn.style.display="none";
   }
   function lightMode()
   {
@@ -36,6 +53,8 @@ let themeCss='/css/theme.css';
     window.localStorage.setItem("modeHref",themeCss);
     darkLink.removeAttribute("href");
     lightLink.setAttribute("href",themeCss);
+    lightBtn.style.display="none";
+    darkBtn.style.display="inline";
   }
   darkBtn.addEventListener("click",()=>{darkMode();});
   lightBtn.addEventListener("click",()=>{lightMode();});

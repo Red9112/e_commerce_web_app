@@ -23,11 +23,11 @@ class DashboardController extends Controller
         if(!empty($request->search_products)){
             $productRepository=new ProductRepository();
             $products=$productRepository->search($request);
-        }
+        } 
         return view('dashboard',[
           'products'=>$products,
         ]);
-    }
+    } 
     public function prodByCat($id){
       $cat=Category::with('products','products.images')->findOrfail($id);
       $products=$cat->products;

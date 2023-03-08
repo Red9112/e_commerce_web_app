@@ -7,7 +7,7 @@
 {{-- Create Category --}}
     <div class="container w-50 mt-3 mx-4">
       <h2>Create Shop: </h2>
-      <form  method="POST" action="{{route('shop.store')}}" >
+      <form  method="POST" action="{{route('shop.store')}}" enctype="multipart/form-data">
         @csrf
         <div class="mb-3 mt-3">
           <label for="name">Name</label>
@@ -34,6 +34,7 @@
         @endforeach
       </select>
     </div>
+    @include('includes.uploadImage')
           <button type="submit" class="btn btn-primary">create</button>
         </form>
 

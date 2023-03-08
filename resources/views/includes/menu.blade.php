@@ -16,6 +16,7 @@
       </button>
       <a class="nav-link mx-3" href="{{route('dashboard')}}">@include('includes.icons.home')</a>
       <h5><a class="nav-link" href="{{route('blog.index')}}">Blogs</a></h5>
+      <h5><a class="nav-link mx-3" href="{{route('shop.view.user')}}">Stores</a></h5>
         <div class="container-fluid w-50  d-flex" id="navbarNav">
             <form method="GET" action="{{ route('dashboard') }}">
               <div class="form-group d-flex ">
@@ -38,6 +39,7 @@
             </li>
         </ul>
     </button>
+    
         </div>
 
         <span class="mx-5 d-flex">

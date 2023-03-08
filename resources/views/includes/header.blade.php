@@ -4,11 +4,8 @@
       <div>
        <ul class="nav">
       <li class="nav-item p-1">
-        <button id="lightBtn"  class="active btn btn-light" type="button" data-mdb-ripple-color="dark">Light</button>
-      </li>
-      <li class="nav-item p-1">
-        <button id="darkBtn" type="button" class="btn btn-dark">Dark</button>
-
+          @include('includes.icons.light_mode')
+          @include('includes.icons.dark_mode')
       </li>
     </ul>
   </div>

@@ -9,7 +9,7 @@
 
     <div class="container w-50 mx-3 my-3">
       <h2>Edit Shop :</h2>
-  <form id="editForm" method="POST" action="{{route('shop.update',['shop'=>$shop->id])}}">
+  <form id="editForm" method="POST" action="{{route('shop.update',['shop'=>$shop->id])}}" enctype="multipart/form-data">
     @method('PUT')
     @csrf
     <div class="mb-3 mt-3">
@@ -28,6 +28,7 @@
         <input id="email" name="email" type="text" class="form-control @error('email') is-invalid @enderror" value="{{old('email',$shop->email?? null)}}">
         <x-errors name="email"></x-errors>
       </div>
+      @include('includes.uploadImage')
       <button  type="submit" class="btn btn-primary">Edit</button>
     </form>
   </div>

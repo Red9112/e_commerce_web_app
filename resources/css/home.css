@@ -1,0 +1,67 @@
+/* footer */
+footer #footer_home{
+    position: static;
+    bottom: 0;
+    width: 100%;
+    height: fit-content;
+    background-color:#20c997;
+  } 
+
+  #github_link{
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin: 0px;
+      }
+  #github_link:hover{
+color: #f26522;
+  }
+ /* end_footer */
+
+
+
+ /* header */
+ #header_top{
+    width: 100%;
+    float: left;
+    background-color: #fd7e14 ;
+    clip-path: polygon(0 0, 100% 0, 96% 100%, 3% 100%); 
+    border-radius: 20%;
+    height: auto;
+    padding: 10px 0px;
+}
+#header_top ul{
+margin-left:50px;
+}
+
+header #header_home{
+    background-image: url(../../public/storage/photos/banner-bg.png);
+    width: 100%;
+    float: left;
+    height: 100em;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+
+#languageSelect{
+    width: 100px;
+    text-align: center;
+}
+#languageSelect:hover{
+    color: #fd7e14;
+font-weight: bolder;
+}
+
+
+
+
+
+
+
+#content{
+    height: 100em;
+    background-color: antiquewhite;
+    width: 100%;
+}
+
+

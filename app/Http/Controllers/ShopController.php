@@ -13,13 +13,14 @@ class ShopController extends Controller
 {
     public function __construct()
     {
-       $this->middleware('auth');
+       //$this->middleware('auth');
     }
     public function validatedData(){
         return [
             'name'=>'required|min:4|max:30',
             'phone_number'=>'required|string',
             'email' => 'regex:/^.+@.+$/i',
+            'picture'=>'image|mimes:jpeg,jpg,svg,png|max:3072|'
         ];
     }
 
@@ -56,7 +57,21 @@ if ($request->optradio == "excel") {
             'shopProducts'=>$shopProducts,
         ]);
     }
+    
+    public function shops_view_user(Request $request)
+    {
+        $shops=Shop::all();
+        return view('shop.shops_view_user',[
+            'shops'=>$shops,
+        ]);
+    }
 
+    public function display_shop_products($id){
+        $shop=Shop::with('products','products.categories','products.images')->findOrfail($id);
+        return view('shop.display_shop_products',[
+            'shop'=>$shop,
+        ]);
+    }
     public function create()
     {
         $shop=new Shop();
@@ -83,8 +98,10 @@ if ($request->optradio == "excel") {
     }else{
         $shop->user_id=$request->input('user_id');
     }
+
+       $shop->store_image_to_user($request);
        $shop->save();
-  $request->session()->flash('status','your shop created !! ');
+$request->session()->flash('status','your shop created !! ');
        return redirect()->route('dashboard');
     }
 
@@ -115,6 +132,7 @@ if ($request->optradio == "excel") {
         $request->validate($this->validatedData());
         $data=$request->only(['name','phone_number','email']);
         $shop->update($data);
+        $shop->store_image_to_shop($request);
         $shop->save();
         $request->session()->flash('status',' shop updated !!');
         return redirect()->route('dashboard');

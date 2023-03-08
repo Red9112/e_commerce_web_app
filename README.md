@@ -13,6 +13,7 @@ prosess to run the app:
 1. put an image with name"defaultUser" in path:"storage\app\public\users" 
 1. put an image with name"defaultProduct" in path:"storage\app\public\products" 
 1. run: `composer require doctrine/dbal`
+1. run: `npm install --save @fortawesome/fontawesome-free`
 
 
 
