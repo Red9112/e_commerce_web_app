@@ -69,6 +69,15 @@
 
 
             <div class="d-flex justify-content-center">
+
+<div class="p-3 my-3">
+@auth
+<a id="show_menu_home" class="navbar-brand" href="#">
+  @include('includes.icons.show_menu')
+ </a>
+@endauth
+</div>
+
                 <div id="search_by_cat_home" class="p-3 my-3">
                     <button class="btn rounded btn-sm my-0 px-3 py-0 " type="button">
                        <ul class="navbar-nav">
@@ -124,11 +133,31 @@
     </div>
 </header>
 
-
-
+{{-- sidebar --}}
+<div style="display: none" id="home_side_bar" class="container">
+  <div style="display: relative;margin-bottom: 10px;">
+    <a  id="close_icon_btn" class="link"><i id="close_icon" class="fa fa-close fa-2xl" aria-hidden="true"></i></a>
+  </div>
+  
+  <div id="home_sidebar_links">
+  <ul class="nav flex-column mt-5 pt-5">
+    <li class="nav-item">
+      <a class="nav-link" href="{{route('My_addresses')}}" >My address</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{route('user_cards')}}" >My cards</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{route('customer.orders')}}" >My orders</a>
+    </li>
+  </ul>
+  
+  </div>
+</div>
+{{-- end_side_bar --}}
 
 <div id="content">
-
+  
 </div>
 
 
