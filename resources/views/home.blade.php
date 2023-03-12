@@ -1,93 +1,6 @@
 @extends('layouts.home_layout')
 @section('content')
-<style>
-  #content {
-  box-sizing: border-box;
-}
 
-/* Position the image container (needed to position the left and right arrows) */
-#content .container-fluid {
-  position: relative;
-}
-
-/* Hide the images by default */
-.mySlides {
-  display: none;
-}
-
-/* Add a pointer when hovering over the thumbnail images */
-.cursor {
-  cursor: pointer;
-}
-
-/* Next & previous buttons */
-.prev,
-.next {
-  cursor: pointer;
-  position: absolute;
-  top: 40%;
-  width: auto;
-  padding: 16px;
-  margin-top: -50px;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-/* Position the "next button" to the right */
-.next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
-}
-
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover,
-.next:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-/* Number text (1/3 etc) */
-.numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-}
-
-/* Container for image text */
-.caption-container {
-  text-align: center;
-  background-color: #222;
-  padding: 2px 16px;
-  color: white;
-}
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Six columns side by side */
-.column {
-  float: left;
-  width: 16.66%;
-}
-
-/* Add a transparency effect for thumnbail images */
-.demo {
-  opacity: 0.6;
-}
-
-.active,
-.demo:hover {
-  opacity: 1;
-}
-</style>
 {{-- header --}}
 <header>
     <div id="header_home">
@@ -156,7 +69,7 @@
 
 
 
-            <div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center">
 
 <div class="p-3 my-3">
 @auth
@@ -207,19 +120,63 @@
                     </ul>
                  </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
      </div>
+
+     {{-- Start-banner --}}
+     <div id="banner_home" class="my-5 text-info">
+     <div id="demo" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="row d-block">
+               <div class="col-sm-12">
+                  <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                    <div class="buynow_bt"><a href="#">Buy Now</a></div>
+               </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="row d-block">
+               <div class="col-sm-12">
+                  <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                  <div class="buynow_bt"><a href="#">Buy Now</a></div>
+               </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="row d-block">
+               <div class="col-sm-12">
+                  <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
+                  <div class="buynow_bt"><a href="#">Buy Now</a></div>
+               </div>
+            </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev p-3" type="button" data-bs-target="#demo" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bg-dark  rounded-circle"></span>
+      </button>
+      
+      <button class="carousel-control-next p-3" type="button" data-bs-target="#demo" data-bs-slide="next">
+        <span class="carousel-control-next-icon bg-dark rounded-circle"></span>
+      </button>
+    </div>
+ 
+  </div>
+
+
+
+    </div>
     </div>
 </header>
+
+
+
+
+
+
+
+
+
+
 
 {{-- sidebar --}}
 <div style="display: none" id="home_side_bar" class="container">
@@ -263,113 +220,124 @@
 
 
 
+<style>
+  .slider-container {
+  position: relative;
+  overflow: hidden;
+}
 
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  flex: 0 0 20%;
+}
+
+.slider-controls {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.slider-control {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 1rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.slider-control:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.prev {
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.next {
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+.card-body a {
+  text-decoration: none;
+  text-align: center
+}
+.card-body a:hover {
+  text-decoration: none;
+  text-align: center;
+  color: #f26522;
+}
+#home_title{
+  font-family: Muli, sans-serif ;
+  font-style: normal ;
+ font-size: 32px ;
+ font-weight: 700;
+  line-height: 38px;
+padding: 20px;
+padding-bottom: 0px;
+margin-bottom: 0px;
+}
+</style>
 <div id="content">
-
-
-  <div class="container-fluid">
-
-    <!-- Full-width images with number text -->
-    <div class="mySlides">
-      <div class="numbertext">1 / 6</div>
-        <img src="https://www.w3schools.com/howto/img_snow_wide.jpg" style="width:100%">
-    </div>
-
-    <div class="mySlides">
-      <div class="numbertext">2 / 6</div>
-        <img src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%">
-    </div>
-
-    <div class="mySlides">
-      <div class="numbertext">3 / 6</div>
-        <img src="https://www.w3schools.com/howto/img_5terre_wide.jpg" style="width:100%">
-    </div>
-
-    <div class="mySlides">
-      <div class="numbertext">4 / 6</div>
-        <img src="https://www.w3schools.com/howto/img_lights_wide.jpg" style="width:100%">
-    </div>
-
-    <div class="mySlides">
-      <div class="numbertext">5 / 6</div>
-        <img src="https://www.w3schools.com/howto/img_nature_wide.jpg" style="width:100%">
-    </div>
-
-    <div class="mySlides">
-      <div class="numbertext">6 / 6</div>
-        <img src="https://www.w3schools.com/howto/img_mountains_wide.jpg" style="width:100%">
-    </div>
-
-    <!-- Next and previous buttons -->
-    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-    <a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-    <!-- Image text -->
-    <div class="caption-container">
-      <p id="caption"></p>
-    </div>
-
-    <!-- Thumbnail images -->
-    <div class="row">
-      <div class="column">
-        <img class="demo cursor" src="https://www.w3schools.com/howto/img_snow_wide.jpg" style="width:100%" onclick="currentSlide(1)" alt="The Woods">
+  <p id="home_title"> Browse by Category</p>
+  <div class="slider-container p-3 ">
+    <div class="slider">
+      @foreach ($categories as $cat)
+      <div class="slide">
+        <div class="category-card">
+          <div class="card" style="width:200px">
+            <img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image">
+            <div class="card-body">
+              <a href="#"> <h4 class="card-title">{{$cat->name}}</h4></a> 
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="column">
-        <img class="demo cursor" src="https://www.w3schools.com/howto/img_woods_wide.jpg" style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">
+      @endforeach
+      <span id="slider_end"></span>
+    </div>
+    <div class="slider-controls">
+      <div class="slider-control prev">
+        <i class="fa fa-chevron-left"></i>
       </div>
-      <div class="column">
-        <img class="demo cursor" src="https://www.w3schools.com/howto/img_5terre_wide.jpg" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">
-      </div>
-      <div class="column">
-        <img class="demo cursor" src="https://www.w3schools.com/howto/img_mountains_wide.jpg" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">
-      </div>
-      <div class="column">
-        <img class="demo cursor" src="https://www.w3schools.com/howto/img_lights_wide.jpg" style="width:100%" onclick="currentSlide(5)" alt="Nature and sunrise">
-      </div>
-      <div class="column">
-        <img class="demo cursor" src="https://www.w3schools.com/howto/img_nature_wide.jpg" style="width:100%" onclick="currentSlide(6)" alt="Snowy Mountains">
+      <div class="slider-control next">
+        <i class="fa fa-chevron-right"></i>
       </div>
     </div>
   </div>
-
-
-
+  
 </div>
 
 <script>
-  let slideIndex = 1;
-showSlides(slideIndex);
+const slider = document.querySelector('.slider');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+  const slideWidth = document.querySelector('.slide').clientWidth;
+  let slideIndex = 0;
+  let  count = Math.floor((slider.children.length - 1)/5);
+  const cat_count = slider.getAttribute('data-cat_count');
 
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
+  prevBtn.addEventListener('click', () => {
 
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
 
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("demo");
-  let captionText = document.getElementById("caption");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-  captionText.innerHTML = dots[slideIndex-1].alt;
-}
+    slideIndex = (slideIndex === 0) ? 0: slideIndex - 1;
+    slider.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+  });
+  console.log(slideIndex);
+  nextBtn.addEventListener('click', () => {
+(slideIndex === count) ? slideIndex =0 : slideIndex ++;
+    slider.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+  });
+  
 </script>
-
-
 
 
 
