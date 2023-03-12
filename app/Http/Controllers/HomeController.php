@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Pdf;
 use App\Models\Shop;
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -28,8 +29,10 @@ class HomeController extends Controller
     public function index()
     {
        $categories=Category::with('products')->get();
+       $products=Product::take(20)->get();
         return view('home',[
-            'categories'=>$categories
+            'categories'=>$categories,
+            'products'=>$products
         ]);
     }
 

@@ -1,7 +1,4 @@
-<button  class="modalBtns btn btn-outline-primary btn-sm my-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
-    Add to cart
-  </button>
-  <div class="modal fade" id="myModal">
+<div class="modal fade" id="myModal">
 
 
     <div class="modal-dialog">

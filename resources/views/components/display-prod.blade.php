@@ -54,6 +54,9 @@
                       <h6 class="text-success">Free shipping</h6>
                       <div class="d-flex flex-column mt-4">
                         <a href="{{route('product.show',['product'=>$product->id])}}" class="btn btn-primary btn-sm" type="button">Details</a>
+                        <button  class="modalBtns btn btn-outline-primary btn-sm my-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
+                            Add to cart
+                          </button>
                         @include('includes.addToCart')
                       </div>
                     </div>

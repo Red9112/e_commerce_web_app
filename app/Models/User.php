@@ -72,11 +72,11 @@ public const LANGUAGE=[
     public function comments(){
         return $this->hasMany(Comment::class);
     }
-    public function image(){ 
+    public function image(){
         return $this->morphOne('App\Models\Image','imageable');
     }
     public function defaultImage(){
-  return asset('http://localhost:8000/storage/users/defaultUser.jpg');
+  return asset('images/defaultUser.jpg');
     }
     public function roles()
     {
@@ -86,7 +86,7 @@ public const LANGUAGE=[
     public function scopeMostBlogsCreators(Builder $query){
 return $query->withCount('blogs')->orderBy('blogs_count','desc');
     }
-   
+
     public function scopeMostActiveUsersThisMonth(Builder $query){
 return $query->withCount(['blogs'=> function(Builder $query){
     return $query->whereBetween(static::CREATED_AT,[now()->subMonth(1),now()]);

@@ -11133,12 +11133,12 @@ font: bold;
     color:aliceblue ;
     position: absolute;
     right: 0;
-    padding-top: 10px; 
+    padding-top: 10px;
     padding-right: 15px;
-    
+
 }
 #home_sidebar_links{
-     padding-top: 10px; 
+     padding-top: 10px;
 }
 /* end sidebar */
 
@@ -11151,6 +11151,89 @@ font: bold;
     height: 100em;
     width: 100%;
 }
+/* slider of search by category */
+.slider-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slider {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+
+  .slide {
+    flex: 0 0 20%;
+  }
+
+  .slider-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .slider-control {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 1rem;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .slider-control:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .prev {
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+
+  .next {
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+  }
+  .card-body a {
+    text-decoration: none;
+    text-align: center
+  }
+  .card-body a:hover {
+    text-decoration: none;
+    text-align: center;
+    color: #f26522;
+  }
+  #home_title{
+    font-family: Muli, sans-serif ;
+    font-style: normal ;
+   font-size: 32px ;
+   font-weight: 700;
+    line-height: 38px;
+  padding: 20px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  }
+
+
+  /* --------animation code
+ .slider{
+    animation: slide 60s linear infinite;
+  }
+
+  @keyframes slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+    ---------*/
+
+
+/* end_of slider of search by category */
+
+
 
 
 

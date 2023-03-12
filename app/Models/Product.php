@@ -38,7 +38,7 @@ class Product extends Model
     {
         return $this->morphedByMany(Discount::class, 'productable');
     }
-    public function orders() 
+    public function orders()
     {
         return $this->belongsToMany('App\Models\Order')
         ->withPivot(['price','selected_quantity','bonus_quantity']);
@@ -51,7 +51,7 @@ public function categories()
         if (count($this->images)>0) {
           return $this->images->first()->url();
         }
-        return asset('http://localhost:8000/storage/products/defaultProduct.png');
+        return asset('images/defaultProduct.png');
     }
 
 

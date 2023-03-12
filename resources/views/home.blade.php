@@ -154,12 +154,12 @@
       <button class="carousel-control-prev p-3" type="button" data-bs-target="#demo" data-bs-slide="prev">
         <span class="carousel-control-prev-icon bg-dark  rounded-circle"></span>
       </button>
-      
+
       <button class="carousel-control-next p-3" type="button" data-bs-target="#demo" data-bs-slide="next">
         <span class="carousel-control-next-icon bg-dark rounded-circle"></span>
       </button>
     </div>
- 
+
   </div>
 
 
@@ -203,106 +203,24 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<style>
-  .slider-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.slider {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.slide {
-  flex: 0 0 20%;
-}
-
-.slider-controls {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.slider-control {
-  background-color: rgba(0, 0, 0, 0.3);
-  color: #fff;
-  cursor: pointer;
-  font-size: 2rem;
-  padding: 1rem;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.slider-control:hover {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.prev {
-  border-top-right-radius: 1rem;
-  border-bottom-right-radius: 1rem;
-}
-
-.next {
-  border-top-left-radius: 1rem;
-  border-bottom-left-radius: 1rem;
-}
-.card-body a {
-  text-decoration: none;
-  text-align: center
-}
-.card-body a:hover {
-  text-decoration: none;
-  text-align: center;
-  color: #f26522;
-}
-#home_title{
-  font-family: Muli, sans-serif ;
-  font-style: normal ;
- font-size: 32px ;
- font-weight: 700;
-  line-height: 38px;
-padding: 20px;
-padding-bottom: 0px;
-margin-bottom: 0px;
-}
-</style>
 <div id="content">
-  <p id="home_title"> Browse by Category</p>
-  <div class="slider-container p-3 ">
+
+    {{-- slider for search by category --}}
+    <p id="home_title"> Browse by Category</p>
+    <div class="slider-container p-3 ">
     <div class="slider">
       @foreach ($categories as $cat)
       <div class="slide">
         <div class="category-card">
           <div class="card" style="width:200px">
-            <img class="card-img-top" src="https://www.w3schools.com/bootstrap4/img_avatar1.png" alt="Card image">
+            <img class="card-img-top" src="images/ph_shop.jpg" alt="Card image">
             <div class="card-body">
-              <a href="#"> <h4 class="card-title">{{$cat->name}}</h4></a> 
+              <a href="#"> <h4 class="card-title">{{$cat->name}}</h4></a>
             </div>
           </div>
         </div>
       </div>
       @endforeach
-      <span id="slider_end"></span>
     </div>
     <div class="slider-controls">
       <div class="slider-control prev">
@@ -313,31 +231,44 @@ margin-bottom: 0px;
       </div>
     </div>
   </div>
-  
+
+  {{-- products with offers --}}
+  <p id="home_title"> Products with discounts</p>
+  <div class="slider-container p-3 ">
+  <div class="slider">
+    @foreach ($products as $product)
+    <div class="slide">
+      <div class="category-card">
+        <div class="card" style="width:400px">
+            <a href="{{route('product.show',['product'=>$product->id])}}">
+          <img class="card-img-top" src="{{$product->getFirstImage()}}" alt="Card image"></a>
+          <div class="card-body">
+            <a href="{{route('product.show',['product'=>$product->id])}}">
+                <h4 class="card-title text-start">{{$product->name}}</h4></a>
+                <div class="d-flex flex-row align-items-center mb-1">
+                    <h4 class="mb-1 me-1">${{$product->price}}</h4>
+                    <span class="text-danger"><s>$20.99</s></span>
+                  </div>
+                  <button  class="modalBtns btn btn-outline-warning btn-md my-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
+                    Add to cart
+                  </button>
+                  @include('includes.addToCart')
+          </div>
+        </div>
+      </div>
+    </div>
+    @endforeach
+  </div>
+  <div class="slider-controls">
+    <div class="slider-control prev">
+      <i class="fa fa-chevron-left"></i>
+    </div>
+    <div class="slider-control next">
+      <i class="fa fa-chevron-right"></i>
+    </div>
+  </div>
 </div>
 
-<script>
-const slider = document.querySelector('.slider');
-  const prevBtn = document.querySelector('.prev');
-  const nextBtn = document.querySelector('.next');
-  const slideWidth = document.querySelector('.slide').clientWidth;
-  let slideIndex = 0;
-  let  count = Math.floor((slider.children.length - 1)/5);
-  const cat_count = slider.getAttribute('data-cat_count');
-
-  prevBtn.addEventListener('click', () => {
-
-
-    slideIndex = (slideIndex === 0) ? 0: slideIndex - 1;
-    slider.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
-  });
-  console.log(slideIndex);
-  nextBtn.addEventListener('click', () => {
-(slideIndex === count) ? slideIndex =0 : slideIndex ++;
-    slider.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
-  });
-  
-</script>
 
 
 
@@ -347,6 +278,18 @@ const slider = document.querySelector('.slider');
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+</div>
 
 
 
