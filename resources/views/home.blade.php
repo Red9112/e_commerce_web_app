@@ -210,9 +210,9 @@
     <div class="slider-container p-3 ">
     <div class="slider">
       @foreach ($categories as $cat)
-      <div class="slide">
+      <div class="slide slide1">
         <div class="category-card">
-          <div class="card" style="width:200px">
+          <div class="card card_slider1" style="width:250px">
             <img class="card-img-top" src="images/ph_shop.jpg" alt="Card image">
             <div class="card-body">
               <a href="#"> <h4 class="card-title">{{$cat->name}}</h4></a>
@@ -233,23 +233,23 @@
   </div>
 
   {{-- products with offers --}}
-  <p id="home_title"> Products with discounts</p>
+  <p id="home_title">Discounted products</p>
   <div class="slider-container p-3 ">
-  <div class="slider">
-    @foreach ($products as $product)
-    <div class="slide">
+  <div class="slider slider2">
+    @foreach ($discountedproducts as $product)
+    <div class="slide slide2 mx-2">
       <div class="category-card">
-        <div class="card" style="width:400px">
+        <div class="card card_slider2" style="width:350px">
             <a href="{{route('product.show',['product'=>$product->id])}}">
-          <img class="card-img-top" src="{{$product->getFirstImage()}}" alt="Card image"></a>
+          <img style="height:400px" class="card-img-top" src="{{$product->getFirstImage()}}" alt="Card image"></a>
           <div class="card-body">
             <a href="{{route('product.show',['product'=>$product->id])}}">
                 <h4 class="card-title text-start">{{$product->name}}</h4></a>
                 <div class="d-flex flex-row align-items-center mb-1">
                     <h4 class="mb-1 me-1">${{$product->price}}</h4>
-                    <span class="text-danger"><s>$20.99</s></span>
+                    <span class="text-danger"><s>${{$product->discountedPrice()}}</s></span>
                   </div>
-                  <button  class="modalBtns btn btn-outline-warning btn-md my-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
+                  <button  class="modalBtns btn btn-warning btn-md my-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
                     Add to cart
                   </button>
                   @include('includes.addToCart')
@@ -260,10 +260,10 @@
     @endforeach
   </div>
   <div class="slider-controls">
-    <div class="slider-control prev">
+    <div class="slider-control prev prev2">
       <i class="fa fa-chevron-left"></i>
     </div>
-    <div class="slider-control next">
+    <div class="slider-control next next2">
       <i class="fa fa-chevron-right"></i>
     </div>
   </div>

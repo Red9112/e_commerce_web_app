@@ -11217,7 +11217,7 @@ font: bold;
   padding-bottom: 0px;
   margin-bottom: 0px;
   }
-
+ 
 
   /* --------animation code
  .slider{
@@ -11233,8 +11233,13 @@ font: bold;
 
 /* end_of slider of search by category */
 
+/* slider of Products with discounts */
+.card_slider2:hover,.card_slider1:hover{
+  border: gold solid 2px;
+}
 
 
+/* end_slider of Products with discounts */
 
 
  /* end content */

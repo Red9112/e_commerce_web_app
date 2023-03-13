@@ -29,10 +29,10 @@ class HomeController extends Controller
     public function index()
     {
        $categories=Category::with('products')->get();
-       $products=Product::take(20)->get();
+       $discountedproducts = Product::whereHas('discounts')->get();
         return view('home',[
             'categories'=>$categories,
-            'products'=>$products
+            'discountedproducts'=>$discountedproducts,
         ]);
     }
 

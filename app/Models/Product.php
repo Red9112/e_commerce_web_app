@@ -68,6 +68,22 @@ return $query->orderBy(static::CREATED_AT,'asc')->with('images');
 //     }
 
 
+//functions:
+public function discountedPrice(){
+    $discounts=$this->discounts;
+    $disPrice=0;
+    foreach ($discounts as $discount){
+        if($discount->discount_type->name=="percent" && !$discount->expired){
+        $disPrice+=$discount->percent($this->price);
+        }}
+    foreach ($discounts as $discount){
+        if($discount->discount_type->name=="fixed" && !$discount->expired){
+            $disPrice+=$discount->value;
+        }}
+    $discountedPrice=($this->price-$disPrice);
+    return $discountedPrice;
+        }
+
 
 
 }

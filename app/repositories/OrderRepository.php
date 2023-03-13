@@ -111,11 +111,11 @@ if (is_object($dis_by_id) && !$dis_by_id->expired) {
     $quantity = $selectedQuantities[$product->id];
     $disPrice=0;
     foreach ($discounts as $discount){
-        if($discount->discount_type->name=="percent"){
+        if($discount->discount_type->name=="percent" && !$discount->expired){
         $disPrice+=$discount->percent($product->price);
         }}
     foreach ($discounts as $discount){
-        if($discount->discount_type->name=="fixed"){
+        if($discount->discount_type->name=="fixed" && !$discount->expired){
             $disPrice+=$discount->value;
         }}
     $productPrice=($product->price-($disPrice+$dis_by_id_disPrice))*$quantity;
@@ -123,7 +123,7 @@ if (is_object($dis_by_id) && !$dis_by_id->expired) {
     $totalQuantity=$quantity;
     //if (!$discounts->isEmpty()) {
     foreach ($discounts as $discount){
- $totalQuantity=$discount->get_one_free($quantity);
+(!$discount->expired)?$totalQuantity=$discount->get_one_free($quantity):null;
 }
 
 
