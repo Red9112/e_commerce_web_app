@@ -58,6 +58,9 @@
                             Add to cart
                           </button>
                         @include('includes.addToCart')
+                        @auth
+                        <a href="{{route('wishlist.store',['id'=>$product->id])}}" class="btn btn-primary btn-sm" type="button"> save for later</a>
+                      @endauth
                       </div>
                     </div>
                   </div>

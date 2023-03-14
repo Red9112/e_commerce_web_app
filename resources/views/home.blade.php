@@ -252,7 +252,12 @@
                   <button  class="modalBtns btn btn-warning btn-md my-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
                     Add to cart
                   </button>
-                  @include('includes.addToCart')
+                  @include('includes.addToCart') 
+                  @auth
+                  <a href="{{route('wishlist.store',['id'=>$product->id])}}" title="wishlist" type="button" >
+                    @include('includes.icons.wishlist')</a>
+                  @endauth
+                 
           </div>
         </div>
       </div>

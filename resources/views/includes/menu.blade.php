@@ -1,7 +1,5 @@
-
- <nav class="navbar navbar-expand-sm navbar-dark " style="background-color: #609EA2;">
-    <div class="container-fluid">
-
+<nav class="navbar navbar-expand-sm navbar-dark " style="background-color: #609EA2;">
+<div class="container-fluid">
 @auth
 <a style="display:inline;padding:0px" id="show_menu" class="navbar-brand" href="#">
   @include('includes.icons.show_menu')

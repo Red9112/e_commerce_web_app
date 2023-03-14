@@ -1,6 +1,4 @@
 <div class="modal fade" id="myModal">
-
-
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -24,7 +22,5 @@
       </div>
     </div>
   </div>
-  @auth
-  <a href="{{route('wishlist.store',['id'=>$product->id])}}" class="btn btn-primary btn-sm" type="button"> save for later</a>
-@endauth
+ 
 
