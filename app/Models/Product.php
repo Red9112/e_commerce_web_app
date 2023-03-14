@@ -83,13 +83,13 @@ public function discountedPrice(){
         foreach ($discounts as $discount){
             if(!$discount->expired){
                 ($discount->discount_type->name=="buy_one_get_one_free")
-                    ?$bonusQuantity="buy_one_get_one_free":null;
+                    ?$bonusQuantity="buy one get one free":null;
                 ($discount->discount_type->name=="buy_two_get_one_free")
-                    ?$bonusQuantity="buy_two_get_one_free":null;
+                    ?$bonusQuantity="buy two get one free":null;
             }}
     $discountedPrice=($this->price-$disPrice);
 
-    
+
     $result['discountedPrice']=$discountedPrice ?? null;
     $result['bonusQuantity']=$bonusQuantity ?? null;
     return $result ;

@@ -247,17 +247,22 @@
                 <h4 class="card-title text-start">{{$product->name}}</h4></a>
                 <div class="d-flex flex-row align-items-center mb-1">
                     <h4 class="mb-1 me-1">${{$product->price}}</h4>
-                    <span class="text-danger"><s>${{$product->discountedPrice()}}</s></span>
+                    @if ($product->discountedPrice()['discountedPrice']!=$product->price)
+                    <span class="text-danger"><s>${{$product->discountedPrice()['discountedPrice'] }}</s></span>
+                    @endif
                   </div>
+                  @if ($product->discountedPrice()['bonusQuantity'])
+                  <p><x-badge val="info" >{{$product->discountedPrice()['bonusQuantity']}}</x-badge></p>
+                   @endif
                   <button  class="modalBtns btn btn-warning btn-md my-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
                     Add to cart
                   </button>
-                  @include('includes.addToCart') 
+                  @include('includes.addToCart')
                   @auth
                   <a href="{{route('wishlist.store',['id'=>$product->id])}}" title="wishlist" type="button" >
                     @include('includes.icons.wishlist')</a>
                   @endauth
-                 
+
           </div>
         </div>
       </div>

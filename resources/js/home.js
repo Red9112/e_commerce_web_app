@@ -43,7 +43,7 @@ function closeNav() {
     slider.addEventListener('mouseover', () => {
      clearInterval(intervalId1);
    });
-   
+
    slider.addEventListener('mouseout', () => {
      startSlider1();
    });
@@ -58,8 +58,8 @@ function closeNav() {
  let nextBtn2 = document.querySelector('.next2');
  let  slideWidth2 = document.querySelector('.slide2').clientWidth;
  let slideIndex2 = 0;
- let  count2 = Math.floor(slider2.children.length - 3);
  if(slider2){
+     let  count2 = Math.floor(slider2.children.length - 3);
   prevBtn2.addEventListener('click', () => {
     slideIndex2 = (slideIndex2 === 0) ? 0: slideIndex2 - 1;
     slider2.style.transform = `translateX(-${slideIndex2 * slideWidth2}px)`;
@@ -68,7 +68,7 @@ function closeNav() {
  (slideIndex2 === count2) ? slideIndex2 =0 : slideIndex2 ++;
     slider2.style.transform = `translateX(-${slideIndex2 * slideWidth2}px)`;
   });
- 
+
   let slideInterval2 = 3000;
   function startSlider2() {
   intervalId2=setInterval(() => {
@@ -79,14 +79,13 @@ function closeNav() {
   slider2.addEventListener('mouseover', () => {
    clearInterval(intervalId2);
  });
- 
+
  slider2.addEventListener('mouseout', () => {
    startSlider2();
  });
  startSlider2();
  }
- 
+
    // end_of slider of products with offers
 
 
-   
