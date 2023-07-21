@@ -6,9 +6,9 @@
 
 
 
-<center><h2> 
-<a class="nav-link justify-content-center" href="{{route('dashboard')}}">{{__('welcome')}}</a>
-</h2></center>
+<center>
+<a class="welcomeTitle nav-link justify-content-center" href="{{route('dashboard')}}">{{__('welcome')}}</a>
+</center>
 
 <x-display-prod :products="$products"></x-display-prod>
 

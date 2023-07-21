@@ -16,7 +16,7 @@ prosess to run the app:
 1. run: `npm install --save @fortawesome/fontawesome-free`
 
 
-
+ 
 
 
 

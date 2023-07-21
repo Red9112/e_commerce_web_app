@@ -7,12 +7,12 @@
      <link rel="stylesheet" href="{{mix('/css/app.css')}}">
      <link id="lightLink"  rel="stylesheet" href="{{mix('/css/theme.css')}}">
      <link  id="darkLink" rel="stylesheet" href="{{asset('')}}">
-     
+
 <title>E-commerce Store</title>
 </head>
 <body >
-    
- 
+
+
 
    <div class="countainer">
     @yield('header')
@@ -26,15 +26,15 @@
          </div>
     </div>
     </div>
-  
 
-    
 
-     
-       
-   
-   
-    
+
+
+
+
+
+
+
 
 
 <script src="{{mix('/js/app.js')}}"></script>

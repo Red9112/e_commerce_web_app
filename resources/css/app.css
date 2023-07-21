@@ -29,7 +29,12 @@ color: black;
 font-size: larger;
 font-weight: 450;
 }
-
+.welcomeTitle{
+    background-color: #DFD7BF;
+    color: black;
+    margin-bottom: 0;
+    font-size: larger;
+}
 /* set mode light svg */
 #header_top ul li #lightBtn{
   cursor: pointer;

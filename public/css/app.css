@@ -11217,7 +11217,7 @@ font: bold;
   padding-bottom: 0px;
   margin-bottom: 0px;
   }
- 
+
 
   /* --------animation code
  .slider{
@@ -11245,7 +11245,7 @@ font: bold;
  /* end content */
 
 /*!
- * Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
@@ -17449,7 +17449,7 @@ readers do not read off random characters that represent icons */
   border-width: 0; }
 
 /*!
- * Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
@@ -17462,7 +17462,7 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff2?7be2266f1be21c44ecd4438c55d55320) format("woff2"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.ttf?13e40630e5866f777de89153e8a93bdf) format("truetype"); }
+  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.woff2?e033a13ee751afc1860c3bc31ede1065) format("woff2"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-brands-400.ttf?150de8eaa454d669c405d810c8dbbf14) format("truetype"); }
 
 .fab,
 .fa-brands {
@@ -18972,7 +18972,7 @@ readers do not read off random characters that represent icons */
   content: "\f3f6"; }
 
 /*!
- * Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
@@ -18985,7 +18985,7 @@ readers do not read off random characters that represent icons */
   font-style: normal;
   font-weight: 900;
   font-display: block;
-  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2?bdb9e23299f9d1320a8be0879fc918d1) format("woff2"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf?2877d54f94f30c5d563c5164dc56be39) format("truetype"); }
+  src: url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.woff2?bb975c966c37455a1bc3c7e29971386c) format("woff2"), url(/fonts/vendor/@fortawesome/fontawesome-free/webfa-solid-900.ttf?4a2cd718d7031b732e7610fba99ecf74) format("truetype"); }
 
 .fas,
 .fa-solid {
@@ -19013,7 +19013,12 @@ color: black;
 font-size: larger;
 font-weight: 450;
 }
-
+.welcomeTitle{
+    background-color: #DFD7BF;
+    color: black;
+    margin-bottom: 0;
+    font-size: larger;
+}
 /* set mode light svg */
 #header_top ul li #lightBtn{
   cursor: pointer;
