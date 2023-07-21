@@ -1,5 +1,5 @@
 <div id="category_products">
-      <section class="bg-success">
+      <section>
         <div class="container py-5">
           @foreach ($products as $product)
           <div class="row justify-content-center mb-3">

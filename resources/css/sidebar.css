@@ -2,7 +2,7 @@
 
 #menu_parent{
   position: relative;
-} 
+}
 
 #sidebar {
  position: absolute;
@@ -50,8 +50,6 @@
         #hide_menu.active {
             left: 0;
         }
-        #search_btn{
-            background-color: #98c1d9;
-        }
+
 
 /*/////////////////////////////*/

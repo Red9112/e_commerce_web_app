@@ -27,11 +27,11 @@
                 </div>
             </div>
             </form>
-            <button id="search_btn" class="btn rounded btn-sm mx-2 my-0 p-0" type="button">
-                <ul class="navbar-nav">
+            <button   class="btn btn-warning rounded btn-sm mx-2 my-0 p-0" type="button">
+                <ul class=" navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Categories</a>
-                           <ul class="dropdown-menu">
+                        <a style="font-weight:bolder;" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"> Categories</a>
+                           <ul class=" dropdown-menu">
                              @foreach ($categories as $cat)
                                  <li> <a class="dropdown-item" href="{{route('prodByCat',['id'=>$cat])}}"><h6>{{$cat->name}}</h6></a></li>
                              @endforeach
