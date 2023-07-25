@@ -37,7 +37,7 @@ public function check_address_orders(Request $request){
         $request->session()->flash('failed',
         "address can't be deleted because its't involved in some orders !!");
         return redirect()->back();
-    } 
+    }
     if ($user->hasRole('admin') && $orders_count!=0) {
         $request->session()->flash('failed',
         "this address is involved in some orders, you've to delete them first!!");
@@ -45,7 +45,7 @@ public function check_address_orders(Request $request){
     }
     else {
     $this->delete();
-    $request->session()->flash('failed',' Address is Deleted !!');
+    $request->session()->flash('failed',' Address  Deleted !!');
     return redirect()->route('address.index');
     }
 }

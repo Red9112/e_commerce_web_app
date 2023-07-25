@@ -16,31 +16,9 @@
                     <div class="col-md-6 col-lg-6 col-xl-6">
                       <h5>{{$product->name}}</h5>
                       <x-category :cat="$product->categories"></x-category>
-                      <div class="d-flex flex-row">
-                        <div class="text-danger mb-1 me-2">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </div>
-                        <span>310</span>
-                      </div>
-                      <div class="mt-1 mb-0 text-muted small">
-                        <span>100% cotton</span>
-                        <span class="text-primary"> • </span>
-                        <span>Light weight</span>
-                        <span class="text-primary"> • </span>
-                        <span>Best finish<br /></span>
-                      </div>
-                      <div class="mb-2 text-muted small">
-                        <span>Unique design</span>
-                        <span class="text-primary"> • </span>
-                        <span>For men</span>
-                        <span class="text-primary"> • </span>
-                        <span>Casual<br /></span>
-                      </div>
+
                       <div class="mb-2">
-             <span class="text-primary">Quantity: </span><span class="text-dark">{{$product->qty_in_stock}}</span>
+             <span class="text-primary">Quantity: </span><span>{{$product->qty_in_stock}}</span>
                       </div>
                       <p class="text-truncate mb-4 mb-md-0">
                         {{$product->description}}
@@ -48,18 +26,22 @@
                     </div>
                     <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                       <div class="d-flex flex-row align-items-center mb-1">
-                        <h4 class="mb-1 me-1">{{$product->price}}</h4>
-                        <span class="text-danger"><s>$20.99</s></span>
+                        @if ($product->discounts)
+                        <h4 class="mb-1 me-1">{{ \App\Helpers\Helper::displayPrice($product->discountedPrice()['discountedPrice'])}}</h4>
+                        <span class="text-danger"><s>{{\App\Helpers\Helper::displayPrice($product->price)}}</s></span>
+                        @endif
                       </div>
-                      <h6 class="text-success">Free shipping</h6>
+                        @if ($product->discountedPrice()['bonusQuantity'])
+                        <div class="text-success ">buy one get one free{{$product->discountedPrice()['bonusQuantity']}}</div>
+                        @endif
                       <div class="d-flex flex-column mt-4">
-                        <a href="{{route('product.show',['product'=>$product->id])}}" class="btn btn-primary btn-sm" type="button">Details</a>
-                        <button  class="modalBtns btn btn-outline-primary btn-sm my-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
+                        <a  href="{{route('product.show',['product'=>$product->id])}}" class="btn bg-info    btn-sm" type="button">Details</a>
+                        <button   class="modalBtns btn btn-outline-danger btn-sm my-2"  type="button" data-id="{{ $product->id }}"  data-bs-toggle="modal" data-bs-target="#myModal">
                             Add to cart
                           </button>
                         @include('includes.addToCart')
                         @auth
-                        <a href="{{route('wishlist.store',['id'=>$product->id])}}" class="btn btn-primary btn-sm" type="button"> save for later</a>
+                        <a href="{{route('wishlist.store',['id'=>$product->id])}}" class="btn btn-warning btn-sm" type="button"> Save for later</a>
                       @endauth
                       </div>
                     </div>

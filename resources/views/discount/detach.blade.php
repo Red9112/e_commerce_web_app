@@ -1,5 +1,6 @@
 <div class="my-3 p-3">
-    <h3 class="m-3"><span class="text-danger">Detach</span> discount to products: </h3>
+    <h3 class="m-3"><span class="text-danger">Detach</span> discount from products: </h3>
+    @if ($products!=null)
     <button type="button" id="detach_my_products" class=" btn btn-outline-info btn-lg mx-2">My products</button>
     <form id="detach_my_productsForm" style="display:none" method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
     <input type="hidden" name="detach">
@@ -75,9 +76,10 @@
                   <button type="submit" class="btn btn-success">detach</button>
                 </div>
                 </form>
+                @endif
     {{-- Admin Discount: --}}
     @if (auth()->user()->hasRole('admin'))
-    
+
     <button type="button" id="detachDisAllProducts" class=" btn btn-outline-warning btn-lg mx-2">all products</button>
     <form id="detachDisAllProdForm" style="display:none" method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
         <input type="hidden" name="detach">

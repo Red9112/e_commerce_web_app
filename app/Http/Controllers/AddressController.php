@@ -46,7 +46,7 @@ class AddressController extends Controller
         $request->session()->flash('status','an address was created !! ');
        return redirect()->back();
     }
- 
+
     public function edit($id)
     {
         $address=Address::findOrFail($id);

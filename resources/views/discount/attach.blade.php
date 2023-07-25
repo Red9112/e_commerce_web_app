@@ -1,5 +1,6 @@
 <div class="my-3 p-3">
     <h3 class="m-3"><span class="text-success">Attach </span>discount to products: </h3>
+    @if ($products!=null)
     <button type="button" id="my_products" class=" btn btn-outline-info btn-lg mx-2">My products</button>
     <form id="my_productsForm" style="display:none" method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
     <input type="hidden" name="attach">
@@ -7,7 +8,7 @@
     <div class="form-check">
         <h4>
     <input class="selectProduct form-check-input" type="checkbox" name="my_products" value="1">
-    <label for="my_products">Apply this discount to my  all products</label>
+    <label for="my_products">Apply this discount to all my products</label>
         </h4>
     </div>
     <button type="submit" class="btn btn-success">affect</button>
@@ -75,6 +76,7 @@
                   <button type="submit" class="btn btn-success">affect</button>
                 </div>
                 </form>
+                @endif
     {{-- Admin Discount: --}}
     @if (auth()->user()->hasRole('admin'))
 

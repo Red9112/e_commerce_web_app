@@ -36,6 +36,11 @@ class ShippingPolicy
         return ($user->hasRole('admin'));
     }
 
+    public function store(User $user)
+    {
+        return ($user->hasRole('admin'));
+    }
+
 
     public function update(User $user, Shipping $shipping)
     {

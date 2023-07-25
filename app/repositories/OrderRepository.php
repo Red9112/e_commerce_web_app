@@ -50,7 +50,7 @@ class OrderRepository{
 
 
         return $orders;
-    } 
+    }
 
 ///////////// Checkout:
     public function checkout_process_discount(PurchaseRequest $request){
@@ -106,7 +106,7 @@ if (is_object($dis_by_id) && !$dis_by_id->expired) {
     ($dis_by_id->discount_type->name=="percent")?$dis_by_id_disPrice+=$dis_by_id->percent($product->price):null;
     ($dis_by_id->discount_type->name=="fixed")?$dis_by_id_disPrice+=$dis_by_id->value:null;
     }
- 
+
     $discounts=$product->discounts;
     $quantity = $selectedQuantities[$product->id];
     $disPrice=0;
@@ -130,12 +130,12 @@ if (is_object($dis_by_id) && !$dis_by_id->expired) {
     if ($totalQuantity==$quantity && is_object($dis_by_id) && !$dis_by_id->expired) {
         $totalQuantity=$dis_by_id->get_one_free($quantity);
          }
- ($totalQuantity > $product->qty_in_stock) 
-?$bonusQuantities[$product->id]= $quantity-$selectedQuantities[$product->id] 
+ ($totalQuantity > $product->qty_in_stock)
+?$bonusQuantities[$product->id]= $quantity-$selectedQuantities[$product->id]
 :$bonusQuantities[$product->id]= $totalQuantity-$selectedQuantities[$product->id];
-       
-       
-    
+
+
+
         $productsPrices[$product->id]=$productPrice;
         $subtotal+=$productPrice;
      }
@@ -182,7 +182,7 @@ $address=Address::findOrfail($request->address);
         $data=$request->only(['address_id', 'shipping_id','payment_id','order_total']);
         $order_status_id=OrderStatus::where('name','Pending')->pluck('id');
         ($order_status_id->isEmpty())?$order_status_id=1:null;
-        $data['order_status_id']= $order_status_id[0];
+        $data['order_status_id']= $order_status_id;
         $data['user_id']=auth()->id();
         $order=Order::create($data);
         $productsIds=$request->input('products', []);

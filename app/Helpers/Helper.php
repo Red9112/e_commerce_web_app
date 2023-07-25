@@ -10,8 +10,8 @@ class Helper
 
     public static function convertPriceToDh($price)
     {
-        $usdToMADRate = 9.87; 
-    $priceInDirhams = $price * $usdToMADRate;
+        $usdToMADRate = 9.87;
+        $priceInDirhams = $price * $usdToMADRate;
     return number_format($priceInDirhams, 2);
     }
 

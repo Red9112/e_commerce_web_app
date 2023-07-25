@@ -50,6 +50,7 @@ class CartController extends Controller
                             if(!($cartProductsIds->contains(function ($item) use ($product_to_cart) { return $item === $product_to_cart;}))) {
                                     $cart['product_id'][]=$product_to_cart;
                                     session()->put('cart', $cart);
+
                                     $request->session()->flash('status',' product added to cart !!');
                                 }
                                 else{
