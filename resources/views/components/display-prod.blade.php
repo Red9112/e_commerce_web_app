@@ -32,7 +32,7 @@
                         @endif
                       </div>
                         @if ($product->discountedPrice()['bonusQuantity'])
-                        <div class="text-success ">buy one get one free{{$product->discountedPrice()['bonusQuantity']}}</div>
+                        <div class="text-success ">{{$product->discountedPrice()['bonusQuantity']}}</div>
                         @endif
                       <div class="d-flex flex-column mt-4">
                         <a  href="{{route('product.show',['product'=>$product->id])}}" class="btn bg-info    btn-sm" type="button">Details</a>

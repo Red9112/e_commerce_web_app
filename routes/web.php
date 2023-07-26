@@ -38,6 +38,7 @@ Route::resource('/shop','App\Http\Controllers\shopController')->only(['index','c
 Route::get('/shopExportList', [App\Http\Controllers\ShopController::class, 'exportShopsList'])->name('shop.export.list');
 Route::get('/shopExport', [App\Http\Controllers\ShopController::class, 'export'])->name('shop.export');
 Route::get('/shops_view_user', [App\Http\Controllers\ShopController::class, 'shops_view_user'])->name('shop.view.user');
+Route::get('/shops_view_vendor', [App\Http\Controllers\ShopController::class, 'shops_view_vendor'])->name('shop.view.vendor');
 Route::get('/display_shop_products/{id}', [App\Http\Controllers\ShopController::class, 'display_shop_products'])->name('display.shop.products');
 //-------------------
 // for comments:

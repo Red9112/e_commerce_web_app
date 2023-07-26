@@ -22,7 +22,7 @@
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->user->name }}</td>
                     <td>{{ $order->created_at->format('d/m/Y') }}</td>
-                    <td>{{ $order->order_total }}</td>
+                    <td>{{ \App\Helpers\Helper::displayPrice($order->order_total )}}</td>
                     <td>{{ $order->order_status->name }}</td>
                     <td>
                         {{--Actions--}}

@@ -27,8 +27,8 @@
                     <td>{{$product->pivot->bonus_quantity}}</td>
                     <td>
                         {{-- <div class="d-flex flex-row align-items-center mb-1"> --}}
-                        <h4 class="mb-1 me-1">{{$product->pivot->price}}</h4>
-                        <span class="text-danger"><s>{{$product->price}}</s></span>
+                        <h4 class="mb-1 me-1">{{ \App\Helpers\Helper::displayPrice($product->pivot->price)}}</h4>
+                        <span class="text-danger"><s>{{ \App\Helpers\Helper::displayPrice($product->price)}}</s></span>
                         {{-- </div> --}}
                         </td>
                 </tr>
@@ -39,10 +39,10 @@
         <div class="col-md-6">
             <p><strong>Shipping Method:</strong> {{ $order->shipping->name }}</p>
             <p><strong>Shipping Address:</strong> {{ $order->address->address }}</p>
-            <p><strong>Shipping Price:</strong> {{$order->shipping->price }}</p>
+            <p><strong>Shipping Price:</strong>{{ \App\Helpers\Helper::displayPrice($order->shipping->price)}}</p>
         </div>
         <div class="col-md-6">
-            <p><strong>Total:</strong> {{ $order->order_total }}</p>
+            <p><strong>Total:</strong>{{ \App\Helpers\Helper::displayPrice($order->order_total)}}</p>
             <p><strong>Payment Card Number:</strong> {{ $order->payment->account_number }}</p>
             <p><strong>User Name:</strong> {{ $order->user->name }}</p>
         </div>

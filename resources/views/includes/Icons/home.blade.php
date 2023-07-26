@@ -1,4 +1,4 @@
-<svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+{{-- <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 	 width="30px" height="30px" viewBox="0 0 495.398 495.398"
 	 xml:space="preserve">
 			<path d="M487.083,225.514l-75.08-75.08V63.704c0-15.682-12.708-28.391-28.413-28.391c-15.669,0-28.377,12.709-28.377,28.391
@@ -8,4 +8,5 @@
 			<path d="M257.561,131.836c-5.454-5.451-14.285-5.451-19.723,0L72.712,296.913c-2.607,2.606-4.085,6.164-4.085,9.877v120.401
 				c0,28.253,22.908,51.16,51.16,51.16h81.754v-126.61h92.299v126.61h81.755c28.251,0,51.159-22.907,51.159-51.159V306.79
 				c0-3.713-1.465-7.271-4.085-9.877L257.561,131.836z"/>
-</svg>
+</svg> --}}
+<svg width="35px" height="30px"width="30px" height="30px" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 48 48" id="home"><path fill="#55aae1" d="M44 22a1 1 0 0 1-.62-.22l-18.75-15a1 1 0 0 0-1.25 0l-18.76 15a1 1 0 1 1-1.24-1.56l18.75-15a3 3 0 0 1 3.74 0l18.75 15a1 1 0 0 1 .16 1.4A1 1 0 0 1 44 22Z"></path><path fill="#55aae1" d="M28 44h-8a1 1 0 0 1-1-1V25a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v18a1 1 0 0 1-1 1Zm-7-2h6V25a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1Z"></path><path fill="#55aae1" d="M37 44H11a3 3 0 0 1-3-3V17.16h2V41a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1V17.16h2V41a3 3 0 0 1-3 3Z"></path><path fill="#55aae1" d="M37 15h-1v22a3 3 0 0 1-3 3H8v1a3 3 0 0 0 3 3h26a3 3 0 0 0 3-3V18a3 3 0 0 0-3-3Z" opacity=".35"></path><path fill="#55aae1" d="M39 14a1 1 0 0 1-1-1V7a1 1 0 0 1 2 0v6a1 1 0 0 1-1 1Z"></path><path fill="#55aae1" d="M39 8h-8a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2Z"></path></svg>

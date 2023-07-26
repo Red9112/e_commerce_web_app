@@ -50,3 +50,10 @@
         #category_products{
     background-color:#0B0C0D;
         }
+.menuCat{
+    background-color: #0dbf92;
+}
+.menuLinks:hover{
+    color: coral;
+    letter-spacing: 2px;
+   }

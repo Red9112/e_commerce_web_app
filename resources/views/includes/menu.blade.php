@@ -13,21 +13,21 @@
       <span class="navbar-toggler-icon"></span>
       </button>
       <a class="nav-link mx-3" href="{{route('dashboard')}}">@include('includes.icons.home')</a>
-      <h5><a class="nav-link" href="{{route('blog.index')}}">Blogs</a></h5>
-      <h5><a class="nav-link mx-3" href="{{route('shop.view.user')}}">Stores</a></h5>
+      <h5><a class="menuLinks nav-link" href="{{route('blog.index')}}">Blogs</a></h5>
+      <h5><a class="menuLinks nav-link mx-3" href="{{route('shop.view.user')}}">Stores</a></h5>
         <div class="container d-flex justify-content-center" id="navbarNav">
             <form method="GET" action="{{ route('dashboard') }}">
             <div class="input-group">
              <input style="width: 400px" type="text" class="form-control" placeholder="i'm shopping for..."
                 id="search_products" name="search_products" value="{{ request()->input('search_products') }}">
              <div class="input-group-append">
-                 <button id="search_btn" class="btn btn-secondary" type="submit" style="background-color: #f26522; border-color:#f26522 ">
+                 <button id="search_btn" class="btn btn-secondary" type="submit">
                   <i class="fa fa-search"></i>
                  </button>
                 </div>
             </div>
             </form>
-            <button   class="btn btn-warning rounded btn-sm mx-2 my-0 p-0" type="button">
+            <button   class="menuCat btn rounded btn-sm mx-2 my-0 p-0" type="button">
                 <ul class=" navbar-nav">
                     <li class="nav-item dropdown">
                         <a style="font-weight:bolder;" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"> Categories</a>

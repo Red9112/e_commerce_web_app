@@ -57,12 +57,20 @@ if ($request->optradio == "excel") {
             'shopProducts'=>$shopProducts,
         ]);
     }
-    
+
     public function shops_view_user(Request $request)
     {
         $shops=Shop::all();
         return view('shop.shops_view_user',[
             'shops'=>$shops,
+        ]);
+    }
+
+    public function shops_view_vendor(Request $request)
+    {
+
+        return view('shop.shops_view_vendor',[
+
         ]);
     }
 

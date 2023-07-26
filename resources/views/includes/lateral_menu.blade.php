@@ -14,7 +14,7 @@
 @if (auth()->user()->hasRole('vendor')|| auth()->user()->hasRole('admin'))
       <h5>Vendor Space</h5>
       <div id="vendor_space">
-      <li class="list-group-item"><a href="#">My shop</a></li>
+      <li class="list-group-item"><a href="{{route('shop.view.vendor')}}">My shop</a></li>
       <li class="list-group-item"><a href="{{route('product.index')}}">My products</a></li>
       <li class="list-group-item"><a href="{{route('discount.index')}}">affect discounts</a></li>
       <li class="list-group-item"><a href="{{route('vendor.orders')}}">My shop orders</a></li>
@@ -23,6 +23,7 @@
 @if (auth()->user()->hasRole('admin'))
      <h5>Admin Space</h5>
      <div id="admin_space">
+      <li class="list-group-item"><a href="#">Dashboard</a></li>
       <li class="list-group-item"><a href="{{route('admin.orders')}}">All orders</a></li>
       <li class="list-group-item" ><a href="{{route('user.index')}}">Users</a></li>
       <li class="list-group-item"><a href="{{route('shop.index')}}">Shops</a></li>

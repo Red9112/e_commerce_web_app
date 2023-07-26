@@ -14,6 +14,26 @@
  /* my css */
 /* Style 7
    ----------------------------- */
+   #sidebar {
+    background-color: coral;
+   }
+   #sidebar nav h5 {
+    background-color: coral;
+    border-right: solid 2px #ad392d ;
+   }
+   #sidebar nav ul li{
+    background-color: #D71313;
+  }
+   .menuLinks:hover{
+    color: white;
+    letter-spacing: 2px;
+   }
+   #search_btn{
+    background-color: #e74c3c;
+   }
+   .menuCat{
+    background-color: #e74c3c;
+}
    #category_products{
     background-color:coral;
         }
