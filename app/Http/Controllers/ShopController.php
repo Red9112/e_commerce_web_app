@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Shop;
 use App\Models\User;
+use App\Models\Order;
 use App\Exports\ShopsExport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Database\Eloquent\Builder;
+
 
 class ShopController extends Controller
 {
@@ -68,9 +70,23 @@ if ($request->optradio == "excel") {
 
     public function shops_view_vendor(Request $request)
     {
+        $productsIds=Shop::findOrfail(2)->products->pluck('id');
+        $orders = Order::whereHas('products', function ($query) use ($productsIds) {
+            $query->whereIn('products.id', $productsIds);
+        })->get();
+        dd($orders->pluck('products'));
+        $products = $orders->pluck('products')->flatten();
+$earning=0;
+$nbrProd=$products->count();
+$ordersNbr = $orders->count();
+foreach ($products as $product) {
+    $earning+=$product->pivot->selected_quantity*$product->pivot->price;
+}
 
         return view('shop.shops_view_vendor',[
-
+            'earning'=>$earning,
+            'nbrProd'=>$nbrProd,
+            'ordersNbr'=>$ordersNbr
         ]);
     }
 
