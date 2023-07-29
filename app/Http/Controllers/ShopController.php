@@ -74,7 +74,7 @@ if ($request->optradio == "excel") {
         $orders = Order::whereHas('products', function ($query) use ($productsIds) {
             $query->whereIn('products.id', $productsIds);
         })->get();
-        dd($orders->pluck('products'));
+
         $products = $orders->pluck('products')->flatten();
 $earning=0;
 $nbrProd=$products->count();

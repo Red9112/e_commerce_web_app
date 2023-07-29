@@ -80,7 +80,7 @@
     {{-- Admin Discount: --}}
     @if (auth()->user()->hasRole('admin'))
 
-    <button type="button" id="disAllProducts" class=" btn btn-outline-warning btn-lg mx-2">all products</button>
+    <button type="button" id="disAllProducts" class=" btn btn-outline-warning btn-lg my-2">all products</button>
     <form id="disAllProdForm" style="display:none" method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
         <input type="hidden" name="attach">
         <div class="mx-5 my-4 p-3 bg-light rounded w-50 border">
@@ -94,7 +94,7 @@
         </div>
     </form>
 
-        <button type="button" id="disByCatgrToAllPrd" class=" btn btn-outline-warning btn-lg mx-2">By category (all products)</button>
+        <button type="button" id="disByCatgrToAllPrd" class=" btn btn-outline-warning btn-lg m-2">By category (all products)</button>
         <form  id="disByCatgrToAllPrdForm" style="display: none"  method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
             @csrf
             <input type="hidden" name="attach">

@@ -15,11 +15,44 @@
 
 
 /* //----------------------------------// */
+.menuCat{
+    background-color: #DFD7BF;
+}
+.menuNavbar{
+    background-color: #FD7E14;
+}
+   .menuLinks:hover{
+       letter-spacing: 2px;
+       color: white;
+   }
+.welcomeTitle {
+    padding-top: 5px;
+}
+   .welcomeTitle h1 {
+    padding-top: 5px;    text-align: center;
+        font-size:30px; font-weight:300; color:#222; letter-spacing:1px;
+        text-transform: uppercase;
+
+        display: grid;
+        grid-template-columns: 1fr max-content 1fr;
+        grid-template-rows: 27px 0;
+        grid-gap: 20px;
+        align-items: center;
+        margin-bottom: 0px;
+    }
+    .welcomeTitle h1:after,.welcomeTitle h1:before {
+        content: " ";
+        display: block;
+        border-bottom: 1px solid #c50000;
+        border-top: 1px solid #c50000;
+        height: 5px;
+      background-color:#f8f8f8;
+    }
 /* {{{css for header:}}} */
 .header{
 height: 45px;
 /* background-color: #c7ecee;  */
-border-bottom: 1px solid #30336b;
+border-bottom: 1px solid #FEC99D;
 border-radius: 2px;
 padding-right: 5px;
 }

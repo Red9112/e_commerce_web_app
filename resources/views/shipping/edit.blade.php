@@ -14,12 +14,12 @@
     @csrf
     <div class="mb-3 mt-3">
         <label for="name">Name</label>
-          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{old('name')}}" name="name">
+          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" value="{{old('name',$shipping->name)}}" name="name">
           <x-errors name="name"></x-errors>
         </div>
     <div class="mb-3 mt-3">
         <label for="price">Price</label>
-          <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" value="{{old('price')}}" name="price">
+          <input type="number" class="form-control @error('price') is-invalid @enderror" id="price" value="{{old('price',$shipping->price)}}" name="price">
           <x-errors name="price"></x-errors>
         </div>
         <button  type="submit" class="btn btn-primary">Edit</button>

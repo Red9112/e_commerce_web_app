@@ -108,7 +108,7 @@ return redirect()->route('product.index');
       $product=Product::with(['shop','shop.user','orders','categories','comments','images','discounts','wishlists'])
       ->findOrfail($id);
       $this->authorize('delete',$product);
-      $this->productRepository->destroy_product($request,$id);
+      $this->productRepository->destroy_product($request,$product);
       $request->session()->flash('failed',' product Deleted !!');
       return redirect()->route('product.index');
     }

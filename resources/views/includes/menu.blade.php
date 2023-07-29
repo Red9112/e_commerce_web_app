@@ -21,7 +21,7 @@
              <input style="width: 400px" type="text" class="form-control" placeholder="i'm shopping for..."
                 id="search_products" name="search_products" value="{{ request()->input('search_products') }}">
              <div class="input-group-append">
-                 <button id="search_btn" class="btn btn-secondary" type="submit">
+                 <button id="search_btn" class="btn btn-warning" type="submit">
                   <i class="fa fa-search"></i>
                  </button>
                 </div>
@@ -30,10 +30,10 @@
             <button   class="menuCat btn rounded btn-sm mx-2 my-0 p-0" type="button">
                 <ul class=" navbar-nav">
                     <li class="nav-item dropdown">
-                        <a style="font-weight:bolder;" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"> Categories</a>
+                        <a style="font-weight:bolder;color:black" class="nav-link dropdown-toggle rounded" data-bs-toggle="dropdown" href="#"> Categories</a>
                            <ul class=" dropdown-menu">
                              @foreach ($categories as $cat)
-                                 <li> <a class="dropdown-item" href="{{route('prodByCat',['id'=>$cat])}}"><h6>{{$cat->name}}</h6></a></li>
+                                 <li> <a class="dropdown-item " href="{{route('prodByCat',['id'=>$cat])}}"><h6>{{$cat->name}}</h6></a></li>
                              @endforeach
                             </ul>
                      </li>

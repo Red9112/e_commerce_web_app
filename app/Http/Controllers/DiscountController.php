@@ -30,9 +30,9 @@ public $discountRepository;
         $discount=new Discount();
         $this->authorize('affect_to_products',$discount);
         $discount=Discount::findOrfail($id);
-        (!$user->hasRole('admin'))
-            ?$products=$user->shop->products
-            :$products=null;
+            $products=$user->shop->products;
+            (!$products)?$products=null:null;
+
 
 
         return view('discount.affect_to_products',[

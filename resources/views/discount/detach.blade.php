@@ -1,7 +1,7 @@
 <div class="my-3 p-3">
     <h3 class="m-3"><span class="text-danger">Detach</span> discount from products: </h3>
     @if ($products!=null)
-    <button type="button" id="detach_my_products" class=" btn btn-outline-info btn-lg mx-2">My products</button>
+    <button type="button" id="detach_my_products" class=" btn btn-outline-info btn-lg mx-1">My products</button>
     <form id="detach_my_productsForm" style="display:none" method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
     <input type="hidden" name="detach">
     <div class="mx-5 my-4 p-3 bg-light rounded w-50 border">
@@ -46,7 +46,7 @@
             </div>
         </form>
 
-        <button type="button" id="detachDisByCatgr" class=" btn btn-outline-info btn-lg mx-2">detach by category</button>
+        <button type="button" id="detachDisByCatgr" class=" btn btn-outline-info btn-lg ">detach by category</button>
         <form  id="detachDisByCatgrForm" style="display: none"  method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
             @csrf
             <input type="hidden" name="detach">
@@ -80,7 +80,7 @@
     {{-- Admin Discount: --}}
     @if (auth()->user()->hasRole('admin'))
 
-    <button type="button" id="detachDisAllProducts" class=" btn btn-outline-warning btn-lg mx-2">all products</button>
+    <button type="button" id="detachDisAllProducts" class=" btn btn-outline-warning btn-lg my-2">all products</button>
     <form id="detachDisAllProdForm" style="display:none" method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
         <input type="hidden" name="detach">
         <div class="mx-5 my-4 p-3 bg-light rounded w-50 border">
@@ -94,7 +94,7 @@
         </div>
     </form>
 
-        <button type="button" id="detachDisByCatgrToAllPrd" class=" btn btn-outline-warning btn-lg mx-2">By category (all products)</button>
+        <button type="button" id="detachDisByCatgrToAllPrd" class=" btn btn-outline-warning btn-lg my-2 mx-1">By category (all products)</button>
         <form  id="detachDisByCatgrToAllPrdForm" style="display: none"  method="GET" action="{{route('discount_product',['discountId'=>$discount->id])}}" enctype="multipart/form-data" >
             @csrf
             <input type="hidden" name="detach">

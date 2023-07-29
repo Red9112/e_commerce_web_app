@@ -14,18 +14,22 @@ class Shop extends Model
     protected $fillable = [
         'name',
         'phone_number',
-        'email', 
+        'email',
         'logo',
         'user_id',
     ];
 
      //Relations:
      public function user(){
-        return $this->belongsTo('App\Models\User'); 
-     } 
-     public function image(){ 
+        return $this->belongsTo('App\Models\User');
+     }
+     public function image(){
         return $this->morphOne('App\Models\Image','imageable');
     }
+    public function defaultShopImage(){
+        return asset('images/defaultShop.png');
+          }
+
      public function products(){
         return $this->hasMany('App\Models\Product')->order();
      }
@@ -35,9 +39,9 @@ class Shop extends Model
      public function scopeShopProducts(Builder $query){
       return $query->withCount('products')->orderBy('products_count','desc');
      }
-     
 
- 
+
+
 //shop functions:
 
 public function defaultImage(){
@@ -57,7 +61,7 @@ public function defaultImage(){
       return $is_shipped_canceled;
    }
 
-   
+
    public function store_image_to_shop(Request $request)
    {
        $hasfile=$request->hasFile('picture');

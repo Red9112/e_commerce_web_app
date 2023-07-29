@@ -7,9 +7,10 @@
 
 {{-- Edit Category --}}
 
-    <div class="container w-50 mx-3 my-3">
+    <div class="container  mx-3 my-3">
       <h2>Edit role :</h2>
-  <form id="editForm" method="POST" action="{{route('role.update',['role'=>$role->id])}}">
+      <div class="w-25">
+    <form id="editForm" method="POST" action="{{route('role.update',['role'=>$role->id])}}">
     @method('PUT')
     @csrf
     <div class="mb-3 mt-3">
@@ -19,6 +20,7 @@
       </div>
       <button  type="submit" class="btn btn-primary">Edit</button>
     </form>
+</div>
   </div>
 
   {{-- End Edit Category --}}
