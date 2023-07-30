@@ -12,7 +12,7 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
       <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="nav-link mx-3" href="{{route('dashboard')}}">@include('includes.icons.home')</a>
+      <a class="nav-link mx-3" href="{{route('home')}}">@include('includes.icons.home')</a>
       <h5><a class="menuLinks nav-link" href="{{route('blog.index')}}">Blogs</a></h5>
       <h5><a class="menuLinks nav-link mx-3" href="{{route('shop.view.user')}}">Stores</a></h5>
         <div class="container d-flex justify-content-center" id="navbarNav">

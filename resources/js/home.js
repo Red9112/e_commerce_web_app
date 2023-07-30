@@ -17,10 +17,11 @@ function closeNav() {
   let slider = document.querySelector('.slider');
   let prevBtn = document.querySelector('.prev');
   let nextBtn = document.querySelector('.next');
-  let slideWidth = document.querySelector('.slide1').clientWidth;
+
   let slideIndex = 0;
-  let  count = Math.floor(slider.children.length - 4);
   if(slider){
+      let  count = Math.floor(slider.children.length - 4);
+    let slideWidth = document.querySelector('.slide1').clientWidth;
   prevBtn.addEventListener('click', () => {
     slideIndex = (slideIndex === 0) ? 0: slideIndex - 1;
     slider.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
@@ -56,9 +57,10 @@ function closeNav() {
  let slider2 = document.querySelector('.slider2');
  let prevBtn2 = document.querySelector('.prev2');
  let nextBtn2 = document.querySelector('.next2');
- let  slideWidth2 = document.querySelector('.slide2').clientWidth;
+
  let slideIndex2 = 0;
  if(slider2){
+    let  slideWidth2 = document.querySelector('.slide2').clientWidth;
      let  count2 = Math.floor(slider2.children.length - 3);
   prevBtn2.addEventListener('click', () => {
     slideIndex2 = (slideIndex2 === 0) ? 0: slideIndex2 - 1;
@@ -88,4 +90,4 @@ function closeNav() {
 
    // end_of slider of products with offers
 
-
+console.log("zeee");

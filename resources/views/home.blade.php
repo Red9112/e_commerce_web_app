@@ -110,11 +110,11 @@
                  <div id="cart_wishlist" class=" d-flex justify-content-end py-3 my-3 mx-0">
                     <ul class="nav mx-0">
                         <li class="nav-item">
-                          <a class="nav-link" href="#" >
+                          <a class="nav-link" href="{{route('cart.index')}}" >
                             <i style="color:#f26522" class="fa fa-shopping-cart fa-2xl" aria-hidden="true"></i> Cart</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="#" >
+                          <a class="nav-link" href="{{route('wishlist.index')}}"" >
                             <i style="color:#f26522" class="fa-solid fa-heart fa-2xl" aria-hidden="true"></i> Wishlist</a>
                         </li>
                     </ul>
@@ -130,7 +130,7 @@
             <div class="row d-block">
                <div class="col-sm-12">
                   <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                    <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                    <div class="buynow_bt"><a href="{{route('dashboard')}}">Buy Now</a></div>
                </div>
             </div>
         </div>

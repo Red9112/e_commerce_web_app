@@ -10,7 +10,7 @@ require('./discount');
 require('./checkout');
 require('./sidebar');
 require('./cart');
-// require('./home');
+require('./home');
 
 
 // fontawsome
